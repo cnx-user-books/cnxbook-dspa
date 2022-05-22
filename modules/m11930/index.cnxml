@@ -1,0 +1,304 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Fixed-Point Number Representation</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>c9765dbb-ea6a-4b5c-b87d-b90986866523</md:uuid>
+</metadata>
+
+  <content>
+    <para id="delete_me">
+      Fixed-point arithmetic is generally used when hardware cost, speed,
+      or complexity is important.  Finite-precision quantization issues
+      usually arise in fixed-point systems, so we concentrate on fixed-point
+      quantization and error analysis in the remainder of this course.
+      For basic signal processing computations such as digital
+      filters and FFTs, the magnitude of the data, the internal
+      states, and the output can usually be scaled to obtain good performance
+      with a fixed-point implementation.
+    </para>
+
+  <section id="twoscomp">
+      <title>Two's-Complement Integer Representation</title>
+      
+    <para id="para1">
+      As far as the hardware is concerned, fixed-point number systems
+      represent data as <m:math><m:ci>B</m:ci></m:math>-bit
+      integers. The two's-complement number system is usually used:
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>k</m:ci>
+	  <m:piecewise>
+	    <m:piece>
+	      <m:mtext>binary integer representation</m:mtext>
+	      <m:apply>
+		<m:leq/>
+		<m:cn>0</m:cn>
+		<m:apply>
+		  <m:leq/>
+		  <m:cn>k</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>B</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:piece>
+	    <m:piece>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:ci type="fn">bit-by-bit inverse</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:leq/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>B</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:leq/>
+		  <m:ci>k</m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:piece>
+	  </m:piecewise>
+	</m:apply>
+      </m:math>
+      
+      <figure id="figure1">
+	<media id="idm186752" alt=""><image src="../../media/fig1FixedPoint.png" mime-type="image/png"/></media>
+      </figure>
+      The most significant bit is known at the <term>sign
+      bit</term>; it is 0 when the number is non-negative; 1 when the
+      number is negative.
+      
+    </para>
+  </section>
+
+  <section id="fractrep">
+      <title>Fractional Fixed-Point Number Representation</title>
+    <para id="para2">
+      For the purposes of signal processing, we often regard the
+      fixed-point numbers as binary fractions between
+      <m:math>
+	<m:interval closure="closed-open">
+	  <m:cn>-1</m:cn>
+	  <m:cn>1</m:cn>
+	</m:interval>
+      </m:math>, by implicitly placing a decimal point after the sign bit.
+      
+      <figure id="figure2">
+	<media id="idm1123968" alt=""><image src="../../media/fig2FixedPoint.png" mime-type="image/png"/></media>
+      </figure>
+      
+      or
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>x</m:ci>
+	  <m:apply>
+	    <m:plus/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>i</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>B</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:cn>1</m:cn>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>i</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      This interpretation makes it clearer how to implement digital
+      filters in fixed-point, at least when the coefficients have a
+      magnitude less than 1.
+    </para>
+  </section>
+
+  <section id="truncation">
+      <title>Truncation Error</title>
+    <para id="para2.5">
+      Consider the multiplication of two binary
+      fractions
+      <figure id="figure3">
+	<media id="idp2846688" alt=""><image src="../../media/fig3FixedPoint.png" mime-type="image/png"/></media>
+      </figure>
+      
+      Note that full-precision multiplication almost doubles the
+      number of bits; if we wish to return the product to a
+      <m:math><m:ci>B</m:ci></m:math>-bit representation, we must
+      truncate the
+      <m:math>
+	<m:apply>
+	  <m:minus/>
+	  <m:ci>B</m:ci>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math> least significant bits. However, this introduces
+      <term>truncation error</term> (also known as <term>quantization error</term>,
+      or <term>roundoff error</term> if the number is rounded to the nearest
+      <m:math><m:ci>B</m:ci></m:math>-bit fractional value rather than truncated). Note
+      that this occurs after <emphasis>multiplication</emphasis>.
+
+    </para>
+  </section>
+
+  <section id="overflow">
+      <title>Overflow Error</title>
+    <para id="para3">
+      Consider the addition of two binary fractions;
+      <figure id="figure4">
+	<media id="idp3358896" alt=""><image src="../../media/fig4FixedPoint.png" mime-type="image/png"/></media>
+      </figure>
+     
+      Note the occurence of wraparound <term>overflow</term>; this
+      only happens with <emphasis>addition</emphasis>. Obviously, it
+      can be a bad problem.
+    </para>
+  </section>
+    
+    <para id="para4">
+      There are thus two types of fixed-point error: roundoff error,
+      associated with data quantization and multiplication, and
+      overflow error, associated with data quantization and
+      additions. In fixed-point systems, one must strike a balance
+      between these two error sources; by scaling down the data, the
+      occurence of overflow errors is reduced, but the relative size
+      of the roundoff error is increased.
+    </para>
+    
+    <para id="para5">
+    <note id="idp5961856">
+      Since multiplies require a number of additions, they
+      are especially expensive in terms of hardware
+      (with a complexity proportional to
+      <m:math>
+	<m:apply>
+	  <m:times/>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>B</m:mi>
+	      <m:mi>x</m:mi>
+	    </m:msub>
+	  </m:ci>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>B</m:mi>
+	      <m:mi>h</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:apply>
+      </m:math>, where 
+      <m:math>
+	<m:ci>
+	  <m:msub>
+	    <m:mi>B</m:mi>
+	    <m:mi>x</m:mi>
+	  </m:msub>
+	</m:ci>
+      </m:math> is the number of bits in the data, and 
+      <m:math>
+	<m:ci>
+	  <m:msub>
+	    <m:mi>B</m:mi>
+	    <m:mi>h</m:mi>
+	  </m:msub>
+	</m:ci>
+      </m:math> is the number of bits in the filter coefficients).
+      Designers try to minimize both
+      <m:math>
+	<m:ci>
+	  <m:msub>
+	    <m:mi>B</m:mi>
+	    <m:mi>x</m:mi>
+	  </m:msub>
+	</m:ci>
+      </m:math> and 
+       <m:math>
+	<m:ci>
+	  <m:msub>
+	    <m:mi>B</m:mi>
+	    <m:mi>h</m:mi>
+	  </m:msub>
+	</m:ci>
+      </m:math>, and often choose
+      <m:math>
+	<m:apply>
+	  <m:neq/>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>B</m:mi>
+	      <m:mi>x</m:mi>
+	    </m:msub>
+	  </m:ci>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>B</m:mi>
+	      <m:mi>h</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:apply>
+      </m:math>!
+    </note>
+    </para>
+      
+  </content>
+  
+</document>

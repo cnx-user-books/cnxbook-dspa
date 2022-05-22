@@ -1,0 +1,1250 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  
+  <title>Computing the Scaling Function:  The Cascade Algorithm</title>
+  <metadata>
+  <md:content-id>m10486</md:content-id><md:title>Computing the Scaling Function:  The Cascade Algorithm</md:title>
+  <md:abstract>This module shows how to compute the scaling function.  It also has a section with a proof for an assumption made for the computation.</md:abstract>
+  <md:uuid>d279ef3c-661f-4e14-bba8-70a4eb5c0bcf</md:uuid>
+</metadata>
+
+  <content>
+    <para id="computing">
+      Given coefficients 
+      <m:math>
+	<m:set>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">h</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:set>
+      </m:math> that satisfy the regularity conditions, we can
+      iteratively calculate samples of 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> on a fine grid of points 
+      <m:math>
+	<m:set>
+	  <m:ci>t</m:ci>
+	</m:set>
+      </m:math> using the <term>cascade algorithm</term>.  Once we
+      have obtained 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>, the wavelet scaling equation can be used to construct 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">ψ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.
+    </para>
+
+    <para id="para2">
+      In this discussion we assume that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci>z</m:ci>
+	</m:apply>
+      </m:math> is causal with impulse response length
+      <m:math><m:ci>N</m:ci></m:math>.  Recall, from our <link document="m10495" target-id="para8" strength="3">discussion of the
+      regularity conditions</link>, that this implies
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> will have compact support on the interval 
+      <m:math>
+	<m:interval>
+	  <m:cn>0</m:cn>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>N</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:interval>
+      </m:math>.  The cascade algorithm is described below.
+      
+      <list id="scalingfn" list-type="enumerated">
+	<item>Consider the scaling function at integer times 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>t</m:ci>
+	      <m:apply>
+		<m:in/>
+		<m:ci>m</m:ci>
+		<m:set>
+		  <m:cn>0</m:cn>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:set>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>:  
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:root/>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar>
+		    <m:ci>n</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:cn>0</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>N</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">h</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn">φ</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:ci>m</m:ci>
+			</m:apply>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  Knowing that 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:math> for 
+	  <m:math>
+	    <m:apply>
+	      <m:notin/>
+	      <m:ci>t</m:ci>
+		<m:interval>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+	      </m:interval>
+	    </m:apply>
+	  </m:math>, the previous equation can be written using an
+	  <m:math><m:ci>N</m:ci></m:math>x<m:math><m:ci>N</m:ci></m:math>
+	  matrix.  In the case where 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>N</m:ci>
+	      <m:cn>4</m:cn>
+	    </m:apply>
+	  </m:math>, we have
+
+	  <equation id="eqn1a">
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn">φ</m:ci>
+		      <m:cn>0</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn">φ</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn">φ</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn">φ</m:ci>
+		      <m:cn>3</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:matrix>
+		    <m:matrixrow>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>0</m:cn>
+		      </m:apply>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>0</m:cn>
+		      </m:apply>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>3</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:cn>3</m:cn>
+		      </m:apply>
+		    </m:matrixrow>
+		  </m:matrix>
+		  <m:matrix>
+		    <m:matrixrow>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:cn>0</m:cn>
+		      </m:apply>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:cn>3</m:cn>
+		      </m:apply>
+		    </m:matrixrow>
+		  </m:matrix>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  
+	  <m:math display="block">
+	    <m:mtext>where   </m:mtext>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="matrix">H</m:ci>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+	      </m:matrix>
+	    </m:apply>
+	  </m:math>
+	  The matrix <m:math><m:ci type="matrix">H</m:ci></m:math> is
+	  structured as a <term>row-decimated convolution
+	  matrix</term>.  From the matrix equation above (<link target-id="eqn1a" strength="3"/>), we see that 
+	  <m:math display="inline">
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	    </m:vector>
+	  </m:math> must be (some scaled version of) the eigenvector
+	  of <m:math><m:ci type="matrix">H</m:ci></m:math>
+	  corresponding to eigenvalue 
+	  <m:math>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:cn>-1</m:cn>
+	    </m:apply>
+	  </m:math>.  In general, the nonzero values of 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>, <foreign>i.e.</foreign>, 
+	  <m:math display="inline">
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:vector>
+	  </m:math>
+	  , can be calculated by appropriately scaling the eigenvector
+	  of the
+	  <m:math><m:ci>N</m:ci></m:math>x<m:math><m:ci>N</m:ci></m:math>
+	  row-decimated convolution matrix <m:math><m:ci type="matrix">H</m:ci></m:math> corresponding to the
+	  eigenvalue 
+	  <m:math>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:cn>-1</m:cn>
+	    </m:apply>
+	  </m:math>.  It can be shown that this eigenvector must be
+	  scaled so that 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>n</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>0</m:cn>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:uplimit>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math>.
+	</item>
+	<item>Given 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>, we can use the scaling equation to determine 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>:
+	  <equation id="eqn2"><m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>m</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar><m:ci>n</m:ci></m:bvar>
+		    <m:lowlimit>
+		      <m:cn>0</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>N</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:apply>
+			  <m:minus/>
+                          <m:ci>m</m:ci>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  This produces the 
+	  <m:math>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		<m:cn>2</m:cn>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math> non-zero samples 
+	  <m:math display="inline">
+	    <m:set>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn type="rational">1<m:sep/>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:cn type="rational">3<m:sep/>2</m:cn>
+	      </m:apply>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:set>
+	  </m:math>.
+	</item>
+	<item>
+	  Given 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>, the scaling equation can be used to find 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>:
+	  
+	  <equation id="eqn3">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>m</m:ci>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:ci>2</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>n</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>0</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>N</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:ci>m</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:ci>2</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar><m:ci>p</m:ci></m:bvar>
+		    <m:domainofapplication>
+		      <m:ci>p  even</m:ci>
+		    </m:domainofapplication>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:apply>
+			  <m:divide/>
+			  <m:ci>p</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:apply>
+			  <m:divide/>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>m</m:ci>
+			    <m:ci>p</m:ci>
+			  </m:apply>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:ci>2</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar><m:ci>p</m:ci></m:bvar>
+		    <m:domainofapplication>
+		      <m:ci>p</m:ci>
+		    </m:domainofapplication>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete"><m:msub>
+			    <m:mi>h</m:mi>
+			    <m:mrow>
+			      <m:mo>↑</m:mo>
+			      <m:mn>2</m:mn>
+			    </m:mrow>
+			  </m:msub></m:ci>
+			<m:ci>p</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete"><m:msub>
+			    <m:mi>φ</m:mi>
+			    <m:mfrac>
+			      <m:mn>1</m:mn>
+			      <m:mn>2</m:mn>
+			    </m:mfrac>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>m</m:ci>
+			  <m:ci>p</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  where 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>h</m:mi>
+		  <m:mrow>
+		    <m:mo>↑</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>p</m:ci>
+	    </m:apply>
+	  </m:math>
+	  denotes the impulse response of 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>z</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>, <foreign>i.e.</foreign>, a 2-upsampled version of 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math>, and where 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mfrac>
+		      <m:mn>1</m:mn>
+		      <m:mn>2</m:mn>
+		    </m:mfrac>
+		  </m:msub></m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>m</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.  Note that 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math> is the result of convolving 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>h</m:mi>
+		  <m:mrow>
+		    <m:mo>↑</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math> with 
+	  <m:math>
+	    <m:set>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mfrac>
+		      <m:mn>1</m:mn>
+		      <m:mn>2</m:mn>
+		    </m:mfrac>
+		  </m:msub></m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:set>
+	  </m:math>.
+	</item>
+
+	<item>
+	  Given 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>, another convolution yields 
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:cn>8</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math>:
+
+	  <equation id="eqn4">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>m</m:ci>
+		    <m:cn>8</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:ci>2</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>n</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>0</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>N</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">h</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn">φ</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:ci>m</m:ci>
+			    <m:cn>4</m:cn>
+			  </m:apply>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:ci>2</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar><m:ci>p</m:ci></m:bvar>
+		    <m:domainofapplication>
+		      <m:ci>p</m:ci>
+		    </m:domainofapplication>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>h</m:mi>
+			    <m:mrow>
+			      <m:mo>↑</m:mo>
+			      <m:mn>4</m:mn>
+			    </m:mrow>
+			  </m:msub>
+			</m:ci>
+			<m:ci>p</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete"><m:msub>
+			    <m:mi>φ</m:mi>
+			    <m:mfrac>
+			      <m:mn>1</m:mn>
+			      <m:mn>4</m:mn>
+			    </m:mfrac>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>m</m:ci>
+			  <m:ci>p</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  where 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">
+		<m:msub>
+		  <m:mi>h</m:mi>
+		  <m:mrow>
+		    <m:mo>↑</m:mo>
+		    <m:mn>4</m:mn>
+		  </m:mrow>
+		</m:msub>
+	      </m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math> is a 4-upsampled version of 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math> and where 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mfrac>
+		      <m:mn>1</m:mn>
+		      <m:mn>4</m:mn>
+		    </m:mfrac>
+		  </m:msub></m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>m</m:ci>
+		  <m:cn>4</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</item>
+	<item>
+	  At the 
+	  <m:math>
+	    <m:ci><m:msup>
+		<m:mi>ℓ</m:mi>
+		<m:mi>th</m:mi>
+	      </m:msup></m:ci>
+	  </m:math>
+	  stage, 
+	  <m:math>
+	    <m:set>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>ℓ</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:set>
+	  </m:math> is calculated by convolving the result of the 
+	  <m:math>
+	    <m:ci><m:msup>
+		<m:mrow>
+		  <m:mi>ℓ</m:mi>
+		  <m:mo>−</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+		<m:mi>th</m:mi>
+	      </m:msup></m:ci>
+	  </m:math>
+	  stage with a 
+	  <m:math>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>ℓ</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>-upsampled version of 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math>:
+
+	  <equation id="eqn5">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mfrac>
+			<m:mn>1</m:mn>
+			<m:msup>
+			  <m:mn>2</m:mn>
+			  <m:mi>ℓ</m:mi>
+			</m:msup>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		  <m:ci>m</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:ci>2</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar><m:ci>p</m:ci></m:bvar>
+		    <m:domainofapplication>
+		      <m:ci>p</m:ci>
+		    </m:domainofapplication>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete"><m:msub>
+			    <m:mi>h</m:mi>
+			    <m:mrow>
+			      <m:mo>↑</m:mo>
+			      <m:msup>
+				<m:mn>2</m:mn>
+				<m:mrow>
+				  <m:mi>ℓ</m:mi>
+				  <m:mo>−</m:mo>
+				  <m:mn>1</m:mn>
+				</m:mrow>
+			      </m:msup>
+			    </m:mrow>
+			  </m:msub></m:ci>
+			<m:ci>p</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete"><m:msub>
+			    <m:mi>φ</m:mi>
+			    <m:mfrac>
+			      <m:mn>1</m:mn>
+			      <m:msup>
+				<m:mn>2</m:mn>
+				<m:mrow>
+				  <m:mi>ℓ</m:mi>
+				  <m:mo>−</m:mo>
+				  <m:mn>1</m:mn>
+				</m:mrow>
+			      </m:msup>
+			    </m:mfrac>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>m</m:ci>
+			  <m:ci>p</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	</item>
+      </list>
+      For 
+      <m:math>
+	<m:apply>
+	  <m:approx/>
+	  <m:ci>ℓ</m:ci>
+	  <m:cn>10</m:cn>
+	</m:apply>
+      </m:math>, this gives a very good approximation of 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.  At this point, you could verify the key properties of
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>, such as orthonormality and the satisfaction of the
+      scaling equation.
+    </para>   
+
+    <para id="para3">
+      In <link target-id="fig1" strength="3"/> we show steps 1 through 5
+      of the cascade algorithm, as well as step 10, using Daubechies'
+      db2 coefficients (for which 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>N</m:ci>
+	  <m:cn>4</m:cn>
+	</m:apply>
+      </m:math>).
+    </para>
+
+    <figure id="fig1">
+      <media id="id1166499119155" alt=""><image src="../../media/daub_cascade.png" mime-type="image/png"/></media>
+    </figure>
+
+  </content>
+</document>

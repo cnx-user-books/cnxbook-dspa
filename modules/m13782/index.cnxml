@@ -1,0 +1,43 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Preface for Digital Signal Processing: A User's Guide</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>48fe485e-e26b-470a-a25a-541b6d902484</md:uuid>
+</metadata>
+  <content>
+    <para id="para1">Digital signal processing (DSP) has matured in the past few decades from an obscure research discipline to a large body of practical methods with very broad application.
+Both practicing engineers and students specializing in signal processing need a clear exposition of the ideas and methods comprising the core signal processing "toolkit" so widely used today.
+    </para>
+
+    <para id="para2">
+This text reflects my belief that the skilled practitioner must understand the key ideas underlying the algorithms to select, apply, debug, extend, and innovate most effectively; only with real insight can the engineer make novel use of these methods in the seemingly infinite range of new problems and applications.
+It also reflects my belief that the needs of the typical student and the practicing engineer have converged in recent years; as the discipline of signal processing has matured, these core topics have become less a subject of active research and more a set of tools applied in the course of other research.
+The modern student thus has less need for exhaustive coverage of the research literature and detailed derivations and proofs as preparation for their own research on these topics, but greater need for intuition and practical guidance in their most effective use.
+The majority of students eventually become practicing engineers themselves and benefit from the best preparation for their future careers.
+    </para>
+
+    <para id="para3">
+This text both explains the principles of classical signal processing methods and describes how they are used in engineering practice.
+It is thus much more than a recipe book; it describes the ideas behind the algorithms, gives analyses when they enhance that understanding, and includes derivations that the practitioner may need to extend when applying these methods to new situations.
+Analyses or derivations that are only of research interest or that do not increase intuitive understanding are left to the references.
+It is also much more than a theory book; it contains more description of common applications, discussion of actual implementation issues, comments on what really works in the real world, and practical "know-how" than found in the typical academic textbook.
+The choice of material emphasizes those methods that have found widespread practical use; techniques that have been the subject of intense research but which are rarely used in practice (for example, RLS adaptive filter algorithms) often receive only limited coverage.
+
+</para><para id="element-831">The text assumes a familiarity with basic signal processing concepts such as ideal sampling theory, continuous and discrete Fourier transforms, convolution and filtering.
+It evolved from a set of notes for a second signal processing course, ECE 451: Digital Signal Processing II,
+in Electrical and Computer Engineering at the University of Illinois at Urbana-Champaign, aimed at second-semester seniors or first-semester graduate students in signal processing.
+Over the years, it has been enhanced substantially to include descriptions of common applications, sometimes hard-won knowledge about what actually works and what doesn't, useful tricks, important extensions known to experienced engineers but rarely discussed in academic texts, and other relevant "know-how" to aid the real-world user.
+This is necessarily an ongoing process, and I continue to expand and refine this component as my own practical knowledge and experience grows.
+The topics are the core signal processing methods that are used in the majority of signal processing applications; discrete Fourier analysis and FFTs, digital filter design, adaptive filtering, multirate signal processing, and efficient algorithm implementation and finite-precision issues.
+While many of these topics are covered at an introductory level in a first course, this text aspires to cover all of the methods, both basic and advanced, in these areas which see widespread use in practice.
+I have also attempted to make the individual modules and sections somewhat self-sufficient, so that those who seek specific information on a single topic can quickly find what they need.
+Hopefully these aspirations will eventually be achieved; in the meantime, I welcome your comments, corrections, and feedback so that I can continue to improve this text.
+    </para>
+    <para id="inprogress">
+As of August 2006, the majority of modules are unedited transcriptions of handwritten notes and may contain typographical errors and insufficient descriptive text for documents unaccompanied by an oral lecture; I hope to have all of the modules in at least presentable shape by the end of the year.
+    </para>
+    <para id="element-240">Publication of this text in Connexions would have been impossible without the help of many people.
+A huge thanks to the various permanent and temporary staff at Connexions is due, in particular to those who converted the text and equations from my original handwritten notes into CNXML and MathML.
+My former and current faculty colleagues at the University of Illinois who have taught the second DSP course over the years have had a substantial influence on the evolution of the content, as have the students who have inspired this work and given me feedback.
+I am very grateful to my teachers, mentors, colleagues, collaborators, and fellow engineers who have taught me the art and practice of signal processing; this work is dedicated to you.</para>   
+  </content>
+  
+</document>

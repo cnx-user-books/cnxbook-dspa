@@ -1,0 +1,598 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  <title>Scaling</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>bef65217-6cda-4a92-8c9c-2378a652063a</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      Overflow is clearly a serious problem, since the errors it
+    introduces are very large. As we shall see, it is also responsible
+    for large-scale limit cycles, which cannot be tolerated. One way
+    to prevent overflow, or to render it acceptably unlikely, is to
+    <term>scale</term> the input to a filter such that overflow cannot
+    (or is sufficiently unlikely to) occur.
+    </para>
+    
+    <figure id="figure1">
+      <media id="idm7438496" alt=""><image src="../../media/fig1Scaling.png" mime-type="image/png"/></media>
+    </figure>
+    
+    <para id="para2">
+      In a fixed-point system, the range of the input signal is
+      limited by the fractional fixed-point number representation to
+      <m:math>
+	<m:apply>
+	  <m:leq/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">x</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math>. If we scale the input by multiplying it by a value
+      <m:math><m:ci>β</m:ci></m:math>,
+      <m:math>
+	<m:apply>
+	  <m:lt/>
+	  <m:cn>0</m:cn>
+	  <m:apply>
+	    <m:lt/>
+	    <m:ci>β</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:apply>
+      </m:math>, then 
+      <m:math>
+	<m:apply>
+	  <m:leq/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>β</m:ci>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">x</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:ci>β</m:ci>
+	</m:apply>
+      </m:math>.
+    </para>
+    <para id="para3">
+      Another option is to incorporate the scaling directly into the filter
+      coefficients.
+    </para>
+   
+    <figure id="figure2">
+      <media id="idm907792" alt=""><image src="../../media/fig2Scaling.png" mime-type="image/png"/></media>
+    </figure>
+   
+    <section id="section2">
+      <title>FIR Filter Scaling</title>
+      <para id="para4">
+	What value of <m:math><m:ci>β</m:ci></m:math> is required
+	so that the output of an FIR filter cannot overflow
+	(<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>n</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">y</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>,
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>n</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>)?
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:ci type="fn">y</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar>
+		    <m:ci>k</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:cn>0</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">h</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		    <m:ci>β</m:ci>
+		    <m:apply>
+		      <m:ci type="fn">x</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:leq/>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar>
+		    <m:ci>k</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:cn>0</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+			<m:ci type="fn">h</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:abs/>
+		      <m:ci>β</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+			<m:ci type="fn">x</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>β</m:ci>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>k</m:ci>
+		    </m:bvar>
+		    <m:uplimit>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>M</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:lowlimit>
+		      <m:cn>0</m:cn>
+		    </m:lowlimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:abs/>
+			<m:apply>
+			  <m:ci type="fn">h</m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	
+	    </m:apply>
+
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:mo>⇓</m:mo>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:lt/>
+	    <m:ci>β</m:ci>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">h</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	Alternatively, we can incorporate the scaling directly into
+	the filter, and require that
+	<m:math display="block">
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">h</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math>
+	to prevent overflow.
+      </para>
+    </section>
+    <section id="section5">
+      <title>IIR Filter Scaling</title>
+      <para id="para11">
+	To prevent the output from overflowing in an IIR filter,
+        the condition above still holds: 
+	(<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>M</m:ci>
+	    <m:infinity/>
+	  </m:apply>
+	</m:math>)
+	<m:math display="block">
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:ci type="fn">y</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">h</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	so an initial scaling factor
+	<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:ci>β</m:ci>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>
+		<m:lowlimit>
+		  <m:cn>0</m:cn>
+		</m:lowlimit>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	can be used, or the filter itself can be scaled.
+      </para>
+      <para id="para12">
+	However, it is also necessary to prevent the
+	<emphasis>states</emphasis> from overflowing, and to prevent overflow at
+	any point in the signal flow graph where the arithmetic hardware would
+        thereby produce errors. To prevent the states from overflowing, we
+        determine the transfer function from the input to all states
+	<m:math><m:mi>i</m:mi></m:math>,
+        and scale the filter such that
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>i</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>
+		<m:lowlimit>
+		  <m:cn>0</m:cn>
+		</m:lowlimit>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>h</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </para>
+      <para id="para14">
+	Although this method of scaling guarantees no overflows, it
+	is often too conservative. Note that a worst-case signal is
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">x</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">sign</m:ci>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>; this input may be extremely unlikely. In the
+	relatively common situation in which the input is expected to
+	be mainly a single-frequency sinusoid of unknown frequency and
+	amplitude less than 1, a scaling condition of
+	<m:math display="block">
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>w</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	is sufficient to guarantee no overflow. This scaling condition
+	is often used. If there are several potential overflow
+	locations <m:math><m:ci>i</m:ci></m:math> in the digital
+	filter structure, the scaling conditions are
+	<m:math display="block">
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>i</m:ci>
+	    </m:bvar>
+	    <m:bvar>
+	      <m:ci>w</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub>
+		      <m:mi>H</m:mi>
+		      <m:mi>i</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	where 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:ci>w</m:ci>
+	  </m:apply>
+	</m:math> is the frequency response from the input to location
+	<m:math><m:ci>i</m:ci></m:math> in the filter.
+      </para>
+      <para id="para16">
+	Even this condition may be excessively conservative, for
+	example if the input is more-or-less random, or if occasional
+        overflow can be tolerated. In
+	practice, experimentation and simulation are often the best
+	ways to optimize the scaling factors in a given application.
+      </para>
+      <para id="para17">
+	For filters implemented in the cascade form, rather than
+	scaling for the entire filter at the beginning, (which
+	introduces lots of quantization of the input) the
+	filter is usually scaled so that each stage is just prevented
+	from overflowing. This is best in terms of reducing the
+	quantization noise. The scaling factors are incorporated
+	either into the previous or the next stage, whichever is most
+	convenient.
+      </para>
+      <para id="para18">
+	Some heurisitc rules for grouping poles and zeros in a cascade
+	implementation are:
+	<list id="list1" list-type="enumerated">
+	  <item>Order the poles in terms of decreasing radius. Take
+	  the pole pair closest to the unit circle and group it with
+	  the zero pair closest to that pole pair (to minimize the
+	  gain in that section). Keep doing this with all remaining
+	  poles and zeros.
+	  </item>
+	  <item>Order the section with those with highest gain 
+	    (<m:math>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#argmax"/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>H</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>w</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>) in the middle, and those with lower gain on the
+	    ends.
+	  </item>
+	</list>
+      </para>
+      <para id="para19">
+	<cite target-id="Jackson"><cite-title>Leland B. Jackson</cite-title></cite> has an excellent
+	intuitive discussion of finite-precision problems in digital
+	filters. The book by <cite target-id="RobertsMullis"><cite-title>Roberts and
+        Mullis</cite-title></cite> is one of the most thorough
+	in terms of detail.
+      </para>
+    </section>
+  </content>
+  <bib:file>
+    <bib:entry id="Jackson">
+      <bib:book>
+	<bib:author>Leland B. Jackson</bib:author>
+	<bib:title>Digital Filters and Signal Processing</bib:title>
+	<bib:publisher>Kluwer Academic Publishers</bib:publisher>
+	<bib:year>1989</bib:year>
+	<bib:edition>2nd Edition</bib:edition>
+      </bib:book>
+    </bib:entry>
+    <bib:entry id="RobertsMullis">
+      <bib:book>
+	<bib:author>Richard A. Roberts and Clifford T. Mullis</bib:author>
+	<bib:title>Digital Signal Processing</bib:title>
+	<bib:publisher>Prentice Hall</bib:publisher>
+	<bib:year>1987</bib:year>
+      </bib:book>
+    </bib:entry>
+  </bib:file>
+  
+</document>

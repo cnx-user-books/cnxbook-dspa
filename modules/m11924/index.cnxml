@@ -1,0 +1,322 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Quantization Error in FIR Filters</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>f644d6d2-dd2e-4ad8-8f57-c6a1612c7b18</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      In digital filters, both the data at various places in the
+    filter, which are continually varying, and the coefficients, which
+    are fixed, must be quantized. The effects of quantization on data
+    and coefficients are quite different, so they are analyzed
+    separately.
+    </para>
+    <section id="section1">
+      <title>Data Quantization</title>
+      <para id="para2">
+	Typically, the input and output in a digital filter are
+	quantized by the analog-to-digital and digital-to-analog converters,
+        respectively. Quantization also occurs at
+	various points in a filter structure, usually after a
+	multiply, since multiplies increase the number of bits.
+      </para>
+      <section id="section2">
+	<title>Direct-form Structures</title>
+	<para id="para3">
+	  There are two common possibilities for quantization in a
+	  direct-form FIR filter structure:
+          after each multiply, or only once at the end.
+	  
+	  <figure id="figure1" orient="vertical">
+	    <subfigure id="idp1825152">
+	      <media id="idp329584" alt=""><image src="../../media/fig1QuantErrorFIR.png" mime-type="image/png"/></media>
+	      <caption> Single-precision accumulate; total variance
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>M</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>Δ</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:cn>12</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:math>
+	      </caption>
+	    </subfigure>
+	    <subfigure id="idp1074864">
+	      <media id="idp2141744" alt=""><image src="../../media/fig2QuantErrorFIR.png" mime-type="image/png"/></media>
+	      <caption> Double-precision accumulate; variance
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:power/>
+			<m:ci>Δ</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:cn>12</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:math>
+	      </caption>
+	    </subfigure>
+	  </figure>
+	 
+	 
+	  In the latter structure, a double-length accumulator adds all 
+	  <m:math>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:ci>B</m:ci>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math> bits of each product into the accumulating sum, and
+	  truncates only at the end. Obviously, this is much
+	  preferred, and should <emphasis>always</emphasis> be used
+	  wherever possible. All DSP microprocessors and most
+	  general-pupose computers support double-precision
+	  accumulation.
+	</para>
+      </section>
+      <section id="section3">
+	<title>Transpose-form</title>
+        <para id="para3.5">
+          Similarly, the transpose-form FIR filter structure presents two
+          common options for quantization: after each multiply, or once at the end.
+	<figure id="figure2" orient="vertical">
+	  <subfigure id="idp2537984">
+	    <media id="idp2538432" alt=""><image src="../../media/fig3QuantErrorFIR.png" mime-type="image/png"/></media>
+	    <caption>Quantize at each stage before storing
+	    intermediate sum. Output variance
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>M</m:ci>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:power/>
+			<m:ci>Δ</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:cn>12</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </caption>
+	  </subfigure>
+	  <subfigure id="idp2637984">
+	    <title>or</title> 
+	    <media id="idp534576" alt=""><image src="../../media/fig4QuantErrorFIR.png" mime-type="image/png"/></media> 
+	    <caption>Store double-precision partial sums. Costs more
+	    memory, but variance
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>Δ</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:cn>12</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </caption>
+	  </subfigure>
+	</figure>
+        </para>
+	
+	<para id="para4">
+	  The transpose form is not as convenient in terms of
+	  supporting double-precision accumulation, which is a
+	  significant disadvantage of this structure.
+	</para>
+      </section>
+    </section>
+    <section id="section4">
+      <title>Coefficient Quantization</title>
+      <para id="para5">
+	Since a quantized coefficient is fixed for all time, we treat it
+	differently than data quantization. The fundamental question
+	is: how much does the quantization affect the frequency
+	response of the filter?
+      </para>
+      <para id="para6">
+	The quantized filter frequency response is
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">DTFT</m:ci>
+	      <m:ci type="vector">
+		<m:msub>
+		  <m:mi>h</m:mi>
+		  <m:mi>Q</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">DTFT</m:ci>
+	      <m:apply>
+		<m:plus/>
+		<m:ci type="vector">
+		  <m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>inf. prec.</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>e</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>H</m:mi>
+		    <m:mi>inf. prec.</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>H</m:mi>
+		    <m:mi>e</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	Assuming the quantization model is correct, 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>e</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:ci>w</m:ci>
+	  </m:apply>
+	</m:math> should be fairly random and white, with the error
+	spread fairly equally over all frequencies
+	<m:math>
+	  <m:apply>
+	    <m:in/>
+	    <m:ci>w</m:ci>
+	    <m:interval closure="closed-open">
+	      <m:apply>
+		<m:minus/>
+		<m:pi/>
+	      </m:apply>
+	      <m:pi/>
+	    </m:interval>
+	  </m:apply>
+	</m:math>; however, the randomness of this error destroys any
+	equiripple property or any infinite-precision optimality of a filter.
+      </para>
+      <exercise id="exer1">
+	<problem id="idp3312560">
+	  <para id="para7">
+	    What quantization scheme minimizes the 
+	    <m:math>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>L</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub>
+	      </m:ci>
+	    </m:math> quantization error in frequency (minimizes
+	    <m:math>
+	      <m:apply>
+		<m:int/>
+		<m:bvar>
+		  <m:ci>w</m:ci>
+		</m:bvar>
+		<m:uplimit>
+		  <m:pi/>
+		</m:uplimit>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:pi/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:ci type="fn">H</m:ci>
+			<m:ci>w</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn">
+			  <m:msub>
+			    <m:mi>H</m:mi>
+			    <m:mi>Q</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>w</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:math>)? On average, how big is this error?
+	  </para>
+	</problem>
+      </exercise>
+      <para id="para8">
+	Ideally, if one knows the coefficients are to be quantized to
+	<m:math><m:ci>B</m:ci></m:math> bits, one should incorporate
+	this directly into the filter design problem, and find the
+	<m:math><m:ci>M</m:ci></m:math>
+	<m:math><m:ci>B</m:ci></m:math>-bit binary fractional
+	coefficients minimizing the maximum deviation 
+	(<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>L</m:mi>
+	      <m:mi>∞</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math> error). This can be done, but it is an integer
+	program, which is known to be np-hard (i.e., requires almost a
+        brute-force
+	search). This is so expensive computationally that it's
+	rarely done. There are some sub-optimal methods that are
+	much more efficient and usually produce pretty good results.
+      </para>
+    </section>
+	    
+  </content>
+  
+</document>

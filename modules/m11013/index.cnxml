@@ -1,0 +1,459 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Haar Approximation at the kth Coarseness Level</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>cb9197c6-e39e-425e-9462-8d9c56dc284c</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="hap1">
+      It is instructive to consider the approximation of signal
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:ci type="set"><m:msub> 
+	      <m:mi>ℒ</m:mi> 
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math> at coarseness-level-<m:math><m:ci>k</m:ci></m:math> of
+      the Haar system.  For the Haar case, projection of
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:ci type="set"><m:msub> 
+	      <m:mi>ℒ</m:mi> 
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math> onto 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      is accomplished using the basis coefficients 
+
+      <equation id="hapeq1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>c</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>n</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>n</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:ci>k</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      giving the approximation
+
+      <equation id="hapeq2">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>x</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>n</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar><m:ci>t</m:ci></m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>n</m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:cn>2</m:cn>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:plus/>
+			<m:ci>n</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:cn>2</m:cn>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:divide/>
+			  <m:ci>k</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn">x</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar><m:ci>t</m:ci></m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>n</m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:cn>2</m:cn>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:plus/>
+			<m:ci>n</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:cn>2</m:cn>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:ci type="fn">x</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:divide/>
+		      <m:ci>k</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>φ</m:mi>
+			<m:mrow>
+			  <m:mi>k</m:mi>
+			  <m:mo>,</m:mo>
+			  <m:mi>n</m:mi>
+			</m:mrow>
+		      </m:msub></m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      where
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:power/>
+		<m:cn>2</m:cn>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>n</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:mtext>average value of x(t) in interval</m:mtext>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:forall/>
+	  <m:bvar><m:ci>k</m:ci></m:bvar>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:cn>2</m:cn>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>k</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>n</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>height</m:mtext>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      This corresponds to taking the average value of the signal in
+      each interval of width
+      <m:math>
+	<m:apply>
+	  <m:power/>
+	  <m:cn>2</m:cn>
+	  <m:ci>k</m:ci>
+	</m:apply>
+      </m:math> and approximating the function by a constant over
+      that interval (see <link target-id="haar4" strength="3"/>).
+    </para>
+
+    <figure id="haar4">
+      <media id="idm6251952" alt=""><image src="../../media/haarapprox_Vk.png" mime-type="image/png"/></media>
+    </figure>
+
+  </content>  
+</document>

@@ -1,0 +1,835 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Finite-Precision Error Analysis</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>e785bc05-80f6-450b-bfab-9e2ca776a088</md:uuid>
+</metadata>
+
+  <content>
+    <section id="mainheading">
+      <title>Fundamental Assumptions in finite-precision error analysis</title>
+      
+      <para id="para1">
+	Quantization is a highly nonlinear process and is very
+	difficult to analyze precisely. Approximations and assumptions are made
+	to make analysis tractable.
+      
+      </para>   
+      
+      <section id="assump1">
+	<title>Assumption #1</title>
+	<para id="para2">
+	  The roundoff or truncation errors at any point in a system
+	  at each time are <emphasis>random</emphasis>,
+	  <emphasis>stationary</emphasis>, and <emphasis>statistically
+	  independent</emphasis> (white and independent of all other
+	  quantizers in a system).
+	</para>
+	<para id="para3">
+	  That is, the error autocorrelation function is
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mi>e</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>e</m:mi>
+		      <m:mi>n</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>e</m:mi>
+		      <m:mrow>
+			<m:mi>n</m:mi>
+			<m:mo>+</m:mo>
+			<m:mi>k</m:mi>
+		      </m:mrow>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+		      <m:mi>q</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">δ</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	  Intuitively, and confirmed experimentally in some (but not
+	  all!) cases, one expects the quantization error to have a
+	  uniform distribution over the interval
+	  <m:math>
+	    <m:interval closure="closed-open">
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>Δ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>Δ</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:interval>
+	  </m:math> for rounding, or
+	  <m:math>
+	    <m:interval closure="open-closed">
+	      <m:apply>
+		<m:minus/>
+		<m:ci>Δ</m:ci>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	    </m:interval>
+	  </m:math>
+	  for truncation.
+	</para>
+	<para id="para4">
+	  In this case, rounding has zero mean and variance
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">Q</m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mi>n</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mi>n</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>σ</m:mi>
+		    <m:mi>Q</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>e</m:mi>
+		      <m:mi>n</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>Δ</m:mi>
+		      <m:mi>B</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:cn>12</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  and truncation has the statistics
+	   <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">Q</m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mi>n</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mi>n</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>Δ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>σ</m:mi>
+		    <m:mi>Q</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>Δ</m:mi>
+		      <m:mi>B</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:cn>12</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</para>
+	<para id="notepara">
+	  Please note that the independence assumption may be very
+	  bad (for example, when quantizing a sinusoid with an integer
+	  period <m:math><m:ci>N</m:ci></m:math>). There is another
+	  quantizing scheme called <term>dithering</term>, in which
+	  the values are randomly assigned to nearby quantization
+	  levels. This can be (and often is) implemented by adding a
+	  small (one- or two-bit) random input to the signal before a
+	  truncation or rounding quantizer.
+	  
+	  <figure id="figure1">
+	    <media id="idp7336688" alt=""><image src="../../media/fig1Finite-PrecisionError.png" mime-type="image/png"/></media>
+	  </figure>
+          
+	  This is used extensively in practice. Altough the overall
+	  error is somewhat higher, it is spread evenly over all
+	  frequencies, rather than being concentrated in spectral
+	  lines. This is very important when quantizing sinusoidal or
+          other periodic signals, for example.
+	</para>
+      </section>
+      
+      <section id="assumpt2">
+	<title>Assumption #2</title>
+	<para id="para8">
+	  Pretend that the quantization error is really additive
+	  <emphasis>Gaussian</emphasis> noise with the same mean and
+	  variance as the uniform quantizer. That is, model
+	  
+	  <figure id="figure2" orient="vertical">
+	    <subfigure id="idp7500000">
+	      <media id="idp10193888" alt=""><image src="../../media/subfig2aFinite-PrecisionError.png" mime-type="image/png"/></media>
+	    </subfigure>
+	    <subfigure id="idp7778544">
+	      <title>as</title>
+	      <media id="idp9386192" alt=""><image src="../../media/subfig2bFinite-PrecisionError.png" mime-type="image/png"/></media>
+	    </subfigure>
+	  </figure>
+	   
+	  This model is a <emphasis>linear</emphasis> system,
+	  which our standard theory can handle easily. We model the noise as
+	  Gaussian because it remains Gaussian after passing through
+	  filters, so analysis in a system context is tractable.
+	</para>
+      </section>
+    </section>
+    <section id="summary">
+      <title>Summary of Useful Statistical Facts</title>
+      <list id="summarylist" list-type="bulleted">
+	<item><label>correlation function</label>
+	  
+	  <m:math>
+	    <m:apply>
+	      <m:mo>≐</m:mo>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mi>x</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mi>n</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mrow>
+			<m:mi>n</m:mi>
+			<m:mo>+</m:mo>
+			<m:mi>k</m:mi>
+		      </m:mrow>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item><label>power spectral density</label>
+	  
+	  <m:math>
+	    <m:apply>
+	      <m:mo>≐</m:mo>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>S</m:mi>
+		    <m:mi>x</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">DTFT</m:ci>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>r</m:mi>
+		      <m:mi>x</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item>Note
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mi>x</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:power/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>σ</m:mi>
+		    <m:mi>x</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>w</m:ci>
+		  </m:bvar>
+		  <m:uplimit>
+		    <m:pi/>
+		  </m:uplimit>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:pi/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>S</m:mi>
+			<m:mi>x</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>w</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item>
+	  <m:math>
+	    <m:apply>
+	      <m:mo>≐</m:mo>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mi>xy</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">
+		      <m:msup>
+			<m:mi>x</m:mi>
+			<m:mi>*</m:mi>
+		      </m:msup>
+		    </m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">y</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>n</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item><label>cross-spectral density</label>
+	  
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>S</m:mi>
+		    <m:mi>xy</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">DTFT</m:ci>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>r</m:mi>
+		      <m:mi>xy</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item>
+	  For 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>y</m:ci>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+		<m:ci>h</m:ci>
+		<m:ci>x</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>:
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+              <m:apply>
+	      <m:ci type="fn">
+		<m:msub>
+		  <m:mi>S</m:mi>
+		  <m:mi>yx</m:mi>
+		</m:msub>
+	      </m:ci>
+                <m:ci>w</m:ci>
+              </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub>
+		      <m:mi>S</m:mi>
+		      <m:mi>x</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+              <m:apply>
+	      <m:ci type="fn">
+		<m:msub>
+		  <m:mi>S</m:mi>
+		  <m:mi>yy</m:mi>
+		</m:msub>
+	      </m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn">H</m:ci>
+			<m:ci>w</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub>
+		      <m:mi>S</m:mi>
+		      <m:mi>x</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item>
+	  Note that the <emphasis>output</emphasis> noise level after
+	  filtering a noise sequence is
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>σ</m:mi>
+		    <m:mi>y</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mi>yy</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:pi/>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>w</m:ci>
+		  </m:bvar>
+		  <m:uplimit>
+		    <m:pi/>
+		  </m:uplimit>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:pi/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:abs/>
+			<m:apply>
+			  <m:ci type="fn">H</m:ci>
+			  <m:ci>w</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn">
+			<m:msub>
+			  <m:ci>S</m:ci>
+			  <m:ci>x</m:ci>
+			</m:msub>
+		      </m:ci>
+	              <m:ci>w</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> so postfiltering quantization noise alters the
+	  noise power spectrum and may change its variance!
+	</item>
+	<item>
+	  For
+	  <m:math>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>x</m:mi>
+		<m:mn>1</m:mn>
+	      </m:msub>
+	    </m:ci>
+	  </m:math>,
+	  <m:math>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>x</m:mi>
+		<m:mn>2</m:mn>
+	      </m:msub>
+	    </m:ci>
+	  </m:math> statistically independent
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mrow>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		      <m:mo>+</m:mo>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub>
+		    </m:mrow>
+		  </m:msub>
+		</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>r</m:mi>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>r</m:mi>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>S</m:mi>
+		    <m:mrow>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		      <m:mo>+</m:mo>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub>
+		    </m:mrow>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+                <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>S</m:mi>
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+                </m:apply>
+                <m:apply>
+		<m:ci type="fn">
+		  <m:msub>
+		    <m:mi>S</m:mi>
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:msub>
+		</m:ci>
+		<m:ci>w</m:ci>
+                </m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+	<item>For independent random variables
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+		      <m:mrow>
+			<m:msub>
+			  <m:mi>x</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+			<m:mo>+</m:mo>
+			<m:msub>
+			  <m:mi>x</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:mrow>
+		    </m:msub>
+		  </m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+		      <m:msub>
+			<m:mi>x</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</item>
+      </list>
+    </section>
+  </content>
+  
+</document>

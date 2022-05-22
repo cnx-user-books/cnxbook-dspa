@@ -1,0 +1,533 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>A Hierarchy of Detail in the Haar System</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8c358bbc-e7d8-4137-be26-d703f48005cf</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="hp1">
+      Given a mother scaling function
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:ci type="fn">φ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:ci type="set"><m:msub> 
+	      <m:mi>ℒ</m:mi> 
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math>
+      — the choice of which will be discussed later <!-- good
+      place for cnxn, but to where?--> — let us construct
+      scaling functions at
+      "coarseness-level-<m:math><m:ci>k"</m:ci></m:math> and
+      "shift-<m:math><m:ci>n</m:ci></m:math>" as follows:
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>φ</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>n</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>k</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">φ</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+	<m:mtext>.</m:mtext>
+      </m:math>
+      Let us then use
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      to denote the subspace defined by linear combinations of
+      scaling functions at the 
+      <m:math>
+	<m:ci><m:msup>
+	    <m:mi>k</m:mi>
+	    <m:mi>th</m:mi>
+	  </m:msup></m:ci>
+      </m:math>
+      level:  
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub></m:ci>
+	  <m:apply>
+	    <m:ci type="fn">span</m:ci>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:apply>
+	</m:apply>
+	<m:mtext>.</m:mtext>
+      </m:math>
+      In the Haar system, for example,    
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mn>0</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      and   
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mn>1</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      consist of signals with the characteristics of
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>x</m:mi>
+	      <m:mn>0</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>
+      and   
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>x</m:mi>
+	      <m:mn>1</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> illustrated in <link target-id="figb" strength="3"/>.
+    </para>
+
+    <figure id="figb">
+      <media id="idm170608" alt=""><image src="../../media/sq_scalingfn.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="hp2">
+      We will be careful to choose a scaling function
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> which ensures that the following nesting property
+      is satisfied:
+      <m:math display="block">
+	<m:apply>
+	  <m:prsubset/>
+	  <m:ci>…</m:ci>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>1</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>0</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>-1</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>-2</m:mn>
+	    </m:msub></m:ci>
+	  <m:ci>…</m:ci>
+	</m:apply>
+      </m:math> 
+      <m:math display="block">
+	<m:mtext>coarse</m:mtext>
+	<m:mo></m:mo>
+	<m:mtext>              </m:mtext>
+	<m:mo></m:mo>
+	<m:mtext>detailed</m:mtext>
+      </m:math>
+      In other words, any signal in
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      can be constructed as a linear combination of <emphasis>more
+	detailed</emphasis> signals in
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mrow>
+	      <m:mi>k</m:mi>
+	      <m:mo>−</m:mo>
+	      <m:mn>1</m:mn>
+	    </m:mrow>
+	  </m:msub></m:ci>
+      </m:math>
+      .  (The Haar system gives proof that at least one such
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> exists.)
+    </para>
+
+    <para id="para3a">
+      The nesting property can be depicted using the set-theoretic
+      diagram, <link target-id="vspacesfig" strength="3"/>, where
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mrow>
+	      <m:mo>−</m:mo>
+	      <m:mn>1</m:mn>
+	    </m:mrow>
+	  </m:msub></m:ci>
+      </m:math>
+      is represented by the contents of the largest egg (which
+      includes the smaller two eggs),
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mn>0</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      is represented by the contents of the medium-sized egg (which
+      includes the smallest egg), and 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mn>1</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      is represented by the contents of the smallest egg.
+    </para>
+
+    <figure id="vspacesfig">
+      <media id="idm297088" alt=""><image src="../../media/vspaces.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="hp3">
+      Going further, we will assume that
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> is designed to yield the following three important
+      properties:  
+
+      <list id="spaceex" list-type="enumerated">
+	<item>
+	  <m:math>
+	    <m:set>
+	      <m:bvar>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>n</m:ci>
+		  <m:integers/>
+		</m:apply>
+	      </m:condition>
+	    </m:set>
+	  </m:math> constitutes an orthonormal basis for 
+	  <m:math>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mi>k</m:mi>
+	      </m:msub></m:ci>
+	  </m:math>,
+	</item>
+	<item><m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mi>∞</m:mi>
+		</m:msub></m:ci>
+	      <m:set>
+		<m:cn type="vector">0</m:cn>
+	      </m:set>
+	    </m:apply>
+	  </m:math> (contains no signals).
+	  <footnote id="idp1761136">
+	    While at first glance it might seem that
+	    <m:math>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mi>∞</m:mi>
+		</m:msub></m:ci>
+	    </m:math>
+	    should contain non-zero constant signals (<foreign>e.g.</foreign>, 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:ci>a</m:ci>
+	      </m:apply>
+	    </m:math> for 
+	    <m:math>
+	      <m:apply>
+		<m:in/>
+		<m:ci>a</m:ci>
+		<m:reals/>
+	      </m:apply>
+	    </m:math>), the only constant signal in
+	    <m:math>
+	      <m:ci type="set"><m:msub> 
+		  <m:mi>ℒ</m:mi> 
+		  <m:mn>2</m:mn>
+		</m:msub></m:ci>
+	    </m:math>
+	    , the space of square-integrable signals, is the zero
+	    signal.</footnote>
+	</item>
+	<item><m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mrow>
+		    <m:mo>−</m:mo>
+		    <m:mi>∞</m:mi>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci type="set"><m:msub> 
+		  <m:mi>ℒ</m:mi> 
+		  <m:mn>2</m:mn>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:math> (contains all signals).
+	</item>
+      </list>
+
+      Because 
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>,</m:mo>
+		    <m:mi>n</m:mi>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>n</m:ci>
+	      <m:integers/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math> is an orthonormal basis, the best (in
+      <m:math>
+	<m:ci type="set"><m:msub> 
+	    <m:mi>ℒ</m:mi> 
+	    <m:mn>2</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      norm) approximation of 
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:ci type="set"><m:msub> 
+	      <m:mi>ℒ</m:mi> 
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math> at coarseness-level-<m:math><m:ci>k</m:ci></m:math> is
+      given by the orthogonal projection, <link target-id="projection" strength="3"/>
+      <equation id="heq1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>x</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>n</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <equation id="heq2">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>c</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>n</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>n</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+    </para>
+
+    <figure id="projection">
+      <media id="idp3106224" alt=""><image src="../../media/projection.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="hp4">
+      We will soon derive conditions on the scaling function
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> which ensure that the properties above are
+      satisfied.
+    </para>
+  </content>
+  
+</document>

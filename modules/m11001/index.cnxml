@@ -1,0 +1,25 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Why Transforms?</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>5677eb04-c506-4de1-a9ff-49f934f0a094</md:uuid>
+</metadata>
+
+
+  <content>
+      <para id="p00">
+	In the field of signal processing we frequently encounter the
+	use of <term>transforms</term>. Transforms are named such because they
+	take a signal and <emphasis>transform</emphasis> it into
+	another signal, hopefully one which is easier to process or
+	analyze than the original. Essentially, transforms are used to
+	manipulate signals such that their most important
+	characteristics are made plainly evident. To isolate a
+	signal's important characteristics, however, one must employ a
+	transform that is well matched to that signal. For example,
+	the Fourier transform, while well matched to certain classes
+	of signal, does not efficiently extract information about
+	signals in other classes. This latter fact motivates our
+	development of the wavelet transform. 
+      </para> 
+  </content>
+  
+</document>

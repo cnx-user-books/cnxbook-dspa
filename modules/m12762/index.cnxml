@@ -1,0 +1,1766 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Prony's Method</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>7d7b0bca-bf0d-4e51-8e03-82e1fd780a4f</md:uuid>
+</metadata>
+
+  <content>
+    <para id="p1">Prony's Method is a quasi-least-squares time-domain
+    IIR filter design method.</para>   
+
+    <para id="p2">First, assume
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci type="complex">z</m:ci>
+	</m:apply>
+      </m:math> is an "all-pole" system:
+      <equation id="eqn1">
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci type="complex">z</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:ci><m:msub>
+		<m:mi>b</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:plus/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>1</m:cn>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:ci>M</m:ci>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci type="complex">z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math></equation> and
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">h</m:ci>
+	    <m:cn>n</m:cn>
+	  </m:apply>
+	  <m:apply>
+	    <m:plus/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>1</m:cn>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:ci>M</m:ci>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci><m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:ci type="fn">δ</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> where
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">h</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:cn>0</m:cn>
+	</m:apply>
+      </m:math>, <m:math>
+	<m:apply>
+	  <m:lt/>
+          <m:ci>n</m:ci>
+	  <m:cn>0</m:cn>
+	</m:apply>
+      </m:math> for a causal system.
+    <note id="idm7056">For
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="fn">h</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>,
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">h</m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	    <m:ci><m:msub>
+		<m:mi>b</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:math>.</note>
+      
+      Let's attempt to fit a desired impulse response (let it be
+      <emphasis>causal</emphasis>, although one can extend this
+      technique when it isn't)
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>h</m:mi>
+	      <m:mi>d</m:mi>
+	    </m:msub></m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math>.</para>
+
+    <para id="p3">A true least-squares solution would attempt to
+    minimize
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>ε</m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar>
+	      <m:ci>n</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:cn>0</m:cn>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:infinity/>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>h</m:mi>
+			<m:mi>d</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> where 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci type="complex">z</m:ci>
+	</m:apply>
+      </m:math> takes the form in <link target-id="eqn1"/>. This is a 
+      difficult non-linear
+      optimization problem which is known to be plagued by local
+      minima in the error surface. So instead of solving this
+      difficult non-linear problem, we solve the <term>deterministic linear
+      prediction</term> problem, which is related to, <emphasis>but
+      not the same as</emphasis>, the true least-squares optimization.
+    </para>
+    <para id="p4">The deterministic linear prediction problem is a
+    <emphasis>linear</emphasis> least-squares optimization, which is
+    easy to solve, but it minimizes the
+    <emphasis>prediction</emphasis> error, not the 
+      <m:math>
+	<m:apply>
+	  <m:power/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>desired</m:ci>
+	      <m:ci>actual</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:cn>2</m:cn>
+	</m:apply>
+      </m:math> response error.</para>
+
+      <para id="pa">Notice that for
+	<m:math>
+	  <m:apply>
+	    <m:gt/>
+	    <m:ci>n</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>, with the all-pole filter
+	<equation id="eqn2"><m:math display="block">
+          <m:apply>
+             <m:eq/>
+              <m:apply><m:ci type="fn">h</m:ci><m:ci>n</m:ci></m:apply>
+	  <m:apply>
+	    <m:minus/>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>1</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:ci>M</m:ci>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci><m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:ci type="fn">h</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply></m:apply>
+	</m:math></equation> the right hand side of <link target-id="eqn2">this
+	equation</link> is a <term>linear predictor</term> of
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">h</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:math> in terms of the <m:math><m:ci>M</m:ci>
+	</m:math> previous samples of <m:math>
+	  <m:apply>
+	    <m:ci type="fn">h</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:math>.</para>
+    <para id="pnew">For the desired reponse
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>h</m:mi>
+	      <m:mi>d</m:mi>
+	    </m:msub></m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math>, one can choose the recursive filter coefficients
+      <m:math>
+	<m:msub>
+	  <m:mi>a</m:mi>
+	  <m:mi>k</m:mi>
+	</m:msub>
+      </m:math> to minimize the squared prediction error
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci><m:msub>
+ 		<m:mi>ε</m:mi>
+		<m:mi>p</m:mi>
+	    </m:msub></m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar>
+	      <m:ci>n</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:cn>1</m:cn>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:infinity/>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>h</m:mi>
+			<m:mi>d</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>k</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>1</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:ci>M</m:ci>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mi>k</m:mi>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:ci type="fn"><m:msub>
+			    <m:mi>h</m:mi>
+			    <m:mi>d</m:mi>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+		<m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> where, in practice, the <m:math><m:infinity/>
+      </m:math> is replaced by an <m:math><m:ci>N</m:ci>
+      </m:math>.
+    </para>
+
+    <para id="p5">In matrix form, that's
+      <m:math display="block">
+	<m:apply>
+	  <m:approx/>
+	  <m:apply>
+	    <m:times/>
+	    <m:matrix>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:cn>0</m:cn>
+		<m:ci>...</m:ci>
+		<m:cn>0</m:cn>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:cn>0</m:cn>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:ci>⋮</m:ci>
+		<m:ci>⋮</m:ci>
+		<m:ci>⋱</m:ci>
+		<m:ci>⋮</m:ci>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:ci>M</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:matrixrow>
+	    </m:matrix>
+	    <m:vector>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub></m:ci>
+	      <m:ci>⋮</m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:vector>
+	  </m:apply>
+	  <m:apply>
+	    <m:minus/>
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:ci>⋮</m:ci>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:vector>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      or
+      <m:math display="block">
+	<m:apply>
+	  <m:approx/>
+	  <m:apply>
+	    <m:times/>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>d</m:mi>
+	      </m:msub></m:ci>
+	    <m:ci type="vector">a</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci type="vector"><m:msub>
+		<m:mi>h</m:mi>
+		<m:mi>d</m:mi>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      The optimal solution is
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci type="vector"><m:msub>
+	      <m:mi>a</m:mi>
+	      <m:mi>lp</m:mi>
+	    </m:msub></m:ci>
+	  <m:apply>
+	    <m:minus/>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		      <m:ci type="matrix"><m:msub>
+			  <m:mi>H</m:mi>
+			  <m:mi>d</m:mi>
+			</m:msub></m:ci>
+		    </m:apply>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>H</m:mi>
+			<m:mi>d</m:mi>
+		      </m:msub></m:ci>
+		  </m:apply>
+		  <m:cn>-1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		      <m:ci type="matrix"><m:msub>
+		      <m:mi>H</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		</m:apply>
+		<m:ci type="vector"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:apply>
+	</m:apply>
+      </m:math>
+      Now suppose 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci type="complex">z</m:ci>
+	</m:apply>
+      </m:math> is an 
+      <m:math><m:msup>
+	  <m:mi>M</m:mi>
+	  <m:mi>th</m:mi>
+	</m:msup>
+      </m:math>-order IIR (ARMA) system,
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci type="complex">z</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:ci>M</m:ci>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci type="complex">z</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>1</m:cn>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:ci>M</m:ci>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci type="complex">z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      or
+        <equation id="eqn3">
+        <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">h</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:plus/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>1</m:cn>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:ci>M</m:ci>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:ci>M</m:ci>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:ci type="fn">δ</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:piecewise>
+	    <m:piece>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>k</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>1</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:ci>M</m:ci>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mi>k</m:mi>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:ci type="fn">h</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>n</m:mi>
+		  </m:msub></m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:leq/>
+		<m:cn>0</m:cn>
+		<m:ci>n</m:ci>
+		<m:ci>M</m:ci>
+	      </m:apply>
+	    </m:piece>
+	    <m:piece>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar>
+		    <m:ci>k</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:cn>1</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:ci>M</m:ci>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>a</m:mi>
+			<m:mi>k</m:mi>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:ci type="fn">h</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:gt/>
+		<m:ci>n</m:ci>
+		<m:ci>M</m:ci>
+	      </m:apply>
+	    </m:piece>
+	  </m:piecewise>
+        </m:apply>
+	</m:math>
+      </equation>
+      For <m:math>
+	<m:apply>
+	  <m:gt/>
+	  <m:ci>n</m:ci>
+	  <m:ci>M</m:ci>
+	</m:apply>
+      </m:math>, this is just like the all-pole case, so we can solve
+      for the best predictor coefficients as before:
+      <m:math display="block">
+	<m:apply>
+	  <m:approx/>
+	  <m:apply>
+	    <m:times/>
+	    <m:matrix>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>M</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>M</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>M</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>M</m:ci>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:ci>⋮</m:ci>
+		<m:ci>⋮</m:ci>
+		<m:ci>⋱</m:ci>
+		<m:ci>⋮</m:ci>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:ci>M</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:matrixrow>
+	    </m:matrix>
+	    <m:vector>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub></m:ci>
+	      <m:ci>⋮</m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:vector>
+	  </m:apply>
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:ci>⋮</m:ci>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:vector>
+  	  </m:apply>
+      </m:math>
+      or
+      <m:math display="block">
+	<m:apply>
+	  <m:approx/>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mi>d</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:ci type="vector">a</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+	    <m:ci type="vector"><m:msub>
+		<m:mi>h</m:mi>
+		<m:mi>d</m:mi>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      and
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci type="vector"><m:msub>
+	      <m:mi>a</m:mi>
+	      <m:mi>opt</m:mi>
+	    </m:msub></m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		    <m:apply>
+		      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+		      <m:ci type="matrix"><m:msub>
+			  <m:mi>H</m:mi>
+			  <m:mi>d</m:mi>
+			</m:msub></m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>H</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		</m:apply>
+		<m:cn>-1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>H</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+		<m:ci type="vector"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:apply>
+	</m:apply>
+      </m:math>
+      Having determined the <m:math><m:ci>a</m:ci>
+      </m:math>'s, we can use them in <link target-id="eqn3"/> to obtain
+      the <m:math><m:msub>
+	  <m:mi>b</m:mi>
+	  <m:mi>n</m:mi>
+	</m:msub>
+      </m:math>'s:
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msub>
+	      <m:mi>b</m:mi>
+	      <m:mi>n</m:mi>
+	    </m:msub></m:ci>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar>
+	      <m:ci>k</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:cn>1</m:cn>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:ci>M</m:ci>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci><m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      where
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>h</m:mi>
+		<m:mi>d</m:mi>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>n</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:cn>0</m:cn>
+	</m:apply>
+      </m:math> for
+      <m:math>
+	<m:apply>
+	  <m:lt/>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>n</m:ci>
+	    <m:ci>k</m:ci>
+	  </m:apply>
+	  <m:cn>0</m:cn>
+	</m:apply>
+      </m:math>.
+    </para>
+
+    <para id="p6">For
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>N</m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:cn>2</m:cn>
+	    <m:ci>M</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>, 
+      <m:math>
+	<m:apply>
+	  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+	  <m:ci type="matrix"><m:msub>
+	      <m:mi>H</m:mi>
+	      <m:mi>d</m:mi>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math> is square, and we can solve <emphasis>exactly</emphasis>
+      for the
+      <m:math>
+	<m:msub>
+	  <m:mi>a</m:mi>
+	  <m:mi>k</m:mi>
+	</m:msub>
+      </m:math>'s with no error. The  <m:math>
+	<m:msub>
+	  <m:mi>b</m:mi>
+	  <m:mi>k</m:mi>
+	</m:msub>
+      </m:math>'s are also chosen such that there is no error in the
+      first
+      <m:math>
+	<m:apply>
+	  <m:plus/>
+	  <m:ci>M</m:ci>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math> samples of
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">h</m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math>. Thus for
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>N</m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:cn>2</m:cn>
+	    <m:ci>M</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>, the first
+      <m:math>
+	<m:apply>
+	  <m:plus/>
+	  <m:apply>
+	    <m:times/>
+	    <m:cn>2</m:cn>
+	    <m:ci>M</m:ci>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math> points of  <m:math>
+	<m:apply>
+	  <m:ci type="fn">h</m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> <emphasis>exactly equal</emphasis>
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>h</m:mi>
+	      <m:mi>d</m:mi>
+	    </m:msub></m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math>. This is called <term>Prony's Method</term>. Baron de
+      Prony invented this in 1795.
+    </para>
+    <para id="p7">For 
+      <m:math>
+	<m:apply>
+	  <m:gt/>
+	  <m:ci>N</m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:cn>2</m:cn>
+	    <m:ci>M</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>,
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>h</m:mi>
+		<m:mi>d</m:mi>
+	      </m:msub></m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">h</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> for
+      <m:math>
+	<m:apply>
+	  <m:leq/>
+	  <m:cn>0</m:cn>
+	  <m:ci>n</m:ci>
+	  <m:ci>M</m:ci>
+	</m:apply>
+      </m:math>, the prediction error is minimized for
+      <m:math>
+	<m:apply>
+	  <m:leq/>
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:ci>M</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:ci>N</m:ci>
+	</m:apply>
+      </m:math>, and whatever for
+      <m:math>
+	<m:apply>
+	  <m:geq/>
+	  <m:ci>n</m:ci>
+	  <m:apply>
+	    <m:plus/>
+	    <m:ci>N</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:apply>
+      </m:math>. This is called the <term>Extended Prony
+      Method</term>.
+    </para>
+
+    <para id="p8">One might prefer a method which tries to minimize an
+    overall error with the numerator coefficients, rather than just
+    using them to exactly fit
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>h</m:mi>
+	      <m:mi>d</m:mi>
+	    </m:msub></m:ci>
+	  <m:cn>0</m:cn>
+	</m:apply>
+      </m:math> to
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>h</m:mi>
+	      <m:mi>d</m:mi>
+	    </m:msub></m:ci>
+	  <m:ci>M</m:ci>
+	</m:apply>
+      </m:math>.
+    </para>
+
+    <section id="s1">
+      <title>Shank's Method</title>
+      <list id="l1" list-type="enumerated">
+	  <item>Assume an all-pole model and fit
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:math> by minimizing the prediction error
+	    <m:math>
+	      <m:apply>
+		<m:leq/>
+		<m:cn>1</m:cn>
+		<m:ci>n</m:ci>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:math>.</item>
+	  <item>Compute <m:math>
+	      <m:apply>
+		<m:ci type="fn">v</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:math>, the impulse response of this all-pole
+	    filter.</item>
+	  <item id="it3">Design an all-zero (MA, FIR) filter which
+	    fits
+	    <m:math>
+	      <m:apply>
+		<m:approx/>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>h</m:mi>
+			<m:mi>z</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math> optimally in a least-squares sense (<link target-id="fig1"/>).</item>
+      </list>
+
+      <figure id="fig1">
+	<media id="idm372368" alt=""><image src="../../media/fig1-7a70.png" mime-type="image/png"/><image for="pdf" src="../../media/fig1-29d2.eps" mime-type="application/postscript"/></media>
+        <caption>Here, <m:math>
+         <m:apply>
+         <m:approx/>
+          <m:apply>
+           <m:ci type="fn">h</m:ci>
+		  <m:ci>n</m:ci>
+         </m:apply>
+         <m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>d</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+          </m:apply>
+         </m:math>.</caption>
+      </figure>
+
+      <para id="s1p1">The final IIR filter is the cascade of the all-pole and
+	all-zero filter.</para>
+
+      <para id="s1p2"><link target-id="it3">This</link> is is solved by
+	<m:math display="block">
+	  <m:apply>
+	    <m:min/>
+	    <m:bvar>
+	      <m:ci><m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>n</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:ci>N</m:ci>
+	      </m:uplimit>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:ci type="fn"><m:msub>
+			  <m:mi>h</m:mi>
+			  <m:mi>d</m:mi>
+			</m:msub></m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar>
+			<m:ci>k</m:ci>
+		      </m:bvar>
+		      <m:lowlimit>
+			<m:cn>0</m:cn>
+		      </m:lowlimit>
+		      <m:uplimit>
+			<m:ci>M</m:ci>
+		      </m:uplimit>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mi>k</m:mi>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:ci type="fn">v</m:ci>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>n</m:ci>
+			    <m:ci>k</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	or in matrix form
+	<m:math display="block">
+	  <m:apply>
+	    <m:approx/>
+	    <m:apply>
+	      <m:times/>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:ci>...</m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:ci>...</m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:ci>...</m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋱</m:ci>
+		  <m:ci>⋮</m:ci>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>N</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>N</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>...</m:ci>
+		  <m:apply>
+		    <m:ci type="fn">v</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>N</m:ci>
+		      <m:ci>M</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub></m:ci>
+		<m:ci>⋮</m:ci>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	    </m:apply>
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:ci>⋮</m:ci>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>h</m:mi>
+		    <m:mi>d</m:mi>
+		  </m:msub></m:ci>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:vector>
+	  </m:apply>
+	</m:math>
+	
+	Which has solution:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="vector"><m:msub>
+		<m:mi>b</m:mi>
+		<m:mi>opt</m:mi>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		    <m:ci type="matrix">V</m:ci>
+		  </m:apply>
+		  <m:ci type="matrix">V</m:ci>
+		</m:apply>
+		<m:cn>-1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		<m:ci type="matrix">V</m:ci>
+	      </m:apply>
+	      <m:ci type="vector">h</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </para>
+      
+      <para id="s1p3">Notice that none of these methods solve the true
+      least-squares problem:
+	<m:math display="block">
+	  <m:apply>
+	    <m:min/>
+	    <m:bvar>
+	      <m:ci type="vector">a</m:ci>
+            </m:bvar>
+            <m:bvar>
+	      <m:ci type="vector">b</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>n</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:ci type="fn"><m:msub>
+			  <m:mi>h</m:mi>
+			  <m:mi>d</m:mi>
+			</m:msub></m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn">h</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	which is a difficult non-linear optimization problem. The true
+	least-squares problem can be written as:
+	<m:math display="block">
+	  <m:apply>
+	    <m:min/>
+	    <m:bvar>
+	      <m:ci>α</m:ci>
+            </m:bvar>
+            <m:bvar>
+	      <m:ci>β</m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>n</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:ci type="fn"><m:msub>
+			  <m:mi>h</m:mi>
+			  <m:mi>d</m:mi>
+			</m:msub></m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar>
+			<m:ci>i</m:ci>
+		      </m:bvar>
+		      <m:lowlimit>
+			<m:cn>1</m:cn>
+		      </m:lowlimit>
+		      <m:uplimit>
+			<m:ci>M</m:ci>
+		      </m:uplimit>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>α</m:mi>
+			    <m:mi>i</m:mi>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:exp/>
+			  <m:apply>
+			    <m:times/>
+			    <m:ci><m:msub>
+				<m:mi>β</m:mi>
+				<m:mi>i</m:mi>
+			      </m:msub></m:ci>
+			    <m:ci>n</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	since the impulse response of an IIR filter is a sum of
+	exponentials, and non-linear optimization is then used to
+	solve for the 
+	<m:math>
+	  <m:msub>
+	    <m:mi>α</m:mi>
+	    <m:mi>i</m:mi>
+	  </m:msub>
+	</m:math> and
+	<m:math>
+	  <m:msub>
+	    <m:mi>β</m:mi>
+	    <m:mi>i</m:mi>
+	  </m:msub>
+	</m:math>.
+      </para>
+    </section>
+
+  </content>
+  
+</document>

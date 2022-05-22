@@ -1,0 +1,916 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  
+  <title>Inner Product Space</title>
+  
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>bb6e202d-9f93-4383-a629-cb3c7c33f942</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      Next we equip a normed vector space <m:math><m:ci type="set">V</m:ci></m:math> with a notion of "direction".
+    </para>
+
+    <list id="list1">
+      <item>
+	An <term>inner product</term> is a function (
+	<m:math>
+	  <m:apply>
+	    <m:tendsto/>
+	    <m:apply>
+	      <m:ci><m:mo>:</m:mo></m:ci>
+	      <m:apply>
+		<m:scalarproduct/>
+		<m:ci>·</m:ci>
+		<m:ci>·</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:vectorproduct/>
+		<m:ci>V</m:ci>
+		<m:ci>V</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:complexes/>
+	  </m:apply>
+	</m:math>) such that the following properties hold (
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci type="vector">x</m:ci>
+	    </m:bvar>
+	    <m:bvar>
+	      <m:ci type="vector">y</m:ci>
+	    </m:bvar>
+	    <m:bvar>
+	      <m:ci type="vector">z</m:ci>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:and/>
+		<m:apply>
+		  <m:in/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:ci type="set">V</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:in/>
+		  <m:ci type="vector">y</m:ci>
+		  <m:ci type="set">V</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:in/>
+		  <m:ci type="vector">z</m:ci>
+		  <m:ci type="set">V</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:condition>
+	  </m:apply>
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>α</m:ci>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:in/>
+		<m:ci>α</m:ci>
+		<m:ci></m:ci>
+	      </m:apply>
+	    </m:condition>
+	  </m:apply>
+	</m:math>): 
+
+	<list id="innerproduct" list-type="enumerated">
+	  <item><m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:ci type="vector">y</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:conjugate/>
+		  <m:apply>
+		    <m:scalarproduct/>
+		    <m:ci type="vector">y</m:ci>
+		    <m:ci type="vector">x</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  
+	  <item><m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>α</m:ci>
+		    <m:ci type="vector">y</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>α</m:ci>
+		  <m:apply>
+		    <m:scalarproduct/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:ci type="vector">y</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math> ...implying that 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>α</m:ci>
+		    <m:ci type="vector">x</m:ci>
+		  </m:apply>
+		  <m:ci type="vector">y</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:conjugate/>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:scalarproduct/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:ci type="vector">y</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  
+	  <item><m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci type="vector">y</m:ci>
+		    <m:ci type="vector">z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:scalarproduct/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:ci type="vector">y</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:scalarproduct/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:ci type="vector">z</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  
+	  <item><m:math>
+	      <m:apply>
+		<m:geq/>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:ci type="vector">x</m:ci>
+		</m:apply>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:math> with equality iff <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="vector">x</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	</list>
+	
+	In simple terms, the inner product measures the relative
+	alignment between two vectors. Adding an inner product
+	operation to a vector space yields an <term>inner product
+	space</term>. Important examples include: 
+	
+	<list id="ipexamples" list-type="enumerated">
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>V</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:reals/>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math>,  
+	    <m:math>
+	      <m:apply>
+		<m:ci><m:mo>≔</m:mo></m:ci>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:ci type="vector">y</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:transpose/>
+		    <m:ci type="vector">x</m:ci>
+		  </m:apply>
+		  <m:ci type="vector">y</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>  
+
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>V</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:complexes/>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math>,  
+	    <m:math>
+	      <m:apply>
+		<m:ci><m:mo>≔</m:mo></m:ci>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:ci type="vector">y</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		    <m:ci type="vector">x</m:ci>
+		  </m:apply>
+		  <m:ci type="vector">y</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math>  
+	  </item>
+
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="set">V</m:ci>
+		<m:ci>
+		  <m:msub><m:mi>l</m:mi><m:mn>2</m:mn></m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>, 
+	    <m:math>
+	      <m:apply>
+		<m:ci><m:mo>≔</m:mo></m:ci>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:set>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:set>
+		  <m:set>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">y</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:set>
+		</m:apply>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar><m:ci>n</m:ci></m:bvar>
+		  <m:lowlimit>		
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">x</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">y</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="set">V</m:ci>
+		<m:ci>
+		  <m:msub><m:mi>ℒ</m:mi><m:mn>2</m:mn></m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>, 
+	    <m:math>
+	      <m:apply>
+		<m:ci><m:mo>≔</m:mo></m:ci>
+		<m:apply>
+		  <m:scalarproduct/>
+		  <m:apply>
+		    <m:ci type="fn">f</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">g</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar><m:ci>t</m:ci></m:bvar>
+		  <m:lowlimit>		
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:apply>
+			<m:ci type="fn">f</m:ci>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn">g</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	</list>
+      </item>
+    </list>
+
+    <para id="para2">
+      The inner products above are the "usual" choices for those
+      spaces. 
+    </para>
+
+    <para id="para3">
+      The inner product naturally defines a norm:
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:ci><m:mo>≔</m:mo></m:ci>
+	  <m:apply>
+	    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	    <m:ci type="vector">x</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:root/>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      though not every norm can be defined from an inner product.  
+      <footnote id="idm9964528">An example for inner product space
+	<m:math>
+	  <m:ci><m:msub>
+	      <m:mi>ℒ</m:mi>
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:math>
+      would be any norm 
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>≔</m:mo></m:ci>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">f</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:root/>
+	      <m:degree><m:ci>p</m:ci></m:degree>
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>t</m:ci></m:bvar>
+		<m:lowlimit>		
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:ci type="fn">f</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>p</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> such that 
+
+	<m:math>
+	  <m:apply>
+	    <m:gt/>
+	    <m:ci>p</m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math>. </footnote> Thus, an inner product space can be
+	considered as a normed vector space with additional
+	structure.  Assume, from now on, that we adopt the
+	inner-product norm when given a choice. 
+    </para>
+
+    <list id="list2">
+      <item>
+	The <term>Cauchy-Schwarz inequality</term> says
+      </item>
+    </list>
+
+    <para id="para4">
+      <m:math display="block">
+	<m:apply>
+	  <m:leq/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	     <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      
+      with equality iff 
+
+      <m:math>
+	<m:apply>
+	  <m:exists/>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>α</m:ci>
+	      <m:ci></m:ci>
+	    </m:apply>
+	  </m:condition>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="vector">x</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>α</m:ci>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>. 
+    </para>
+
+    <para id="para5">
+      When 
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:scalarproduct/>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	  <m:reals/>
+	</m:apply>
+      </m:math>, the inner product can be used to define an "angle"
+      between vectors: 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:cos/>
+	    <m:ci>θ</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+		<m:ci type="vector">x</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+		<m:ci type="vector">y</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+    </para>
+
+    <list id="list3">
+      <item>
+	Vectors <m:math><m:ci type="vector">x</m:ci></m:math> and
+	<m:math><m:ci type="vector">y</m:ci></m:math> are said to be
+	<term>orthogonal</term>, denoted as 
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>⊥</m:mo></m:ci>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	</m:math>, when 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>. The <term>Pythagorean theorem</term> says:
+	<m:math display="block">
+	  <m:apply>
+	    <m:forall/>
+	    <m:condition>
+	      <m:apply>
+		<m:ci><m:mo>⊥</m:mo></m:ci>
+		<m:ci type="vector">x</m:ci>
+		<m:ci type="vector">y</m:ci>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:ci type="vector">y</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+		    <m:ci type="vector">x</m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+		    <m:ci type="vector">y</m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>   
+      
+	Vectors <m:math><m:ci type="vector">x</m:ci></m:math> and
+	<m:math><m:ci type="vector">y</m:ci></m:math> are said to be
+	<term>orthonormal</term> when 
+
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>⊥</m:mo></m:ci>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	    <m:mn>1</m:mn>
+	  </m:apply>
+	</m:math>. 
+      </item>
+
+      <item>
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>⊥</m:mo></m:ci>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="set">S</m:ci>
+	  </m:apply>
+	</m:math> means 
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>⊥</m:mo></m:ci>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	</m:math> for all 
+	<m:math>
+	  <m:apply>
+	    <m:in/>
+	    <m:ci type="vector">y</m:ci>
+	    <m:ci type="set">S</m:ci>
+	  </m:apply>
+	</m:math>.  <m:math><m:ci>S</m:ci></m:math> is an
+	<term>orthogonal set</term> if
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>⊥</m:mo></m:ci>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	</m:math> for all 
+	<m:math>
+	  <m:apply>
+	    <m:in/>
+	    <m:apply>
+	      <m:and/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	    <m:ci type="set">S</m:ci>
+	  </m:apply>
+	</m:math> s.t. 
+	<m:math>
+	  <m:apply>
+	    <m:neq/>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	</m:math>.  An orthogonal set <m:math><m:ci type="set">S</m:ci></m:math> is an <term>orthonormal
+	set</term> if
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math> for all 
+	<m:math>
+	  <m:apply>
+	    <m:in/>
+	    <m:ci type="vector">x</m:ci>
+	    <m:ci type="set">S</m:ci>
+	  </m:apply>
+	</m:math>.  Some examples of orthonormal sets are 
+
+	<list id="list6a" list-type="enumerated">
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:power/>
+		<m:reals/>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	    </m:math> : 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="set">S</m:ci>
+		<m:set>
+		  <m:matrix>
+		    <m:matrixrow>
+		      <m:cn>1</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		  </m:matrix>
+		  <m:matrix>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>1</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		  </m:matrix>
+		</m:set>
+	      </m:apply>
+	    </m:math>
+	  </item>
+
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:power/>
+		<m:complexes/>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:math> : Subsets of columns from unitary matrices
+	  </item>
+
+	  <item>
+	    <m:math>
+	      <m:ci>
+		<m:msub><m:mi>l</m:mi><m:mn>2</m:mn></m:msub>
+	      </m:ci>
+	    </m:math> : Subsets of shifted Kronecker delta functions 
+	    <m:math>
+	      <m:apply>
+		<m:prsubset/>
+		<m:ci type="set">S</m:ci>
+		<m:set>
+		  <m:bvar>
+		    <m:set>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">δ</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:set>
+		  </m:bvar>
+		  <m:condition>
+		    <m:apply>
+		      <m:in/>
+		      <m:ci>k</m:ci>
+		      <m:integers/>
+		    </m:apply>
+		  </m:condition>
+		</m:set>
+	      </m:apply>
+	    </m:math>
+	  </item>
+
+	  <item>
+	    <m:math>
+	      <m:ci>
+		<m:msub><m:mi>ℒ</m:mi><m:mn>2</m:mn></m:msub>
+	      </m:ci>
+	    </m:math> : 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="set">S</m:ci>
+		<m:set>
+		  <m:bvar>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:root/>
+			  <m:ci>T</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn">f</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>t</m:ci>
+			  <m:apply>
+			    <m:times/>
+			    <m:ci>n</m:ci>
+			    <m:ci>T</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:bvar>
+		  <m:condition>
+		    <m:apply>
+		      <m:in/>
+		      <m:ci>n</m:ci>
+		      <m:integers/>
+		    </m:apply>
+		  </m:condition>
+		</m:set>
+	      </m:apply>
+	    </m:math> for unit pulse 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">f</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:ci type="fn">u</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">u</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>t</m:ci>
+		      <m:ci>T</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>, unit step 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">u</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	
+	</list>
+      
+	where in each case we assume the usual inner product.
+
+      </item>
+    </list>
+
+  </content>
+</document>

@@ -1,0 +1,411 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Digital-to-Digital Frequency Transformations</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>53adb570-ce8f-40df-bd4a-5f7d4c42646a</md:uuid>
+</metadata>
+
+  <content>
+    <para id="p1">Given a prototype <emphasis>digital</emphasis>
+    filter design, transformations similar to the bilinear transform
+    can also be developed.</para>   
+    <para id="p2">Requirements on such a mapping
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>z</m:ci>
+	    <m:cn>-1</m:cn>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">g</m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>z</m:ci>
+	      <m:cn>-1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>:
+    </para>
+
+    <list id="list1" list-type="enumerated">
+      <item id="it1">points inside the unit circle stay inside the unit
+	circle (condition to preserve stability)</item>
+      <item id="it2">unit circle is mapped to itself (preserves frequency
+	response)</item>
+    </list>
+    
+    <para id="p3"><link target-id="it2">This condition</link> implies
+      that
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci><m:msub>
+		    <m:mi>ω</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">g</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:ci type="fn">g</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:apply>
+		  <m:arg/>
+		  <m:apply>
+		    <m:ci type="fn">g</m:ci>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> requires that
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:ci type="fn">g</m:ci>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math> on the unit circle!
+    </para>
+
+    <para id="p4">Thus we require an <term>all-pass</term>
+    transformation:
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">g</m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>z</m:ci>
+	      <m:cn>-1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:product/>
+	    <m:bvar>
+	      <m:ci>k</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:cn>1</m:cn>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:ci>p</m:ci>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:cn>-1</m:cn>
+		</m:apply>
+		<m:ci><m:msub>
+		    <m:mi>α</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> where
+      <m:math>
+	<m:apply>
+	  <m:lt/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:ci><m:msub>
+		<m:mi>α</m:mi>
+		<m:mi>K</m:mi>
+	      </m:msub></m:ci>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math>, which is required to satisfy <link target-id="it1">this condition</link>.
+    </para>
+
+    <example id="ex1">
+      <title>Lowpass-to-Lowpass</title>
+      <para id="ex1p1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci><m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci>
+	      <m:cn>-1</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:cn>-1</m:cn>
+		</m:apply>
+		<m:ci>a</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>a</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> which maps original filter with a cutoff at 
+	<m:math><m:msub><m:mi>ω</m:mi><m:mi>c</m:mi>
+	  </m:msub>
+	</m:math> to a new filter with cutoff
+	<m:math><m:msubsup><m:mi>ω</m:mi><m:mi>c</m:mi>
+	    <m:mi>′</m:mi>
+	  </m:msubsup>
+	</m:math>,
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>a</m:ci>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:sin/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci><m:msubsup>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+			<m:mi>′</m:mi>
+		      </m:msubsup></m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:sin/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci><m:msubsup>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+			<m:mi>′</m:mi>
+		      </m:msubsup></m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </para>
+    </example>
+
+    <example id="ex2">
+      <title>Lowpass-to-Highpass</title>
+      <para id="ex2p1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci><m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci>
+	      <m:cn>-1</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:cn>-1</m:cn>
+		</m:apply>
+		<m:ci>a</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>a</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> which maps original filter with a cutoff at 
+	<m:math><m:msub><m:mi>ω</m:mi><m:mi>c</m:mi>
+	  </m:msub>
+	</m:math> to a frequency reversed filter with cutoff
+	<m:math><m:msubsup><m:mi>ω</m:mi><m:mi>c</m:mi>
+	    <m:mi>′</m:mi>
+	  </m:msubsup>
+	</m:math>,
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>a</m:ci>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:cos/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci><m:msubsup>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+			<m:mi>′</m:mi>
+		      </m:msubsup></m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:cos/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci><m:msubsup>
+			<m:mi>ω</m:mi>
+			<m:mi>c</m:mi>
+			<m:mi>′</m:mi>
+		      </m:msubsup></m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </para>
+    </example>
+
+    <para id="pend">(Interesting and occasionally useful!)</para>
+
+  </content>
+  
+</document>

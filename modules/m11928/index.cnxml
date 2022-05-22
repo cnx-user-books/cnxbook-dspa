@@ -1,0 +1,431 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Limit Cycles</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8ce2e983-07b0-44d7-a82c-434d7c4c789d</md:uuid>
+</metadata>
+
+  <content>
+    <section id="section1">
+      <title>Large-scale limit cycles</title>
+      <para id="para1">
+	When overflow occurs, even otherwise stable filters may
+    get stuck in a <term>large-scale limit cycle</term>, which is a
+    short-period, almost full-scale persistent filter output caused by overflow.
+      </para>
+      <example id="example1">
+	<para id="para2">
+	  Consider the second-order system
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:inverse/>
+		      <m:ci>z</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>z</m:ci>
+		      <m:cn>-2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  
+	  <figure id="figure1">
+	    <media id="idm1733136" alt=""><image src="../../media/fig1LimitCycles.png" mime-type="image/png"/></media>
+	  </figure>
+	  
+	  with zero input and initial state values
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>z</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0.8</m:cn>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>z</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>-0.8</m:cn>
+	    </m:apply>
+	  </m:math>. Note
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">y</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>z</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci>n</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+	<para id="para3">
+	  The filter is obviously stable, since the magnitude of the poles is 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:root/>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>0.707</m:cn>
+	    </m:apply>
+	  </m:math>, which is well inside the unit circle.
+	  However, with wraparound overflow, note that
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">y</m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>z</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>4</m:cn>
+		    <m:cn>5</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>4</m:cn>
+			<m:cn>5</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>6</m:cn>
+		  <m:cn>5</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>4</m:cn>
+		    <m:cn>5</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>, and that 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>z</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">y</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>4</m:cn>
+		      <m:cn>5</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>4</m:cn>
+		      <m:cn>5</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>6</m:cn>
+		    <m:cn>5</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>4</m:cn>
+		  <m:cn>5</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:math>, so
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">y</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:mrow>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>4</m:cn>
+		      <m:cn>5</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:mo>,</m:mo>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>4</m:cn>
+		    <m:cn>5</m:cn>
+		  </m:apply>
+		  <m:mo>,</m:mo>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>4</m:cn>
+		      <m:cn>5</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:mo>,</m:mo>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>4</m:cn>
+		    <m:cn>5</m:cn>
+		  </m:apply>
+		  <m:mo>,</m:mo>
+		  <m:ci>…</m:ci>
+		</m:mrow>
+	      </m:apply>
+	    </m:math> even with zero input.
+	</para>
+      </example>
+      <para id="para4">
+	  Clearly, such behavior is intolerable and must be
+	  prevented. Saturation arithmetic has been proved to prevent
+	  <term>zero-input limit cycles</term>, which is one reason why all
+          DSP microprocessors support this feature. In many applications,
+	  this is considered sufficient protection. Scaling to prevent
+	  overflow is another solution, if as well the inital state
+	  values are never initialized to limit-cycle-producing
+	  values. The normal-form structure also reduces the chance of
+	  overflow.
+      </para>
+    </section>
+    <section id="section2">
+      <title>Small-scale limit cycles</title>
+      <para id="para5">
+	<term>Small-scale limit cycles</term> are caused by quantization. Consider
+	the system
+	<figure id="figure2">
+	  <media id="idm2261152" alt=""><image src="../../media/fig2LimitCycles.png" mime-type="image/png"/></media>
+	</figure>
+	Note that when
+	<m:math>
+	  <m:apply>
+	    <m:gt/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>α</m:ci>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>Δ</m:mi>
+		    <m:mi>B</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, rounding will quantize the output to the current
+	level (with zero input), so the output will remain at this
+	level forever. Note that the maximum amplitude of this
+	"small-scale limit cycle" is achieved when
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>α</m:ci>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>Δ</m:mi>
+		    <m:mi>B</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:mo>⇒</m:mo>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>z</m:mi>
+		  <m:mi>max</m:mi>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>Δ</m:mi>
+		    <m:mi>B</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:cn>1</m:cn>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	In a higher-order system, the small-scale limit cycles are
+	oscillatory in nature. Any
+	quantization scheme that never increases the magnitude of
+	any quantized value prevents small-scale limit cycles. 
+
+	<note id="idm1427984">Two's-complement truncation does
+	  <emphasis>not</emphasis> do this; it increases the magnitude
+	  of negative numbers.</note>
+	
+	However, this introduces greater error
+	and bias. Since the level of the limit cycles is
+	proportional to
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>Δ</m:mi>
+	      <m:mi>B</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math>, they can be reduced by increasing the
+	number of bits. Poles close to the unit circle increase the
+	magnitude and likelihood of small-scale limit cycles.
+      </para>
+    </section>
+  </content>
+  
+</document>

@@ -1,0 +1,571 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  
+  <title>Short-time Fourier Transform</title>
+  <metadata>
+  <md:content-id>m10417</md:content-id><md:title>Short-time Fourier Transform</md:title>
+  <md:abstract>This module introduces short-time Fourier transform.</md:abstract>
+  <md:uuid>22eaf6b8-18cb-4462-9c65-e04a6f8decdc</md:uuid>
+</metadata>
+
+<content>
+
+    <para id="para1">
+      We saw earlier that Fourier analysis is not well suited to
+      describing local changes in "frequency content" because the
+      frequency components defined by the Fourier transform have
+      infinite (<foreign>i.e.</foreign>, global) time support. For
+      example, if we have a signal with periodic components plus a
+      glitch at time
+      <m:math>
+	<m:ci>
+	  <m:msub><m:mi>t</m:mi><m:mn>0</m:mn></m:msub>
+	</m:ci>
+      </m:math>, we might want accurate knowledge of both the periodic
+      component frequencies <emphasis>and</emphasis> the glitch time
+      (<link target-id="fig1" strength="3"/>).
+    </para>
+
+    <figure id="fig1">
+      <media id="id6925683" alt=""><image src="../../media/stft-6d0d.png" mime-type="image/png"/></media>
+      
+    </figure>
+
+    <para id="para2">
+      The Short-Time Fourier Transform (STFT) provides a means of
+      joint time-frequency analysis. The STFT pair can be written 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>X</m:mi><m:mi>STFT</m:mi></m:msub>
+	    </m:ci>
+	    <m:ci>Ω</m:ci>
+	    <m:ci>τ</m:ci>
+	  </m:apply>
+	    
+	  <m:apply>
+	    <m:int/>
+	    <m:bvar>
+	      <m:ci>t</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:apply><m:minus/><m:infinity/></m:apply>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:infinity/>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">w</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>t</m:ci>
+		  <m:ci>τ</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>Ω</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+	      </m:apply>
+	    </m:apply>	      
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar>
+		<m:ci>t</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:apply><m:minus/><m:infinity/></m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>Ω</m:ci></m:bvar>
+		<m:lowlimit>
+		  <m:apply><m:minus/><m:infinity/></m:apply>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub><m:mi>X</m:mi><m:mi>STFT</m:mi></m:msub>
+		    </m:ci>
+		    <m:ci>Ω</m:ci>
+		    <m:ci>τ</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">w</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>t</m:ci>
+		      <m:ci>τ</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>Ω</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      assuming real-valued 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">w</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> for which 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:int/>
+	    <m:bvar><m:ci>t</m:ci></m:bvar>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">w</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math>. The STFT can be interpreted as a "sliding window
+      CTFT": to calculate 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">
+	    <m:msub><m:mi>X</m:mi><m:mi>STFT</m:mi></m:msub>
+	  </m:ci>
+	  <m:ci>Ω</m:ci>
+	  <m:ci>τ</m:ci>
+	</m:apply>
+      </m:math>, slide the center of window 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">w</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> to time <m:math><m:ci>τ</m:ci></m:math>, window
+      the input signal, and compute the CTFT of the result (<link target-id="sliding_window_ctft" strength="3"/>).
+    </para>
+
+    <figure id="sliding_window_ctft">
+      <title>"Sliding Window CTFT"</title>
+      <media id="id6924733" alt="">
+<image src="../../media/sliding_window_ctft.png" mime-type="image/png"/>
+<image for="pdf" src="../../media/sliding_window_ctft.eps" mime-type="application/postscript"/></media>
+    </figure>
+
+    <para id="para3">
+      The idea is to isolate the signal in the vicinity of time
+      <m:math><m:ci>τ</m:ci></m:math>, then perform a CTFT
+      analysis in order to estimate the "local" frequency content at
+      time <m:math><m:ci>τ</m:ci></m:math>.
+    </para>
+
+    <para id="para3a">
+      Essentially, the STFT uses the basis elements
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>b</m:mi>
+		<m:mrow>
+		  <m:mi>Ω</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>τ</m:mi>
+		</m:mrow>
+	      </m:msub>
+	    </m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:ci type="fn">w</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>t</m:ci>
+		<m:ci>τ</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>Ω</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> 
+
+      over the range 
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>t</m:ci>
+	  <m:interval closure="open">
+	    <m:apply>
+	      <m:minus/>
+	      <m:infinity/>
+	    </m:apply>
+	    <m:infinity/>
+	  </m:interval>
+	</m:apply>
+      </m:math> and
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>Ω</m:ci>
+	  <m:interval closure="open">
+	    <m:apply>
+	      <m:minus/>
+	      <m:infinity/>
+	    </m:apply>
+	    <m:infinity/>
+	  </m:interval>
+	</m:apply>
+      </m:math>.  This can be understood as time and frequency shifts
+      of the window function
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">w</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.  The STFT basis is often illustrated by a tiling of
+      the time-frequency plane, where each tile represents a
+      particular basis element (<link target-id="time_frequency_tiling" strength="3"/>):
+    </para>
+
+    <figure id="time_frequency_tiling">
+      <media id="id6925145" alt="">
+<image src="../../media/time_frequency_tiling.png" mime-type="image/png"/>
+<image for="pdf" src="../../media/time_frequency_tiling.eps" mime-type="application/postscript"/></media>
+    </figure>
+
+    <para id="para4">
+      The height and width of a tile represent the spectral and
+      temporal widths of the basis element, respectively, and the
+      position of a tile represents the spectral and temporal centers
+      of the basis element. Note that, while the <link target-id="time_frequency_tiling" strength="3">tiling
+      diagram</link> suggests that the STFT uses a discrete set of
+      time/frequency shifts, the STFT basis is really constructed from
+      a continuum of time/frequency shifts.
+    </para>
+
+    <para id="para5">
+      Note that we can decrease spectral width 
+      <m:math>
+	<m:ci>
+	  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	</m:ci>
+      </m:math> at the cost of increased temporal width 
+      <m:math>
+	<m:ci>
+	  <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	</m:ci>
+      </m:math> by stretching basis waveforms in time, although the
+      time-bandwidth product 
+      <m:math>
+	<m:apply>
+	  <m:times/>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	  </m:ci>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	  </m:ci>
+	</m:apply>
+      </m:math> (<foreign>i.e.</foreign>, the area of each tile) will
+      remain constant (<link target-id="wndow_scaling" strength="3"/>).
+    </para>
+
+    <figure id="wndow_scaling">
+      <media id="id6820805" alt="">
+<image src="../../media/wndow_scaling.png" mime-type="image/png"/>
+<image for="pdf" src="../../media/wndow_scaling.eps" mime-type="application/postscript"/></media>
+    </figure>
+    
+    <para id="para6">
+      Our observations can be summarized as follows: 
+
+      <list id="list1" list-type="bulleted">
+	<item>
+	  the time resolutions and frequency resolutions of every STFT
+	  basis element will equal those of the window 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn">w</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:math>. (All STFT tiles have the same shape.)
+	</item>
+	<item>
+	  the use of a wide window will give good frequency resolution
+	  but poor time resolution, while the use of a narrow window
+	  will give good time resolution but poor frequency
+	  resolution. (When tiles are stretched in one direction they
+	  shrink in the other.)
+	</item>
+	<item>The combined time-frequency resolution of the basis,
+	proportional to 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		</m:ci>
+		<m:ci>
+		  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>, is determined not by window width but by window
+	  shape. Of all shapes, the Gaussian <footnote id="id6921223">The
+	  STFT using a Gaussian window is known as the <term>Gabor
+	  Transform</term> (1946).</footnote>
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">w</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:ci>t</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> gives the highest time-frequency resolution,
+	  although its infinite time-support makes it impossible to
+	  implement. (The Gaussian window results in tiles with
+	  minimum area.)
+	</item>
+      </list>
+
+      Finally, it is interesting to note that the STFT implies a
+      particular definition of <term>instantaneous
+      frequency</term>. Consider the linear chirp
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:sin/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>
+		<m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>t</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>. From casual observation, we might expect an
+      instantaneous frequency of 
+      <m:math>
+	<m:apply>
+	  <m:times/>
+	  <m:ci>
+	    <m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+	  </m:ci>
+	  <m:ci>τ</m:ci>
+	</m:apply>
+      </m:math> at time <m:math><m:ci>τ</m:ci></m:math> since 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:forall/>
+	  <m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>t</m:ci>
+	      <m:ci>τ</m:ci>
+	    </m:apply>
+	  </m:condition>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:sin/>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>t</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sin/>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+		</m:ci>
+		<m:ci>τ</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      The STFT, however, will indicate a
+      time-<m:math><m:ci>τ</m:ci></m:math> instantaneous frequency
+      of 
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+	    <m:condition>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>t</m:ci>
+		<m:ci>τ</m:ci>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:diff/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>t</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:cn>2</m:cn>
+	    <m:ci>
+	      <m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+	    </m:ci>
+	    <m:ci>τ</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <note id="id6936718" type="Caution"><label>Caution</label>The phase-derivative interpretation of
+      instantaneous frequency only makes sense for signals containing
+      exactly <emphasis>one</emphasis> sinusoid, though! In summary,
+      always remember that the traditional notion of "frequency"
+      applies only to the CTFT; we must be very careful when bending
+      the notion to include, <foreign>e.g.</foreign>, "instantaneous
+      frequency", as the results may be unexpected!</note>
+    </para>
+
+  </content>  
+</document>

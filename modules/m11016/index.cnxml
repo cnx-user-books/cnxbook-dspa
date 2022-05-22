@@ -1,0 +1,589 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Values of g[n] and h[n] for the Haar System</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>c7d5dee7-1ea8-45d3-8d21-d29524a602f9</md:uuid>
+</metadata>
+
+
+  <content>
+      <para id="p11">
+	The coefficients
+	<m:math>
+	  <m:set>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:set>
+	</m:math> were originally introduced at describe
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>φ</m:mi>
+		<m:mrow>
+		  <m:mn>1</m:mn>
+		  <m:mo>,</m:mo>
+		  <m:mn>0</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:math> in terms of the basis for
+	<m:math>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>0</m:mn>
+	    </m:msub></m:ci>
+	</m:math>:
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mn>1</m:mn>
+		    <m:mo>,</m:mo>
+		    <m:mn>0</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:domainofapplication>
+		<m:ci>n</m:ci>
+	      </m:domainofapplication>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">h</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mn>0</m:mn>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:mtext>.</m:mtext>
+	</m:math>
+	From the previous equation we find that
+
+	<equation id="eqn18">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:scalarproduct/>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mn>0</m:mn>
+			<m:mo>,</m:mo>
+			<m:mi>m</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mn>1</m:mn>
+			<m:mo>,</m:mo>
+			<m:mn>0</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:scalarproduct/>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mn>0</m:mn>
+			<m:mo>,</m:mo>
+			<m:mi>m</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:sum/>
+		  <m:domainofapplication>
+		    <m:ci>n</m:ci>
+		  </m:domainofapplication>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn"><m:msub>
+			  <m:mi>φ</m:mi>
+			  <m:mrow>
+			    <m:mn>0</m:mn>
+			    <m:mo>,</m:mo>
+			    <m:mi>n</m:mi>
+			  </m:mrow>
+			</m:msub></m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:sum/>
+		<m:domainofapplication>
+		  <m:ci>n</m:ci>
+		</m:domainofapplication>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:scalarproduct/>
+		    <m:apply>
+		      <m:ci type="fn"><m:msub>
+			  <m:mi>φ</m:mi>
+			  <m:mrow>
+			    <m:mn>0</m:mn>
+			    <m:mo>,</m:mo>
+			    <m:mi>m</m:mi>
+			  </m:mrow>
+			</m:msub></m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn"><m:msub>
+			  <m:mi>φ</m:mi>
+			  <m:mrow>
+			    <m:mn>0</m:mn>
+			    <m:mo>,</m:mo>
+			    <m:mi>n</m:mi>
+			  </m:mrow>
+			</m:msub></m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	where 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">δ</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>n</m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mrow>
+		      <m:mn>0</m:mn>
+		      <m:mo>,</m:mo>
+		      <m:mi>m</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>φ</m:mi>
+		    <m:mrow>
+		      <m:mn>0</m:mn>
+		      <m:mo>,</m:mo>
+		      <m:mi>n</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, which gives a way to calculate the coefficients
+	<m:math>
+	  <m:set>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	  </m:set>
+	</m:math> when we know 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>φ</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>n</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:math>.
+      </para>
+
+      <para id="p12">
+	In the Haar case
+	<equation id="eqn19">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>t</m:ci></m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>φ</m:mi>
+			<m:mrow>
+			  <m:mn>0</m:mn>
+			  <m:mo>,</m:mo>
+			  <m:mi>m</m:mi>
+			</m:mrow>
+		      </m:msub></m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>φ</m:mi>
+			<m:mrow>
+			  <m:mn>1</m:mn>
+			  <m:mo>,</m:mo>
+			  <m:mn>0</m:mn>
+			</m:mrow>
+		      </m:msub></m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>t</m:ci></m:bvar>
+		<m:lowlimit><m:ci>m</m:ci></m:lowlimit>
+		<m:uplimit>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>m</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:uplimit>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mn>1</m:mn>
+			<m:mo>,</m:mo>
+			<m:mn>0</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+
+	      <m:piecewise>
+		<m:piece>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:in/>
+		    <m:ci>m</m:ci>
+		    <m:set>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		    </m:set>
+		  </m:apply>
+		</m:piece>
+		<m:otherwise>
+		  <m:cn>0</m:cn>
+		</m:otherwise>
+	      </m:piecewise>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	since 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mn>1</m:mn>
+		    <m:mo>,</m:mo>
+		    <m:mn>0</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> in the interval
+	<m:math>
+	  <m:interval closure="closed-open">
+	    <m:cn>0</m:cn>
+	    <m:cn>2</m:cn>
+	  </m:interval>
+	</m:math> and zero otherwise.  Then choosing 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>P</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math> in 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">g</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:cn>-1</m:cn>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>P</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, we find that
+	
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">g</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:piecewise>
+	      <m:piece>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:cn>0</m:cn>
+	      </m:piece>
+
+	      <m:piece>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:cn>1</m:cn>
+	      </m:piece>
+
+	      <m:otherwise>
+		<m:cn>0</m:cn>
+	      </m:otherwise>
+	    </m:piecewise>
+	  </m:apply>
+	</m:math>
+	for the Haar system.  From the wavelet scaling equation
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">ψ</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:domainofapplication>
+		  <m:ci>n</m:ci>
+		</m:domainofapplication>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">φ</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+		
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	we can see that the Haar mother wavelet and scaling function
+	look like in <link target-id="fig2" strength="3"/>:
+      </para>
+
+      <figure id="fig2">
+	<media id="idm7465760" alt=""><image src="../../media/haar_wavelet.png" mime-type="image/png"/></media>
+      </figure>
+
+      <para id="p13">
+	It is now easy to see, in the Haar case, how integer shifts of
+	the mother wavelet describe the differences between signals in
+	<m:math>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mrow>
+		<m:mo>−</m:mo>
+		<m:mn>1</m:mn>
+	      </m:mrow>
+	    </m:msub></m:ci>
+	</m:math> and 
+	<m:math>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mn>0</m:mn>
+	    </m:msub></m:ci>
+	</m:math> (<link target-id="fig3" strength="3"/>):
+      </para>
+
+      <figure id="fig3">
+	<media id="idm6554800" alt=""><image src="../../media/haar_shifts.png" mime-type="image/png"/></media>
+      </figure>
+
+      <para id="p14">
+	We expect this because
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mrow>
+		  <m:mo>−</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:xor/>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>.
+      </para>
+
+  </content>
+</document>

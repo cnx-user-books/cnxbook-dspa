@@ -1,0 +1,221 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Fixed-Point Quantization</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>fe11a333-7d62-40bc-8388-03e589454847</md:uuid>
+</metadata>
+
+  <content>
+    <para id="delete_me">
+      The fractional <m:math><m:ci>B</m:ci></m:math>-bit two's
+    complement number representation evenly distributes 
+      <m:math>
+	<m:apply>
+	  <m:power/>
+	  <m:cn>2</m:cn>
+	  <m:ci>B</m:ci>
+	</m:apply>
+      </m:math> quantization levels between 
+      <m:math>
+	<m:cn>-1</m:cn>
+      </m:math> and 
+      <m:math>
+	<m:apply>
+	  <m:minus/>
+	  <m:cn>1</m:cn>
+	  <m:apply>
+	    <m:power/>
+	    <m:cn>2</m:cn>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>B</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>. The spacing between quantization levels is then
+      <m:math display="block">
+	<m:apply>
+	  <m:mo>≐</m:mo>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:power/>
+		<m:cn>2</m:cn>
+		<m:ci>B</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>B</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>Δ</m:mi>
+	      <m:mi>B</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:apply>
+      </m:math>
+      Any signal value falling between two levels is assigned to one
+      of the two levels.
+    </para>
+    <para id="para2">
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>X</m:mi>
+	      <m:mi>Q</m:mi>
+	    </m:msub>
+	  </m:ci>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">Q</m:ci>
+	    <m:ci>x</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> is our notation for quantization.
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>e</m:ci>
+	  <m:apply>
+	    <m:minus/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">Q</m:ci>
+	      <m:ci>x</m:ci>
+	    </m:apply>
+	    <m:ci>x</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> is then the quantization error.
+    </para>
+
+    <para id="para1">
+      One method of quantization is <term>rounding</term>, which assigns the signal
+      value to the <emphasis>nearest</emphasis> level. The maximum
+      error is thus
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:divide/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>Δ</m:mi>
+		<m:mi>B</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	  <m:apply>
+	    <m:power/>
+	    <m:cn>2</m:cn>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>B</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>.
+    </para>
+
+    
+    <figure id="figure1" orient="horizontal">
+      <subfigure id="idp3017696">
+	<media id="idp2272688" alt=""><image src="../../media/subfig1aFixed-PointQuant.png" mime-type="image/png"/></media>
+      </subfigure>
+      <subfigure id="idp665168">
+	<media id="idp665648" alt=""><image src="../../media/subfig1bFixed-PointQuant.png" mime-type="image/png"/></media>
+      </subfigure>
+    </figure>
+    
+    <para id="para4">
+      Another common scheme, which is often easier to implement in
+      hardware, is <term>truncation</term>.
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete">Q</m:ci>
+	  <m:ci>x</m:ci>
+	</m:apply>
+      </m:math> assigns <m:math><m:ci>x</m:ci></m:math> to the next
+      lowest level.
+      <figure id="figure2" orient="horizontal">
+	<subfigure id="idp223440">
+	  <media id="idp223856" alt=""><image src="../../media/subfig2aFixed-PointQuant.png" mime-type="image/png"/></media>
+	</subfigure>
+	<subfigure id="idp1723168">
+	  <media id="idp242000" alt=""><image src="../../media/subfig2bFixed-PointQuant.png" mime-type="image/png"/></media>
+	</subfigure>
+      </figure>
+     
+      The worst-case error with truncation is
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>Δ</m:ci>
+	  <m:apply>
+	    <m:power/>
+	    <m:cn>2</m:cn>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>B</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>, which is twice as large as with rounding. Also, the
+      error is always negative, so on average it may have a non-zero
+      mean (i.e., a bias component).
+    </para>
+    <para id="para5">
+      Overflow is the other problem. There are two common types: two's
+      complement (or <term>wraparound</term>) overflow, or 
+      <term>saturation</term> overflow.
+      <figure id="figure3" orient="horizontal">
+	<subfigure id="idm879872">
+	  <title>wraparound</title>
+	  <media id="idp6266144" alt=""><image src="../../media/subfig3aFixed-PointQuant.png" mime-type="image/png"/></media>
+	</subfigure>
+	<subfigure id="idm6003520">
+	  <title>saturation</title>
+	  <media id="idm42544" alt=""><image src="../../media/subfig3bFixed-PointQuant.png" mime-type="image/png"/></media>
+	</subfigure>
+      </figure>
+     
+      Obviously, overflow errors are bad because they are typically
+      <emphasis>large</emphasis>; two's complement (or
+      wraparound) overflow introduces more error than saturation, but is easier
+      to implement in hardware. It also has the advantage that if the
+      <emphasis>sum</emphasis> of several numbers is between
+      <m:math>
+	<m:interval closure="closed-open">
+	  <m:cn>-1</m:cn>
+	  <m:cn>1</m:cn>
+	</m:interval>
+      </m:math>, the final answer will be correct even if intermediate
+      sums overflow! However, wraparound overflow leaves IIR systems
+      susceptible to zero-input large-scale limit cycles, as discussed in
+      another module. As usual, there are many tradeoffs to evaluate, and
+      no one right answer for all applications.
+    </para>
+  </content>
+  
+</document>

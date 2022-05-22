@@ -1,0 +1,722 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>IIR Filter Structures</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>d8d78e7c-de9f-4fe5-874a-c2d751a0f16c</md:uuid>
+</metadata>
+
+  <content>
+    <para id="delete_me">
+      IIR (Infinite Impulse Response) filter structures must be recursive
+      (use feedback); an infinite number of coefficients could not otherwise
+       be realized with a finite number of computations per sample.
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:ci type="fn">N</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">D</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:inverse/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:cn>-2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>M</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:inverse/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:cn>-2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mi>N</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+       The corresponding time-domain difference equation is
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">y</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+          <m:apply>
+            <m:plus/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		    <m:times/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:ci type="fn">y</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:ci type="fn">y</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+            </m:apply>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mi>N</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:ci type="fn">y</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:ci>…</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>b</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:ci>M</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+    </para>   
+    <section id="section1">
+      <title>Direct-form I IIR Filter Structure</title>
+      
+      <para id="para1.5">
+        The difference equation above is implemented directly as written by the
+        Direct-Form I IIR Filter Structure.
+      </para>
+      <figure id="figure1">
+	<media id="idm5077120" alt=""><image src="../../media/fig1IIRFilterStruct.png" mime-type="image/png"/></media>
+      </figure>
+     
+      <para id="para2">
+	Note that this is a cascade of two systems, 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">N</m:ci>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:divide/>
+	    <m:cn>1</m:cn>
+	    <m:apply>
+	      <m:ci type="fn">D</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>. If we reverse the order of the filters, the overall
+	system is unchanged: The memory elements appear in the middle
+	and store identical values, so they can be combined, to form
+	the Direct-Form II IIR Filter Structure.
+      </para>
+    </section>
+    <section id="section3">
+      <title>Direct-Form II IIR Filter Structure</title>
+      
+      <figure id="figure2">
+	<media id="idp2391840" alt=""><image src="../../media/fig2IIRFilterStruct.png" mime-type="image/png"/></media>
+      </figure>
+     
+      <para id="para4">
+	This structure is <term>canonic</term>: (i.e., it requires
+	the minimum number of memory elements).
+      </para>
+      <para id="para5">
+	Flowgraph reversal gives the
+      </para>
+    </section>
+    <section id="section4">
+      <title>Transpose-Form IIR Filter Structure</title>
+      
+      <figure id="figure3">
+	<media id="idp1079344" alt=""><image src="../../media/fig3IIRFilterStruct.png" mime-type="image/png"/></media>
+      </figure>
+      
+      <para id="para6">
+	Usually we design IIR filters with 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>N</m:ci>
+	    <m:ci>M</m:ci>
+	  </m:apply>
+	</m:math>, but not always.
+      </para>
+      <para id="para7">
+	Obviously, since all these structures have identical
+	frequency response, filter structures are not unique. We
+	consider many different structures because
+	<list id="list1" list-type="enumerated">
+	  <item>Depending on the technology or application, one
+	    might be more convenient than another</item> 
+	  
+	  <item>The response in a practical realization, in which the
+	    data and coefficients must be <term>quantized</term>,
+	    may differ substantially, and some
+	    structures behave much better than others with quantization.
+	  </item>
+	</list>
+        The Cascade-Form IIR filter structure is one of the least sensitive
+        to quantization, which is why it is the most commonly used IIR filter
+        structure.
+      </para>
+    </section>
+    <section id="section6">
+      <title>IIR Cascade Form</title>
+      <para id="para8">
+	The numerator and denominator polynomials can be factored 
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:inverse/>
+		      <m:ci>z</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>b</m:mi>
+			<m:mi>M</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>m</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:inverse/>
+		      <m:ci>z</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>a</m:mi>
+			<m:mi>N</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:product/>
+		    <m:bvar>
+		      <m:ci>k</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>1</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:ci>M</m:ci>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>z</m:ci>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>z</m:mi>
+			  <m:mi>k</m:mi>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:product/>
+		    <m:bvar>
+		      <m:ci>i</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>1</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:ci>N</m:ci>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>z</m:ci>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>p</m:mi>
+			  <m:mi>k</m:mi>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	  </m:apply>
+	</m:math>
+	and implemented as a cascade of short IIR filters.
+	
+	<figure id="figure4">
+	  <media id="idm5717136" alt=""><image src="../../media/fig4IIRFilterStruct.png" mime-type="image/png"/></media>
+	</figure>
+	Since the filter coefficients are usually real yet the roots are
+        mostly complex, we
+	actually implement these as second-order sections, where
+	comple-conjugate pole and zero pairs are combined into
+	second-order sections with real coefficients.
+        The second-order sections are usually implemented with either
+        the Direct-Form II or Transpose-Form structure.
+      </para>
+    </section>
+    <section id="section20">
+      <title>Parallel form</title>
+      <para id="para20">
+	A rational transfer function can also be written as
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:plus/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:inverse/>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:ci>…</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mi>M</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>m</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>		       
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:inverse/>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:ci>…</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>N</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:diff/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:diff/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:inverse/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>A</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>z</m:ci>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>A</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>z</m:ci>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:ci>…</m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>A</m:mi>
+		    <m:mi>N</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>z</m:ci>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mi>N</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> which by linearity can be implemented as
+	<figure id="figure5">
+	  <media id="idp3923152" alt=""><image src="../../media/fig5IIRFilterStruct.png" mime-type="image/png"/></media>
+	</figure>
+	
+	As before, we combine complex-conjugate pole pairs into
+	second-order sections with real coefficients.
+      </para>
+      <para id="para30">
+	The cascade and parallel forms are of interest because they
+	are much less sensitive to coefficient quantization than
+	higher-order structures, as analyzed in later modules in this course.
+      </para>
+    </section>
+    <section id="sect30">
+      <title>Other forms</title> 
+      <para id="para31">
+	There are many other structures for IIR filters,
+        such as wave digital filter
+	structures, lattice-ladder, all-pass-based forms, and so forth.
+        These are the result of extensive research to find structures
+	which are computationally efficient <emphasis>and</emphasis>
+	insensitive to quantization error. They all represent various
+	tradeoffs; the best choice in a given context is not yet fully
+	understood, and may never be.
+      </para>
+    </section>
+
+
+  </content>
+  
+</document>

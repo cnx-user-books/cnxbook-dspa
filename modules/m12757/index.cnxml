@@ -1,0 +1,657 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>IIR Digital Filter Design via the Bilinear Transform</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>122a2f45-0282-40e8-b246-2faeec01a355</md:uuid>
+</metadata>
+  
+  <content>
+    <para id="p1">A <term>bilinear transform</term> maps an analog filter
+      <m:math><m:apply><m:ci type="fn"><m:msub><m:mi>H</m:mi><m:mi>a</m:mi></m:msub></m:ci>
+	  <m:ci>s</m:ci></m:apply></m:math> to a discrete-time filter <m:math>
+	<m:apply><m:ci type="fn">H</m:ci><m:ci>z</m:ci></m:apply></m:math> of the same order.</para>
+    
+    <para id="p2">If only we could somehow map these optimal analog filter designs to the digital world while preserving the magnitude response characteristics, we could make use of the already-existing body of knowledge concerning optimal analog filter design.</para>
+    
+    <section id="bil">
+      <title>Bilinear Transformation</title>
+      <para id="bil1">The Bilinear Transform is a nonlinear 
+	<m:math><m:apply><m:ci><m:mo>→</m:mo></m:ci><m:complexes/>
+	    <m:complexes/>
+	  </m:apply>
+	</m:math> mapping that maps a function of the complex variable
+	<m:math><m:ci type="complex">s</m:ci>
+	</m:math> to a function of a complex variable <m:math>
+	  <m:ci type="complex">z</m:ci>
+	</m:math>. This map has the property that the LHP in 
+	<m:math><m:ci type="complex">s</m:ci>
+	</m:math> (<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:real/>
+	      <m:ci type="complex">s</m:ci>
+	    </m:apply>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>) maps to the interior of the unit circle in
+	<m:math>
+	  <m:ci type="complex">z</m:ci>
+	</m:math>, and the
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>λ</m:ci>
+	    </m:apply>
+	    <m:ci type="complex">s</m:ci>
+	  </m:apply>
+	</m:math> axis maps to the unit circle
+	<m:math>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> in <m:math>
+	  <m:ci type="complex">z</m:ci>
+	</m:math>.</para>
+
+      <para id="p3">Bilinear transform:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="complex">s</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>α</m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci type="complex">z</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci type="complex">z</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci type="complex">z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub><m:mi>H</m:mi>
+		  <m:mi>a</m:mi>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="complex">s</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>α</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci type="complex">z</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci type="complex">z</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<note id="idm3223056">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>λ</m:ci>
+	      </m:apply>
+
+	      <m:apply>
+		<m:times/>
+		<m:ci>α</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:times/>
+		<m:ci>α</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>ω</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:imaginaryi/>
+			    <m:ci>ω</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>ω</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:imaginaryi/>
+			    <m:ci>ω</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:imaginaryi/>
+		  <m:apply>
+		    <m:sin/>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:cos/>
+		      <m:ci>ω</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>α</m:ci>
+		<m:apply>
+		  <m:tan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>ω</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>, so 
+	  <m:math>
+	    <m:apply>
+	      <m:equivalent/>
+	      <m:ci>λ</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>α</m:ci>
+		<m:apply>
+		  <m:tan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>ω</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:equivalent/>
+	      <m:ci>ω</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:apply>
+		  <m:arctan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>λ</m:ci>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>. <link target-id="fig1"/>.
+	</note>
+      </para>
+
+      <figure id="fig1">
+	<media id="idm172080" alt=""><image src="../../media/fig1-f39d.png" mime-type="image/png"/><image for="pdf" src="../../media/fig1-3728.eps" mime-type="application/postscript"/></media>
+      </figure>
+
+      <para id="p4">The magnitude response doesn't change in the
+      mapping from <m:math><m:ci>λ</m:ci>
+	</m:math> to <m:math><m:ci>ω</m:ci>
+	</m:math>, it is simply warped nonlinearly according to 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub><m:mi>H</m:mi>
+		  <m:mi>a</m:mi>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>α</m:ci>
+		<m:apply>
+		  <m:tan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>ω</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, <link target-id="fig2"/>.</para>
+
+      <figure id="fig2" orient="vertical">
+	<subfigure id="fig2a">
+	  <media id="idm10274064" alt=""><image src="../../media/fig2a.png" mime-type="image/png"/><image for="pdf" src="../../media/fig2a.eps" mime-type="application/postscript"/></media>
+	</subfigure>
+	<subfigure id="fig2b">
+	  <media id="idm9557232" alt=""><image src="../../media/fig2b.png" mime-type="image/png"/><image for="pdf" src="../../media/fig2b.eps" mime-type="application/postscript"/></media>
+	</subfigure>
+	<caption>The first image implies the second one.</caption>
+      </figure>
+
+      <para id="pnext"><note id="idp3902800">This mapping preserves
+	  <m:math>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:domainofapplication>
+    	        <m:infinity/>
+	      </m:domainofapplication>
+	      <m:ci>L</m:ci>
+	    </m:apply>
+	  </m:math> errors in (warped) frequency bands. Thus optimal
+	  Cauer
+	  (<m:math>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:domainofapplication>
+    	        <m:infinity/>
+	      </m:domainofapplication>
+	      <m:ci>L</m:ci>
+	    </m:apply>
+	  </m:math>) filters in the analog realm can be mapped to 
+	  <m:math>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:domainofapplication>
+    	        <m:infinity/>
+	      </m:domainofapplication>
+	      <m:ci>L</m:ci>
+	    </m:apply>
+	  </m:math> optimal discrete-time IIR filters using the
+	  bilinear transform! This is how IIR filters with
+	  <m:math>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:domainofapplication>
+    	        <m:infinity/>
+	      </m:domainofapplication>
+	      <m:ci>L</m:ci>
+	    </m:apply>
+	  </m:math> optimal magnitude responses are designed.</note>
+	
+	<note id="idm713184">The parameter <m:math><m:ci>α</m:ci>
+	  </m:math> provides one degree of freedom which can be used
+	  to map a single
+	  <m:math><m:msub>
+	      <m:mi>λ</m:mi>
+	      <m:mn>0</m:mn>
+	    </m:msub>
+	  </m:math> to any desired  <m:math><m:msub>
+	      <m:mi>ω</m:mi>
+	      <m:mn>0</m:mn>
+	    </m:msub>
+	  </m:math>:
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>λ</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci>α</m:ci>
+		<m:apply>
+		  <m:tan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub></m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> or
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>α</m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:ci><m:msub>
+		    <m:mi>λ</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:tan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub></m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  This can be used, for example, to map the pass-band edge of
+	  a lowpass analog prototype filter to any desired pass-band
+	  edge in <m:math><m:ci>ω</m:ci>
+	  </m:math>. Often, analog prototype filters will be designed with
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>λ</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math> as a band edge, and <m:math><m:ci>α</m:ci>
+	</m:math> will be used to locate the band edge in <m:math>
+	    <m:ci>ω</m:ci>
+	  </m:math>. Thus an <m:math><m:msup>
+	      <m:mi>M</m:mi><m:mi>th</m:mi>
+	    </m:msup>
+	  </m:math> order optimal lowpass analog filter prototype can
+	  be used to design <emphasis>any</emphasis> <m:math><m:msup>
+	      <m:mi>M</m:mi><m:mi>th</m:mi>
+	    </m:msup>
+	  </m:math> order discrete-time lowpass IIR filter with the
+	  same ripple specifications.</note>
+      </para>
+    </section>
+
+    <section id="prewarp">
+      <title>Prewarping</title>
+      <para id="pre1">Given specifications on the frequency
+	response of an IIR filter to be designed, map these to
+	specifications in the analog frequency domain which are
+	equivalent. Then a satisfactory analog prototype can be
+	designed which, when transformed to discrete-time using the
+	bilinear transformation, will meet the specifications.</para>
+      <example id="ex1"><para id="p1ex1">The goal is to design a
+      high-pass filter,
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:mi>s</m:mi>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:mi>s</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:mi>p</m:mi>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:mi>p</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>δ</m:mi>
+		  <m:mi>s</m:mi>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>δ</m:mi>
+		  <m:mi>s</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>δ</m:mi>
+		  <m:mi>p</m:mi>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>δ</m:mi>
+		  <m:mi>p</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:math>; pick up some
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>α</m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>α</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:math>. In <link target-id="fig3"/> the <m:math><m:msub>
+	  <m:mi>δ</m:mi><m:mi>i</m:mi>
+	    </m:msub>
+	  </m:math> remain the same and the band edges are mapped by
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci><m:msub>
+		  <m:mi>λ</m:mi>
+		  <m:mi>i</m:mi>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci><m:msub>
+		    <m:mi>α</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:tan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci><m:msub>
+			<m:mi>ω</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub></m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+
+	<figure id="fig3" orient="vertical">
+	  <subfigure id="fig3a">
+	    <media id="idm9601168" alt=""><image src="../../media/fig3a.png" mime-type="image/png"/><image for="pdf" src="../../media/fig3a.eps" mime-type="application/postscript"/></media>
+	  </subfigure>
+	  <subfigure id="fig3b">
+	    <media id="idm1071504" alt=""><image src="../../media/fig3b.png" mime-type="image/png"/><image for="pdf" src="../../media/fig3b.eps" mime-type="application/postscript"/></media>
+	  </subfigure>
+	  <caption>Where
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci><m:msub>
+		    <m:mi>λ</m:mi>
+		    <m:mi>s</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:tan/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:ci><m:msub>
+			  <m:mi>ω</m:mi>
+			  <m:mi>s</m:mi>
+			</m:msub></m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math> and
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci><m:msub>
+		    <m:mi>λ</m:mi>
+		    <m:mi>p</m:mi>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:tan/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:ci><m:msub>
+			  <m:mi>ω</m:mi>
+			  <m:mi>p</m:mi>
+			</m:msub></m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>.
+	  </caption>
+	</figure>
+      </example>
+
+    </section>
+    
+  </content>
+  
+</document>

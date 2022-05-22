@@ -1,0 +1,1213 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>IIR Coefficient Quantization Analysis</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>a771fae7-82e1-4408-a7b3-36277721de79</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      Coefficient quantization is an important concern with IIR filters,
+      since straigthforward quantization often yields poor results, and because
+      quantization can produce unstable filters.
+    </para>
+    <section id="section1">
+      <title>Sensitivity analysis</title>
+      <para id="para2">
+	The performance and stability of an IIR filter depends
+	on the pole locations, so it is important to know how
+	quantization of the filter coefficients
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>a</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math> affects the pole locations
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>p</m:mi>
+	      <m:mi>j</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math>. The denominator polynomial is
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">D</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:uplimit>
+		  <m:ci>N</m:ci>
+		</m:uplimit>
+		<m:lowlimit>
+		  <m:cn>1</m:cn>
+		</m:lowlimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:product/>
+	      <m:bvar>
+		<m:ci>i</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:ci>N</m:ci>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:cn>1</m:cn>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:minus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mi>i</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:inverse/>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> We wish to know 
+	<m:math>
+	  <m:apply>
+	    <m:partialdiff/>
+	    <m:bvar>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:bvar>
+	    <m:apply>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>p</m:mi>
+		  <m:mi>i</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, which, for small deviations, will tell us that a
+	<m:math><m:ci>δ</m:ci></m:math> change in
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>a</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math> yields an
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>ε</m:ci>
+            <m:apply>
+              <m:times/>
+	    <m:ci>δ</m:ci>
+	    <m:apply>
+	      <m:partialdiff/>
+	      <m:bvar>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:bvar>
+	      <m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>p</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:apply>
+            </m:apply>
+	  </m:apply>
+	</m:math> change in the pole location.
+	<m:math>
+	  <m:apply>
+	    <m:partialdiff/>
+	    <m:bvar>
+	      <m:ci>
+		<m:msub>
+		    <m:mi>a</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:bvar>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>p</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub>
+	    </m:ci>
+	  </m:apply>
+	</m:math>
+	is the <term>sensitivity</term> of the pole location to
+	quantization of 
+	<m:math>
+	  <m:msub>
+	    <m:mi>a</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub>
+	</m:math>. We can find 
+	<m:math>
+	  <m:apply>
+	    <m:partialdiff/>
+	    <m:bvar>
+	      <m:ci>
+		<m:msub>
+		    <m:mi>a</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:bvar>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>p</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub>
+	    </m:ci>
+	  </m:apply>
+	</m:math> using the chain rule.  
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+	      <m:bvar>
+		<m:ci>z</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>p</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:partialdiff/>
+		<m:bvar>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:bvar>
+		<m:apply>
+		  <m:ci type="fn">A</m:ci>
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+	      <m:bvar>
+		<m:ci>z</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>p</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:partialdiff/>
+		  <m:bvar>
+		    <m:ci>z</m:ci>
+		  </m:bvar>
+		  <m:apply>
+		    <m:ci type="fn">A</m:ci>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:partialdiff/>
+		  <m:bvar>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>a</m:mi>
+			<m:mi>k</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:bvar>
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:mo>⇓</m:mo>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:partialdiff/>
+	      <m:bvar>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:bvar>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>p</m:mi>
+		  <m:mi>i</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+		<m:bvar>
+		  <m:ci>z</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mi>i</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:lowlimit>
+		<m:apply>
+		  <m:partialdiff/>
+		  <m:bvar>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>a</m:mi>
+			<m:mi>k</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:bvar>
+		  <m:apply>
+		    <m:ci type="fn">A</m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>z</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+		<m:bvar>
+		  <m:ci>z</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mi>i</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:lowlimit>
+		<m:apply>
+		  <m:partialdiff/>
+		  <m:bvar>
+		    <m:ci>z</m:ci>
+		  </m:bvar>
+		  <m:apply>
+		    <m:ci type="fn">A</m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>z</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	which is 
+	<equation id="equation57">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:partialdiff/>
+		<m:bvar>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:bvar>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>p</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+		<m:bvar>
+		  <m:ci>z</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>p</m:mi>
+		      <m:mi>i</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:lowlimit>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:inverse/>
+			<m:ci>z</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:product/>
+			<m:bvar>
+			  <m:ci>j</m:ci>
+			</m:bvar>
+			<m:condition>
+			  <m:apply>
+			    <m:neq/>
+			    <m:ci>j</m:ci>
+			    <m:ci>i</m:ci>
+			  </m:apply>
+			</m:condition>
+			<m:uplimit>
+			  <m:ci>N</m:ci>
+			</m:uplimit>
+			<m:lowlimit>
+			  <m:cn>1</m:cn>
+			</m:lowlimit>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>1</m:cn>
+			  <m:apply>
+			    <m:times/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>p</m:mi>
+				<m:mi>j</m:mi>
+			      </m:msub>
+			    </m:ci>
+			    <m:apply>
+			      <m:inverse/>
+			      <m:ci>z</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>p</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>N</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:product/>
+		  <m:bvar>
+		    <m:ci>j</m:ci>
+		  </m:bvar>
+		  <m:condition>
+		    <m:apply>
+		      <m:neq/>
+		      <m:ci>j</m:ci>
+		      <m:ci>i</m:ci>
+		    </m:apply>
+		  </m:condition>
+		  <m:lowlimit>
+		    <m:cn>1</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:ci>N</m:ci>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>p</m:mi>
+			<m:mi>j</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>p</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+
+	Note that as the poles get closer together, the sensitivity
+	increases greatly. So as the filter order increases and more poles
+	get stuffed closer together inside the unit circle, the error
+	introduced by coefficient quantization in the pole locations
+	grows rapidly.
+      </para>
+      <para id="para4.5">
+        How can we reduce this high sensitivity to IIR filter coefficient
+        quantization?
+      </para>
+      <section id="solsect">
+	<title>Solution</title>
+	<para id="para5">
+	  <link document="m11919" target-id="section6">Cascade</link>
+          or <link document="m11919" target-id="section20">parallel form</link>
+          implementations! The numerator and denominator polynomials
+	  can be factored off-line at very high precision and grouped into
+	  second-order sections, which are then quantized section by
+	  section. The sensitivity of the quantization is thus that
+	  of second-order, rather than
+	  <m:math><m:ci>N</m:ci></m:math>-th order, polynomials. This
+	  yields major improvements in the frequency response of the
+	  overall filter, and is almost always done in practice.
+	</para>
+	<para id="para6">
+	  Note that the numerator polynomial faces the same
+	  sensitivity issues; the <emphasis>cascade</emphasis> form
+	  also improves the sensitivity of the zeros, because they are
+	  also factored into second-order terms. However, in the
+	  <emphasis>parallel</emphasis> form, the zeros are globally
+	  distributed across the sections, so they suffer from
+	  quantization of all the blocks. Thus the
+	  <emphasis>cascade</emphasis> form preserves zero locations
+	  much better than the parallel form, which typically means
+	  that the stopband behavior is better in the cascade
+	  form, so it is most often used in practice.
+	</para>
+      </section>
+      <note type="Note on FIR Filters" id="idm1877552"><label>Note on FIR Filters</label>
+	On the basis of the preceding analysis, it would seem
+	important to use cascade structures in FIR filter
+	implementations. However, most FIR filters are linear-phase and
+        thus symmetric or anti-symmetric.  As long as the quantization is
+	implemented such that the filter coefficients retain
+	symmetry, the filter retains linear phase. Furthermore, since all
+	zeros off the unit circle must appear in groups of four for
+        symmetric linear-phase filters, zero
+	pairs can leave the unit circle only by joining with another
+	pair. This requires relatively severe quantizations (enough to
+	completely remove or change the sign of a ripple in the
+        amplitude response). This "reluctance" of pole pairs to leave the
+	unit circle tends to keep quantization from damaging the
+	frequency response as much as might be expected, enough so
+	that cascade structures are rarely used for FIR filters.
+      </note>
+      <exercise id="question2">
+	<problem id="idm159600">
+	  <para id="para8">
+	    What is the worst-case pole pair in an IIR digital filter?
+	  </para>
+	</problem>
+        <solution id="idp567040">
+          <para id="para8.5">
+The pole pair closest to the real axis in the z-plane, since the
+complex-conjugate poles will be closest together and thus have the
+highest sensitivity to quantization.
+          </para>
+        </solution>
+      </exercise>
+    </section>
+    <section id="section3">
+      <title>Quantized Pole Locations</title>
+      <para id="para9">
+	In a <link document="m11919" target-id="section1">direct-form</link>
+        or <link document="m11919" target-id="section4">transpose-form</link>
+        implementation of a second-order section, the filter coefficients are
+        quantized versions of the polynomial coefficients.
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">D</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>z</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>a</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>a</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>z</m:ci>
+		<m:ci>p</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>z</m:ci>
+		<m:apply>
+		  <m:conjugate/>
+		  <m:ci>p</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>p</m:ci>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:mo>±</m:mo>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:root/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>4</m:cn>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>p</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>r</m:ci>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>θ</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">D</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>z</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:ci>r</m:ci>
+		  <m:apply>
+		    <m:cos/>
+		    <m:ci>θ</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:power/>
+		<m:ci>r</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	So
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>a</m:mi>
+		<m:mn>1</m:mn>
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:ci>r</m:ci>
+		<m:apply>
+		  <m:cos/>
+		  <m:ci>θ</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>a</m:mi>
+		<m:mn>2</m:mn>
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>r</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	Thus the quantization of 
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>a</m:mi>
+	      <m:mn>1</m:mn>
+	    </m:msub>
+	  </m:ci>
+	</m:math>
+        and
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>a</m:mi>
+	      <m:mn>2</m:mn>
+	    </m:msub>
+	  </m:ci>
+	</m:math> to <m:math><m:ci>B</m:ci></m:math> bits restricts
+	the radius <m:math><m:ci>r</m:ci></m:math> to
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>r</m:ci>
+	    <m:apply>
+	      <m:root/>
+	      <m:apply>
+		<m:times/>
+		<m:ci>k</m:ci>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>Δ</m:mi>
+		    <m:mi>B</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, and 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>a</m:mi>
+		<m:mn>1</m:mn>
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:apply>
+		  <m:real/>
+		  <m:ci>p</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>k</m:ci>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>Δ</m:mi>
+		  <m:mi>B</m:mi>
+		</m:msub>
+	      </m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	The following figure shows all stable pole locations after
+        four-bit two's-complement quantization.
+	
+	<figure id="figure1">
+	  <media id="idm9628080" alt=""><image src="../../media/figdfpolelocs.png" mime-type="image/png"/></media>
+	</figure>
+	
+	Note the nonuniform distribution of possible pole
+	locations. This might be <emphasis>good</emphasis> for poles
+	near
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>r</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math>,
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>θ</m:ci>
+	    <m:apply>
+	      <m:divide/>
+	      <m:pi/>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, but not so good for poles near the origin or the Nyquist
+        frequency.
+      </para>
+      <para id="para11">
+	In the "normal-form" structures,
+        a <link document="m11920" target-id="state">state-variable</link> based
+	realization, the poles are uniformly spaced.
+        
+	<figure id="figure2">
+	  <media id="idm8131872" alt=""><image src="../../media/fignfpolelocs.png" mime-type="image/png"/></media>
+	</figure>
+	 
+	This can only be accomplished if the coefficients to be
+	quantized equal the real and imaginary parts of the pole
+	location; that is,
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>α</m:mi>
+		<m:mn>1</m:mn>
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>r</m:ci>
+	      <m:apply>
+		<m:cos/>
+		<m:ci>θ</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:real/>
+	      <m:ci>r</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>α</m:mi>
+		<m:mn>2</m:mn>
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>r</m:ci>
+	      <m:apply>
+		<m:sin/>
+		<m:ci>θ</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:imaginary/>
+	      <m:ci>p</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	This is the case for a 2nd-order system with the
+        <link document="m11920" target-id="section1">state matrix</link>
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>A</m:ci>
+	    <m:matrix>
+	      <m:matrixrow>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>α</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>α</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:matrixrow>
+	      <m:matrixrow>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>α</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:matrixrow>
+	    </m:matrix>
+	  </m:apply>
+	</m:math>: The denominator polynomial is
+	<equation id="eq1">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:determinant/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>z</m:ci>
+		    <m:ci>I</m:ci>
+		  </m:apply>
+		  <m:ci>A</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>z</m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>α</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>α</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>α</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>r</m:ci>
+		    <m:apply>
+		      <m:cos/>
+		      <m:ci>θ</m:ci>
+		    </m:apply>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>r</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:cos/>
+			<m:ci>θ</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:sin/>
+			<m:ci>θ</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>r</m:ci>
+		    <m:apply>
+		      <m:cos/>
+		      <m:ci>θ</m:ci>
+		    </m:apply>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>r</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply> 
+	    </m:apply>
+	  </m:math>
+	</equation>
+	Given any second-order filter coefficient set, we can write it
+	as a <link document="m11920" target-id="section1">state-space system</link>,
+        find a <link document="m11920" target-id="statetrans">transformation matrix</link>
+	<m:math><m:ci>T</m:ci></m:math> such that
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:mover>
+		<m:mi>A</m:mi>
+		<m:mi>^</m:mi>
+	      </m:mover>
+	    </m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:inverse/>
+		<m:ci>T</m:ci>
+	      </m:apply>
+	      <m:ci>A</m:ci>
+	      <m:ci>T</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> is in normal form, and then implement the
+	second-order section using a structure corresponding to
+        the state equations.
+      </para>
+
+      <para id="para15">
+	The normal form has a number of other advantages; both
+	eigenvalues are equal, so it minimizes the norm of
+	<m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:ci>A</m:ci>
+	    <m:ci>x</m:ci>
+	  </m:apply>
+	</m:math>, which makes overflow less likely, and it minimizes
+	the output variance due to quantization of the state
+	values. It is sometimes used when minimization of finite-precision
+	effects is critical.
+      </para>
+      <exercise id="question5">
+	<problem id="idm2045984">
+	  <para id="para16">
+	    What is the disadvantage of the normal form?
+	  </para>
+	</problem>
+        <solution id="idm1153920">
+          <para id="para17">
+            It requires more computation.  The general
+            <link document="m11920" target-id="state">state-variable equation</link>
+            requires nine multiplies, rather than the five used by the
+            <link document="m11919" target-id="section3">Direct-Form II</link>
+            or <link document="m11919" target-id="section4">Transpose-Form</link> structures.
+          </para>
+        </solution>
+      </exercise>
+    </section>
+  </content>
+  
+</document>

@@ -1,0 +1,107 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>DWT Applications - Choice of phi(t)</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>20974abb-0079-4dcc-abdf-eee5913ee004</md:uuid>
+</metadata>
+
+
+
+  <content>    
+<para id="para15">
+	Transforms are signal processing tools that are used to give a
+	clear view of essential signal characteristics.  Fourier
+	transforms are ideal for infinite-duration signals that
+	contain a relatively small number of sinusoids:  one can
+	completely describe the signal using only a few coefficients.
+	Fourier transforms, however, are not well-suited to signals of
+	a non-sinusoidal nature (as discussed earlier in the context of
+	<link document="m11003" strength="3">time-frequency analysis</link>).  The multi-resolution DWT is a more
+	general transform that is well-suited to a larger class of
+	signals.  For the DWT to give an efficient description of the
+	signal, however, we must choose a wavelet
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">ψ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:math> from which the signal can be constructed (to a good
+	approximation) using only a few stretched and shifted copies.
+      </para>
+
+      <para id="para16">
+	We illustrate this concept in <link target-id="fig4" strength="3"/> using two examples.  On the left, we analyze a
+	step-like waveform, while on the right we analyze a chirp-like
+	waveform.  In both cases, we try DWTs based on the Haar and
+	Daubechies <code>db10</code> wavelets and plot the log
+	magnitudes of the transform coefficients
+	<m:math>
+	  <m:list>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub> 
+		  <m:mi>c</m:mi> 
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub> 
+		  <m:mi>d</m:mi> 
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub> 
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>−</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub> 
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>−</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:ci>…</m:ci>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub> 
+		  <m:mi>d</m:mi> 
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:list>
+	</m:math>.
+      </para>
+
+      <figure id="fig4">
+	<media id="idp1171040" alt=""><image src="../../media/step_chirp_wave.png" mime-type="image/png"/></media>
+      </figure>
+
+      <para id="para17">
+	Observe that the Haar DWT yields an extremely efficient
+	representation of the step-waveform: only a few of the
+	transform coefficients are nonzero.  The
+	<code>db10</code> DWT does not give an efficient
+	representation: many coefficients are sizable.  This makes
+	sense because the Haar scaling function is well matched to the
+	step-like nature of the time-domain signal.  In contrast, the
+	Haar DWT does not give an efficient representation of the
+	chirp-like waveform, while the <code>db10</code> DWT
+	does better.  This makes sense because the sharp edges of the
+	Haar scaling function do not match the smooth chirp signal,
+	while the smoothness of the <code>db10</code> wavelet
+	yields a better match.
+      </para>
+  </content>
+  
+</document>

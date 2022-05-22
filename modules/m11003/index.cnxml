@@ -1,0 +1,692 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Limitations of Fourier Analysis</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>0397cb66-98d4-4870-82ab-92c1176130a8</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="p0">
+      Let's consider the Continuous-Time Fourier Transform (CTFT)
+      pair: 
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">X</m:ci>
+	    <m:ci>Ω</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:int/>
+	    <m:bvar>
+	      <m:ci>t</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:apply>
+		<m:minus/>
+		<m:infinity/>
+	      </m:apply>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:infinity/>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>Ω</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar>
+		<m:ci>Ω</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">X</m:ci>
+		  <m:ci>Ω</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>Ω</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      The Fourier transform pair supplies us with our notion of
+      "frequency." In other words, all of our intuitions regarding the
+      relationship between the time domain and the frequency domain
+      can be traced to this particular transform pair. 
+    </para>
+
+    <para id="para1">
+      It will be useful to view the CTFT in terms of basis
+      elements. The inverse CTFT equation above says that the
+      time-domain signal 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">x</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> can be expressed as a weighted
+      <emphasis>summation</emphasis> of basis elements
+
+      <m:math>
+	<m:apply>
+	  <m:set>
+	    <m:bvar>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:lt/>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+		<m:ci>Ω</m:ci>
+		<m:infinity/>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:set>
+	</m:apply>
+      </m:math>, where 
+      
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>Ω</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> is the basis element corresponding to frequency
+      <m:math><m:ci>Ω</m:ci></m:math>.  In other words, the
+      basis elements are parameterized by the variable
+      <m:math><m:ci>Ω</m:ci></m:math> that we call
+      <term>frequency</term>.  Finally,
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">X</m:ci>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math> specifies the weighting coefficient for 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">
+	    <m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.  In the case of the CTFT, the number of basis
+      elements is uncountably infinite, and thus we need an integral
+      to express the summation.
+    </para>
+
+    <para id="para2">
+      The Fourier Series (FS) can be considered as a special sub-case
+      of the CTFT that applies when the time-domain signal is
+      periodic. Recall that if 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">x</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> is periodic with period
+      <m:math><m:ci>T</m:ci></m:math>, then it can be expressed as a
+      weighted summation of basis elements
+
+      <m:math>
+	<m:apply>
+	  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+	  <m:bvar><m:ci>k</m:ci></m:bvar>
+	  <m:lowlimit>
+	    <m:apply>
+	      <m:minus/>
+	      <m:infinity/>
+	    </m:apply>
+	  </m:lowlimit>
+	  <m:uplimit>
+	    <m:infinity/>
+	  </m:uplimit>
+	  <m:apply>
+	    <m:set>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub><m:mi>b</m:mi><m:mi>k</m:mi></m:msub>
+		</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:set>
+	  </m:apply>
+	</m:apply>
+      </m:math>, where 
+      
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>b</m:mi><m:mi>k</m:mi></m:msub>
+	    </m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:pi/>
+		</m:apply>
+		<m:ci>T</m:ci>
+	      </m:apply>
+	      <m:ci>t</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>: 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar><m:ci>k</m:ci></m:bvar>
+	    <m:lowlimit>
+	      <m:apply>
+		<m:minus/>
+		<m:infinity/>
+	      </m:apply>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:infinity/>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">X</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		    </m:apply>
+		    <m:ci>T</m:ci>
+		  </m:apply>
+		  <m:ci>t</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">X</m:ci>
+	    <m:ci>k</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:ci>T</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>T</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>T</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			</m:apply>
+			<m:ci>T</m:ci>
+		      </m:apply>
+		      <m:ci>t</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      Here the basis elements comes from a countably-infinite set,
+      parameterized by the frequency index 
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>k</m:ci>
+	  <m:integers/>
+	</m:apply>
+      </m:math>.  The coefficients 
+
+      <m:math>
+	<m:apply>
+	  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+	  <m:bvar><m:ci>k</m:ci></m:bvar>
+	  <m:lowlimit>
+	    <m:apply>
+	      <m:minus/>
+	      <m:infinity/>
+	    </m:apply>
+	  </m:lowlimit>
+	  <m:uplimit>
+	    <m:infinity/>
+	  </m:uplimit>
+	  <m:apply>
+	    <m:set>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">X</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	    </m:set>
+	  </m:apply>
+	</m:apply>
+      </m:math> specify the strength of the corresponding basis
+      elements within signal 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">x</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.
+    </para>
+
+    <para id="para3">
+      Though quite popular, Fourier analysis is not always the best
+      tool to analyze a signal whose characteristics vary with
+      time.  For example, consider a signal composed of a periodic
+      component plus a sharp "glitch" at time 
+      <m:math>
+	<m:ci>
+	  <m:msub><m:mi>t</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+      </m:math>, illustrated in time- and frequency-domains, <link target-id="fig1" strength="3"/>.
+    </para>
+
+    <figure id="fig1">
+      <media id="idp2242752" alt=""><image src="../../media/figure1-0635.png" mime-type="image/png"/></media>
+      
+    </figure>
+
+    <para id="para4">
+      Fourier analysis is successful in reducing the
+      complicated-looking periodic component into a few simple
+      parameters: the frequencies 
+      <m:math>
+	<m:apply>
+	  <m:set>
+	    <m:ci>
+	      <m:msub><m:mi>Ω</m:mi><m:mn>1</m:mn></m:msub>
+	    </m:ci>
+	    <m:ci>
+	      <m:msub><m:mi>Ω</m:mi><m:mn>2</m:mn></m:msub>
+	    </m:ci>
+	  </m:set>
+	</m:apply>
+      </m:math> and their corresponding magnitudes/phases. The glitch
+      component, described compactly in terms of the time-domain
+      location 
+      <m:math><m:ci><m:msub><m:mi>t</m:mi><m:mn>0</m:mn></m:msub></m:ci></m:math>
+      and amplitude, however, is not described efficiently in the
+      frequency domain since it produces a wide spread of frequency
+      components. Thus, neither time- nor frequency-domain
+      representations alone give an efficient description of the
+      glitched periodic signal: each representation distills only
+      certain aspects of the signal.
+    </para>
+
+    <para id="para5">
+      As another example, consider the <term>linear chirp</term> 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">x</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:sin/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>Ω</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>t</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> illustrated in <link target-id="fig2" strength="3"/>. 
+    </para>
+
+    <figure id="fig2">
+      <media id="idm6119584" alt=""><image src="../../media/figure2-955f.png" mime-type="image/png"/></media>
+      
+    </figure>
+
+    <para id="para6">
+      Though written using the 
+      <m:math>
+	<m:apply>
+	  <m:sin/>
+	  <m:ci>·</m:ci>
+	</m:apply>
+      </m:math> function, the chirp is not described by a single
+      Fourier frequency.  We might try to be clever and write 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:sin/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>Ω</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>t</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:sin/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>Ω</m:ci>
+	      <m:ci>t</m:ci>
+	      <m:ci>·</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:sin/>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">Ω</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:ci>·</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      
+      where it now seems that signal has an <term>instantaneous
+      frequency</term>
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">Ω</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:ci>Ω</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> which grows linearly in time.  But here we must be
+      cautious!  Our newly-defined instantaneous frequency
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">Ω</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> is <emphasis>not</emphasis> consistent with the
+      Fourier notion of frequency.  Recall that the CTFT says that a
+      signal can be constructed as a superposition of fixed-frequency
+      basis elements 
+      <m:math>
+	<m:apply>
+	  <m:exp/>
+	  <m:apply>
+	    <m:times/>
+	    <m:imaginaryi/>
+	    <m:ci>Ω</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> with time support from 
+      <m:math>
+	<m:apply>
+	  <m:minus/>
+	  <m:infinity/>
+	</m:apply>
+      </m:math> to 
+      <m:math>
+	<m:apply>
+	  <m:mo>+</m:mo>
+	  <m:infinity/>
+	</m:apply>
+      </m:math>; these elements are evenly spread out over all time,
+      and so there is noting instantaneous about Fourier frequency!
+      So, while <term>instantaneous frequency</term> gives a compact
+      description of the linear chirp, Fourier analysis is not capable
+      of uncovering this simple structure.
+    </para>
+
+    <para id="para7">
+      As a third example, consider a sinusoid of frequency
+      <m:math><m:ci><m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub></m:ci></m:math>
+      that is rectangularly windowed to extract only one period (<link target-id="fig3" strength="3"/>).
+    </para>
+
+    <figure id="fig3">
+      <media id="idm5890320" alt=""><image src="../../media/figure3-f611.png" mime-type="image/png"/></media>
+      
+    </figure>
+
+    <para id="para8">
+      Instantaneous-frequency arguments would claim that 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:forall/>
+	  <m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">Ω</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:piecewise>
+		<m:piece>
+		  <m:ci><m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+		  <m:apply>
+		    <m:in/>
+		    <m:ci>t</m:ci>
+		    <m:mtext>window</m:mtext>
+		  </m:apply>
+		</m:piece>
+		<m:piece>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:notin/>
+		    <m:ci>t</m:ci>
+		    <m:mtext>window</m:mtext>
+		  </m:apply>
+		</m:piece>
+	      </m:piecewise>
+	    </m:apply>
+	  </m:condition>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">x</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sin/>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">Ω</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:ci>·</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      where 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">Ω</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> takes on exactly two distinct "frequency" values.  In
+      contrast, Fourier theory says that rectangular windowing induces
+      a frequency-domain spreading by a
+      <m:math>
+	<m:apply>
+	  <m:divide/>
+	  <m:apply>
+	    <m:sin/>
+	    <m:ci>Ω</m:ci>
+	  </m:apply>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math> profile, resulting in a continuum of Fourier
+      frequency components.  Here again we see that Fourier analysis
+      does not efficiently decompose signals whose "instantaneous
+      frequency" varies with time. 
+    </para>  
+  </content>
+  
+</document>

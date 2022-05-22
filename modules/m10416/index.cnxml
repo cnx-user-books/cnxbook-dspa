@@ -1,0 +1,1303 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  
+  <title>Time-Frequency Uncertainty Principle</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>39a0c12d-83ce-4de0-a364-1eb55b3f4671</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para9">
+      Recall that Fourier basis elements 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub>
+	    </m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>Ω</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> exhibit poor time localization abilities - a
+      consequence of the fact that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">
+	    <m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub>
+	  </m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> is evenly spread over all
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>t</m:ci>
+	  <m:interval closure="open">
+	    <m:apply>
+	      <m:minus/>
+	      <m:infinity/>
+	    </m:apply>
+	    <m:infinity/>
+	  </m:interval>
+	</m:apply>
+      </m:math>.  By <term>time localization</term> we mean the
+      ability to clearly identify signal events which manifest during
+      a short time interval, such as the "glitch" described in <link document="m11003" target-id="figure1" strength="3">an earlier
+      example</link>.
+    </para>
+
+    <para id="para10">
+      At the opposite extreme, a basis composed of shifted Dirac
+      deltas 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>b</m:mi><m:mi>τ</m:mi></m:msub>
+	    </m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci>Δ</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>t</m:ci>
+	      <m:ci>τ</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> would have excellent time localization but terrible
+      "frequency localization," since every Dirac basis element is
+      evenly spread over all Fourier frequencies
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>Ω</m:ci>
+	  <m:interval>
+	    <m:apply>
+	      <m:minus/>
+	      <m:infinity/>
+	    </m:apply>
+	    <m:infinity/>
+	  </m:interval>
+	</m:apply>
+      </m:math>. This can be seen via 
+
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub><m:mi>B</m:mi><m:mi>τ</m:mi></m:msub>
+	      </m:ci>
+	      <m:ci>Ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>b</m:mi><m:mi>τ</m:mi></m:msub>
+		  </m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>Ω</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math> 
+      <m:math>
+	<m:apply>
+	  <m:ci><m:mo>∀</m:mo></m:ci>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math>, regardless of <m:math><m:ci>τ</m:ci></m:math>.
+      By <term>frequency localization</term> we mean the ability to
+      clearly identify signal components which are concentrated at
+      particular Fourier frequencies, such as sinusoids.
+    </para>
+
+    <para id="para11">
+      These observations motivate the question: does there exist a
+      basis that provides both excellent frequency localization
+      <emphasis>and</emphasis> excellent time localization?  The answer
+      is "not really": there is a fundamental tradeoff between the
+      time localization and frequency localization of any basis
+      element.  This idea is made concrete below.
+    </para>
+
+    <para id="para12">
+      Let us consider an arbitrary waveform, or basis element,
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">b</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.  Its CTFT will be denoted by 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">B</m:ci>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math>.  Define the energy of the waveform to be
+      <m:math><m:ci>E</m:ci></m:math>, so that (by Parseval's theorem)
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>E</m:ci>
+	  <m:apply>
+	    <m:int/>
+	    <m:bvar><m:ci>t</m:ci></m:bvar>
+	    <m:lowlimit>
+	      <m:apply>
+		<m:minus/>
+		<m:infinity/>
+	      </m:apply>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:infinity/>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">b</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>Ω</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:ci type="fn">B</m:ci>
+		    <m:ci>Ω</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      
+      Next, define the temporal and spectral centers <footnote id="idp718032">It may be interesting to note that both
+	<m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:ci>E</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">b</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+		<m:ci>E</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">B</m:ci>
+		  <m:ci>Ω</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> are non-negative and integrate to one, thereby
+	satisfying the requirements of probability density functions
+	for random variables <m:math><m:ci>t</m:ci></m:math> and
+	<m:math><m:ci>Ω</m:ci></m:math>.  The temporal/spectral
+	centers can then be interpreted as the
+	<emphasis>means</emphasis> (<foreign>i.e.</foreign>, centers
+	of mass) of <m:math><m:ci>t</m:ci></m:math> and
+	<m:math><m:ci>Ω</m:ci></m:math>.</footnote> as
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>
+	    <m:msub><m:mi>t</m:mi><m:mi>c</m:mi></m:msub>
+	  </m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:ci>E</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci>t</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:ci type="fn">b</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>
+	    <m:msub><m:mi>Ω</m:mi><m:mi>c</m:mi></m:msub>
+	  </m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+		<m:ci>E</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>Ω</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:ci>Ω</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:ci type="fn">B</m:ci>
+		      <m:ci>Ω</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      and the temporal and spectral widths <footnote id="idp627680">The
+	quantities
+	<m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>
+	      <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	    </m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>
+	      <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	    </m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math> can be interpreted as the
+	<emphasis>variances</emphasis> of
+	<m:math><m:ci>t</m:ci></m:math> and
+	<m:math><m:ci>Ω</m:ci></m:math>, respectively. </footnote>
+	as
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	  </m:ci>
+	  <m:apply>
+	    <m:root/>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:ci>E</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>t</m:ci></m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>    
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>t</m:ci>
+		      <m:ci>
+			<m:msub><m:mi>t</m:mi><m:mi>c</m:mi></m:msub>
+		      </m:ci>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+			<m:ci type="fn">b</m:ci>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	  </m:ci>
+	  <m:apply>
+	    <m:root/>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:pi/>
+		  <m:ci>E</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>Ω</m:ci></m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>    
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>Ω</m:ci>
+		      <m:ci>
+			<m:msub><m:mi>Ω</m:mi><m:mi>c</m:mi></m:msub>
+		      </m:ci>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+			<m:ci type="fn">B</m:ci>
+			<m:ci>Ω</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      If the waveform is well-localized in time, then 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">b</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> will be concentrated at the point 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>t</m:mi>
+	    <m:mi>c</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      and
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>Δ</m:mi>
+	    <m:mi>t</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      will be small.  If the waveform is well-localized in frequency,
+      then 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">B</m:ci>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math>
+      will be concentrated at the point 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>Ω</m:mi>
+	    <m:mi>c</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      and 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>Δ</m:mi>
+	    <m:mi>Ω</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      will be small.  If the waveform is well-localized in both time
+      <emphasis>and</emphasis> frequency, then 
+      <m:math>
+	<m:apply>
+	  <m:times/>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	  </m:ci>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	  </m:ci>
+	</m:apply>
+      </m:math> will be small.  The quantity 
+      <m:math>
+	<m:apply>
+	  <m:times/>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	  </m:ci>
+	  <m:ci>
+	    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	  </m:ci>
+	</m:apply>
+      </m:math> is known as the <term>time-bandwidth product</term>.
+    </para>
+
+    <para id="para13">
+      From the definitions above one can derive the fundamental
+      properties below.  When interpreting the properties, it helps
+      to think of the waveform 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">b</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> as a prototype that can be used to generate an entire
+      basis set.  For example, the Fourier basis
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub>
+	      </m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:lt/>
+	      <m:apply>
+		<m:minus/>
+		<m:infinity/>
+	      </m:apply>
+	      <m:ci>Ω</m:ci>
+	      <m:infinity/>
+	    </m:apply>
+	  </m:condition>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub><m:mi>b</m:mi><m:mi>Ω</m:mi></m:msub>
+	    </m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:set>
+      </m:math> can be generated by frequency shifts of 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">b</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math>,
+      while the Dirac basis 
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub><m:mi>b</m:mi><m:mi>τ</m:mi></m:msub>
+	      </m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:lt/>
+	      <m:apply>
+		<m:minus/>
+		<m:infinity/>
+	      </m:apply>
+	      <m:ci>τ</m:ci>
+	      <m:infinity/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+	<m:apply>
+	  <m:ci type="fn">
+	    <m:msub><m:mi>b</m:mi><m:mi>τ</m:mi></m:msub>
+	  </m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> can be generated by time shifts of 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">b</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">δ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <list id="list1" list-type="enumerated">
+	<item>
+	  <m:math>
+	    <m:ci><m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub></m:ci>
+	  </m:math>
+	  and 
+	  <m:math>
+	    <m:ci><m:msub>
+		<m:mi>Δ</m:mi>
+		<m:mi>Ω</m:mi>
+	      </m:msub></m:ci>
+	  </m:math>
+	  are invariant to time and frequency <footnote id="idm7323824">Keep in mind the fact that
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">b</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math> and
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">B</m:ci>
+		  <m:ci>Ω</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar><m:ci>t</m:ci></m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>    
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">b</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>Ω</m:ci>
+			  <m:ci>t</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math> are alternate descriptions of the same
+	    waveform; we could have written 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn">b</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci><m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math> in place of 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:ci type="fn">B</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>Ω</m:ci>
+		    <m:ci>
+		      <m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub>
+		    </m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math> above.
+	  </footnote> shifts. 
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:forall/>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci><m:msub>
+		      <m:mi>t</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		  <m:reals/>
+		</m:apply>
+	      </m:condition>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">b</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">b</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>t</m:ci>
+		      <m:ci><m:msub><m:mi>t</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:forall/>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci><m:msub>
+		      <m:mi>Ω</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		  <m:reals/>
+		</m:apply>
+	      </m:condition>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">B</m:ci>
+		    <m:ci>Ω</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">B</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>Ω</m:ci>
+		      <m:ci><m:msub><m:mi>Ω</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  This implies that all basis elements constructed from time
+	  and/or frequency shifts of a prototype waveform 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">b</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math> will inherit the temporal and spectral widths of
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">b</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math>.
+	</item>
+	<item>
+	  The <term>time-bandwidth product</term> 
+	  <m:math>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>
+		<m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+	      </m:ci>
+	      <m:ci>
+		<m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+	      </m:ci>
+	    </m:apply>
+	  </m:math> is invariant to time-scaling.  <footnote id="idm461680">The invariance property holds also for
+	    frequency scaling, as implied by the Fourier transform
+	    property
+
+	    <m:math>
+	      <m:apply>
+		<m:ci><m:mo>⇔</m:mo></m:ci>
+		<m:apply>
+		  <m:ci type="fn">b</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>a</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:abs/>
+		      <m:ci>a</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">B</m:ci>
+		    <m:apply>
+		      <m:divide/>
+		      <m:ci>Ω</m:ci>
+		      <m:ci>a</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>. </footnote>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:ci type="fn">b</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>a</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:abs/>
+		    <m:ci>a</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">b</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">
+		  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:ci type="fn">b</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>a</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>a</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">b</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  The above two equations imply 
+	  
+	  <m:math display="block">
+	    <m:apply>
+	      <m:forall/>
+	      <m:condition>
+		<m:apply>
+		  <m:in/>
+		  <m:ci>a</m:ci>
+		  <m:reals/>
+		</m:apply>
+	      </m:condition>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:ci type="fn">b</m:ci>
+		      <m:apply>
+			<m:times/>
+			<m:ci>a</m:ci>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:ci type="fn">b</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  Observe that time-domain expansion (<foreign>i.e.</foreign>, 
+
+	  <m:math>
+	    <m:apply>
+	      <m:lt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>a</m:ci>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math>) increases the temporal width but decreases the
+	  spectral width, while time-domain contraction
+	  (<foreign>i.e.</foreign>,
+	  <m:math>
+	    <m:apply>
+	      <m:gt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>a</m:ci>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math>) does the opposite.  This suggests that
+	  time-scaling might be a useful tool for the design of a
+	  basis element with a particular tradeoff between time and
+	  frequency resolution.  On the other hand, scaling cannot
+	  simultaneously increase both time <emphasis>and</emphasis>
+	  frequency resolution.
+	</item>
+
+	<item>
+	  No waveform can have time-bandwidth product less than 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:math>. 
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:geq/>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		</m:ci>
+		<m:ci>
+		  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  This is known as the <term>time-frequency uncertainty
+	  principle</term>.
+	</item>
+
+	<item>
+	  The Gaussian pulse 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">g</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math> achieves the minimum time-bandwidth product
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub><m:mi>Δ</m:mi><m:mi>t</m:mi></m:msub>
+		</m:ci>
+		<m:ci>
+		  <m:msub><m:mi>Δ</m:mi><m:mi>Ω</m:mi></m:msub>
+		</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>. 
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">g</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:ci>t</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">G</m:ci>
+		<m:ci>Ω</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>Ω</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  Note that this waveform is neither bandlimited nor
+	  time-limited, but reasonable concentrated in both domains
+	  (around the points 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>
+		<m:msub><m:mi>t</m:mi><m:mi>c</m:mi></m:msub>
+	      </m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:math> and 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>
+		<m:msub><m:mi>Ω</m:mi><m:mi>c</m:mi></m:msub>
+	      </m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:math>).
+	</item>
+      </list>
+
+      Properties 1 and 2 can be easily verified using the definitions
+      above.  Properties 3 and 4 follow from the <link document="m10757" strength="3">Cauchy-Schwarz inequality</link>.
+    </para>
+
+    <para id="para14">
+      Since the Gaussian pulse 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">g</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> achieves the minimum time-bandwidth product, it makes
+      for a theoretically good prototype waveform.  In other words, we
+      might consider constructing a basis from time shifted, frequency
+      shifted, time scaled, or frequency scaled versions of
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">g</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> to give a range of spectral/temporal centers and
+      spectral/temporal resolutions.  Since the Gaussian pulse has
+      doubly-infinite time-support, though, other windows are used in
+      practice.  Basis construction from a prototype waveform is the
+      main concept behind <link document="m10417" strength="3">Short-Time Fourier Analysis</link> and the <link document="m10418" strength="3">continuous Wavelet
+      transform</link> discussed later.
+    </para>
+    
+  </content>
+</document>

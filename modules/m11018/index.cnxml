@@ -1,0 +1,232 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Initialization of the Wavelet Transform</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>35d7414f-3287-495e-a7f5-f5bd17fdd02d</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="para1">
+      The filterbanks developed in the module on the <link document="m10474" strength="3">filterbanks interpretation of
+	the DWT</link> start with the signal representation
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>n</m:ci>
+	      <m:integers/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math> and break the representation down into wavelet
+      coefficients and scaling coefficients at lower resolutions
+      (<foreign>i.e.</foreign>, higher levels
+      <m:math><m:ci>k</m:ci></m:math>).  The question remains: how do
+      we get the initial coefficients
+      <m:math>
+	<m:set>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msub>
+		<m:mi>c</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:set>
+      </m:math>?
+    </para>
+
+    <para id="para2">
+      From their definition, we see that the scaling coefficients
+      can be written using a convolution:
+      <equation id="eq1">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub></m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>t</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">x</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar><m:ci>t</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>t</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat"/>
+	      <m:condition>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>t</m:ci>
+		  <m:ci><m:msup>
+		      <m:mi>n</m:mi>
+		      <m:mo>′</m:mo>
+		    </m:msup></m:ci>
+		</m:apply>
+	      </m:condition>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+		<m:apply>
+		  <m:ci type="fn">φ</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      which suggests that the proper initialization of wavelet
+      transform is accomplished by passing the continuous-time input 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">x</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> through an analog filter with impulse response 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> and sampling its output at integer times (<link target-id="daub_wave" strength="3"/>).
+    </para>
+
+    <figure id="daub_wave">
+      <media id="idp7049184" alt=""><image src="../../media/waveletsampling.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="para3">
+      Practically speaking, however, it is very difficult to build
+      an analog filter with impulse response 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> for typical choices of scaling function.
+    </para>
+
+    <para id="para4">
+      The most often-used approximation is to set 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msub>
+		<m:mi>c</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">x</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>.  The sampling theorem implies that this would be
+      exact if 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">φ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:sin/>
+	      <m:apply>
+		<m:times/>
+		<m:pi/>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:pi/>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>, though clearly this is not
+      <emphasis>correct</emphasis> for general
+      <m:math> 
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.  Still, this technique is somewhat justified if we
+      adopt the view that the principle advantage of the wavelet
+      transform comes from the multi-resolution capabilities implied
+      by an iterated perfect-reconstruction filterbank (with
+      <emphasis>good</emphasis> filters).
+    </para>
+
+  </content>
+</document>

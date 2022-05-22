@@ -1,0 +1,188 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>DWT Implementation using FFTs</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>4b3270da-91e8-4edc-a2a4-f775dcf23949</md:uuid>
+</metadata>
+
+
+
+  <content>
+      <para id="para9">
+	Finally, we say a few words about DWT implementation.  Here
+	we focus on a single DWT stage and assume circular
+	convolution, yielding an
+	<m:math><m:ci>M</m:ci></m:math>x<m:math><m:ci>M</m:ci></m:math>
+	DWT matrix 
+	<m:math>
+	  <m:ci type="matrix"><m:msub> 
+	      <m:mi>T</m:mi> 
+	      <m:mi>M</m:mi>
+	    </m:msub></m:ci> 
+	</m:math>
+	.  In the general case,
+	<m:math><m:ci>M</m:ci></m:math>x<m:math><m:ci>M</m:ci></m:math>
+	matrix multiplication requires 
+	<m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>M</m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math> multiplications.  The DWT matrices, however, have
+	a circular-convolution structure which allows us to
+	implement them using significantly less multiplies.  Below
+	we present some simple and reasonably efficient approaches
+	for the implementation of 
+	<m:math>
+	  <m:ci type="matrix"><m:msub> 
+	      <m:mi>T</m:mi> 
+	      <m:mi>M</m:mi>
+	    </m:msub></m:ci> 
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:transpose/>
+	    <m:ci type="matrix"><m:msub> 
+		<m:mi>T</m:mi> 
+		<m:mi>M</m:mi>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:math>.
+      </para>
+
+      <para id="para10">
+	We treat the inverse DWT first.  Recall that in the lowpass
+	synthesis branch, we upsample the input before circularly
+	convolving with
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	</m:math>.  Denoting the upsampled coefficient sequence by 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">a</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:math>, fast circular convolution 
+	<m:math>
+	  <m:apply>
+	    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">a</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> can be described as follows (using Matlab
+	notation)
+      </para>
+      <code display="block" id="idm514320">
+	ifft( fft(a).*fft(h,length(a)) )
+      </code>
+      <para id="para11">
+	where we have assumed that <code>length(a) ≥
+	  length(h)</code>. <footnote id="idm2167040">When
+	  implementing the multi-level transform, you must ensure that
+	  the data length does not become shorter than the filter
+	  length!</footnote>  The highpass branch is handled
+	similarly using 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">G</m:ci>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	</m:math>, after which the two branch outputs are summed.
+      </para>
+
+      <para id="para12">
+	Next we treat the forward DWT.  Recall that in the lowpass
+	analysis branch, we circularly convolve the input with 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:apply>
+	      <m:inverse/>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> and then downsample the result.  The fast circular
+	convolution 
+	<m:math>
+	  <m:apply>
+	    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">a</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> can be implemented using
+      </para>
+      <code display="block" id="idm841552">
+	wshift('1', ifft(fft(a).*fft(flipud(h),length(a))), length(h)-1 )
+      </code>
+
+      <para id="para13">
+	where <code>wshift</code> accomplishes a circular
+	shift of the <code>ifft</code> output that makes up
+	for the unwanted delay of <code>length(h)-1</code>
+	samples imposed by the <code>flipud</code> operation.
+	The highpass branch is handled similarly but with filter
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">G</m:ci>
+	    <m:apply>
+	      <m:inverse/>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>.  Finally, each branch is downsampled by factor two.
+      </para>
+
+      <para id="para14">
+	We note that the proposed approach is not totally efficient
+	because downsampling is performed after circular convolution
+	(and upsampling before circular convolution).  Still, we have
+	outlined this approach because it is easy to understand and
+	still results in major saving when
+	<m:math><m:ci>M</m:ci></m:math> is large: it converts the 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">O</m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>M</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> matrix multiply into an 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">O</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>M</m:ci>
+	      <m:apply>
+		<m:log/>
+		<m:logbase>
+		  <m:cn>2</m:cn>
+		</m:logbase>
+		<m:ci>M</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> operation.
+      </para>
+  </content>
+  
+</document>

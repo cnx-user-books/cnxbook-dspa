@@ -1,0 +1,1085 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Linear Phase Filters</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>196c22b9-e87e-44d2-8f32-d930e9322b58</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      In general, for 
+      <m:math>
+	<m:apply>
+	  <m:leq/>
+	  <m:apply>
+	    <m:minus/>
+	    <m:pi/>
+	  </m:apply>
+	  <m:ci>ω</m:ci>
+	  <m:pi/>
+	</m:apply>
+      </m:math> 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:apply>
+		    <m:ci type="fn">θ</m:ci>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      Strictly speaking, we say 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci>ω</m:ci>
+	</m:apply>
+      </m:math> is linear phase if 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>ω</m:ci>
+		  <m:ci>K</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci><m:msub>
+		      <m:mi>θ</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      Why is this important?  A linear phase response gives the
+      <emphasis>same time delay for <emphasis>ALL</emphasis>
+      frequencies</emphasis>!  (Remember the shift theorem.)  This is
+      very desirable in many applications, particularly when the
+      appearance of the time-domain waveform is of interest, such as
+      in an oscilloscope.  (see <link target-id="fig1"/>)
+
+      <figure id="fig1">
+	<media id="idm1683632" alt=""><image src="../../media/imag001-9174.png" mime-type="image/png"/><image for="pdf" src="../../media/imag001-9311.eps" mime-type="application/postscript"/></media>
+      </figure>
+    </para>
+
+    <section id="sec1">
+      <title>Restrictions on h(n) to get linear phase</title>
+      <para id="para2">
+	<equation id="eqn1">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar><m:ci>h</m:ci></m:bvar>
+		<m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+		<m:uplimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>M</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:ci type="fn">h</m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>2</m:cn>
+			<m:ci>ω</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:ci>…</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn">h</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>M</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>ω</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>M</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">h</m:ci>
+		      <m:cn>0</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+			<m:apply>
+			  <m:divide/>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>M</m:ci>
+			    <m:cn>1</m:cn>
+			  </m:apply>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">h</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>M</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>ω</m:ci>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>M</m:ci>
+			      <m:cn>1</m:cn>
+			    </m:apply>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>ω</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>M</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:plus/>
+			<m:apply>
+			  <m:ci type="fn">h</m:ci>
+			  <m:cn>0</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:ci type="fn">h</m:ci>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>M</m:ci>
+			    <m:cn>1</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:cos/>
+			<m:apply>
+			  <m:times/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>M</m:ci>
+			      <m:cn>1</m:cn>
+			    </m:apply>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			  <m:ci>ω</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:plus/>
+			<m:apply>
+			  <m:ci type="fn">h</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:ci type="fn">h</m:ci>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>M</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:cos/>
+			<m:apply>
+			  <m:times/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>M</m:ci>
+			      <m:cn>3</m:cn>
+			    </m:apply>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			  <m:ci>ω</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:ci>…</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:ci type="fn">h</m:ci>
+			    <m:cn>0</m:cn>
+			  </m:apply>
+			  <m:apply>
+			    <m:ci type="fn">h</m:ci>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>M</m:ci>
+			      <m:cn>1</m:cn>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+			<m:apply>
+			  <m:sin/>
+			  <m:apply>
+			    <m:times/>
+			    <m:apply>
+			      <m:divide/>
+			      <m:apply>
+				<m:minus/>
+				<m:ci>M</m:ci>
+				<m:cn>1</m:cn>
+			      </m:apply>
+			      <m:cn>2</m:cn>
+			    </m:apply>
+			    <m:ci>ω</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:ci>…</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	For linear phase, we require the right side of <link target-id="eqn1"/> to be 
+	<m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci><m:msub>
+		      <m:mi>θ</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>(real,positive function of ω)</m:mtext>
+	  </m:apply>
+	</m:math>.  For 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>θ</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>, we thus require 
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>real number</m:mtext>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>pure imaginary number</m:mtext>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>pure real number</m:mtext>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>pure imaginary number</m:mtext>
+	  </m:apply>
+	</m:math>
+	<m:math display="block">
+	  <m:ci>⋮</m:ci>
+	</m:math>
+
+	Thus 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">h</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn"><m:msup>
+		    <m:mi>h</m:mi>
+		    <m:mo>*</m:mo>
+		  </m:msup></m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>M</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> is a <emphasis>necessary</emphasis> condition for
+	the right side of <link target-id="eqn1"/> to be real valued, for
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>θ</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>.
+      </para>
+
+      <para id="para3">
+	For 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>θ</m:mi>
+		<m:mn>0</m:mn>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:divide/>
+	      <m:pi/>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, or 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci><m:msub>
+		      <m:mi>θ</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:minus/>
+	      <m:imaginaryi/>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, we require 
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>pure imaginary</m:mtext>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:mtext>pure real number</m:mtext>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:ci>⋮</m:ci>
+	</m:math>
+
+	<m:math display="block">
+	  <m:mo>⇒</m:mo>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">h</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn"><m:msup>
+			<m:mi>h</m:mi>
+			<m:mo>*</m:mo>
+		      </m:msup></m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>M</m:ci>
+			<m:cn>1</m:cn>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </para>
+
+      <para id="para4">
+	Usually, one is interested in filters with
+	<emphasis>real-valued</emphasis> coefficients, or see <link target-id="fig2"/> and <link target-id="fig3"/>.
+	<figure id="fig2"><media id="idm9519264" alt=""><image src="../../media/imag002-a3b3.png" mime-type="image/png"/><image for="pdf" src="../../media/imag002-69a4.eps" mime-type="application/postscript"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci><m:msub>
+		    <m:mi>θ</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:math> (Symmetric Filters).
+<m:math>
+<m:apply>
+<m:eq/>
+<m:apply><m:ci type="fn">h</m:ci><m:ci>k</m:ci></m:apply>
+<m:apply><m:ci type="fn">h</m:ci>
+<m:apply><m:minus/><m:apply><m:minus/><m:ci>M</m:ci><m:cn>1</m:cn></m:apply>
+<m:ci>k</m:ci></m:apply></m:apply></m:apply></m:math>.
+	  </caption>
+	</figure>
+	<figure id="fig3">
+<media id="idm9904560" alt=""><image src="../../media/imag003-984c.png" mime-type="image/png"/><image for="pdf" src="../../media/imag003-5841.eps" mime-type="application/postscript"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci><m:msub>
+		    <m:mi>θ</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:pi/>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:math> (Anti-Symmetric Filters).
+<m:math>
+<m:apply>
+<m:eq/>
+<m:apply><m:ci type="fn">h</m:ci><m:ci>k</m:ci></m:apply>
+<m:apply><m:minus/>
+<m:apply><m:ci type="fn">h</m:ci>
+<m:apply><m:minus/><m:apply><m:minus/><m:ci>M</m:ci><m:cn>1</m:cn></m:apply>
+<m:ci>k</m:ci></m:apply></m:apply></m:apply></m:apply></m:math>.
+	  </caption>
+	</figure>
+	Filter design techniques are usually slightly different for
+	each of these four different filter types.  We will study the
+	most common case, symmetric-odd length, in detail, and often
+	leave the others for homework or tests or for when one
+	encounters them in practice.  Even-symmetric filters are often
+	used; the anti-symmetric filters are rarely used in practice,
+	except for special classes of filters, like differentiators or
+	Hilbert transformers, in which the desired response is
+	anti-symmetric.
+      </para>
+
+      <para id="para5">
+	So far, we have satisfied the condition that 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">A</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci><m:msub>
+			<m:mi>θ</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub></m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>ω</m:ci>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>M</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	where 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">A</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	</m:math>
+	is <emphasis>real-valued</emphasis>.  However, we have
+	<emphasis>not</emphasis> assured that
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">A</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	</m:math> is <emphasis>non-negative</emphasis>.  In general,
+	this makes the design techniques much more difficult, so most
+	FIR filter design methods actually design filters with
+	<term>Generalized Linear Phase</term>: 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">A</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>ω</m:ci>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>M</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, where 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">A</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	</m:math> is <emphasis>real-valued</emphasis>, but possible negative. 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">A</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	</m:math> is called the <term>amplitude of the frequency
+	response</term>.
+	<note type="excuse" id="idm1128304"><label>Excuse</label> 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">A</m:ci>
+	    <m:ci>ω</m:ci>
+	  </m:apply>
+	</m:math> usually goes negative only in the stopband, and the
+	stopband phase response is generally unimportant.</note>
+	<note type="note" id="idm9194624">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci><m:mo>±</m:mo></m:ci>
+		<m:apply>
+		  <m:ci type="fn">A</m:ci>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">A</m:ci>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:pi/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:minus/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:ci><m:mo>sign</m:mo></m:ci>
+			  <m:apply>
+			    <m:ci type="fn">A</m:ci>
+			    <m:ci>ω</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> where 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci><m:mo>sign</m:mo></m:ci>
+		<m:ci>x</m:ci>
+	      </m:apply>
+	      <m:piecewise>
+		<m:piece>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:gt/>
+		    <m:ci>x</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		</m:piece>
+		<m:piece>
+		  <m:cn>-1</m:cn>
+		  <m:apply>
+		    <m:lt/>
+		    <m:ci>x</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		</m:piece>
+	      </m:piecewise>
+	    </m:apply>
+	  </m:math>
+	</note>
+      </para>
+      
+      <example id="ex1">
+	<para id="para7"><title>Lowpass Filter</title>
+	  
+	  <figure id="fig4">
+            <title>Desired |H(ω)|</title>
+	    <media id="idm9802976" alt=""><image src="../../media/imag004-466a.png" mime-type="image/png"/><image for="pdf" src="../../media/imag004-8a55.eps" mime-type="application/postscript"/></media>
+	  </figure>
+	  <figure id="fig5">
+          <title>Desired ∠H(ω)</title>
+<media id="idm2933376" alt=""><image src="../../media/imag005-631d.png" mime-type="image/png"/><image for="pdf" src="../../media/imag005-c3fd.eps" mime-type="application/postscript"/></media>
+        <caption>The slope of each line is <m:math>
+<m:apply>
+<m:minus/><m:apply><m:divide/>
+<m:apply><m:minus/><m:ci>M</m:ci><m:cn>1</m:cn></m:apply>
+<m:cn>2</m:cn></m:apply></m:apply></m:math>.</caption>
+	  </figure>
+	  <figure id="fig6">
+            <title>Actual |H(ω)|</title>
+<media id="idm9948672" alt=""><image src="../../media/imag006-8656.png" mime-type="image/png"/><image for="pdf" src="../../media/imag006-8e5e.eps" mime-type="application/postscript"/></media>
+        <caption><m:math><m:apply><m:ci type="fn">A</m:ci><m:ci>ω</m:ci>
+</m:apply></m:math> goes negative.</caption>
+	  </figure>
+<figure id="fig7">
+          <title>Actual ∠H(ω)</title>
+<media id="idm1197680" alt=""><image src="../../media/imag007-8af1.png" mime-type="image/png"/><image for="pdf" src="../../media/imag007-47da.eps" mime-type="application/postscript"/></media>
+        <caption><m:math>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+	      </m:apply>
+	    </m:math> phase jumps due to periodicity of phase.
+	    <m:math><m:pi/></m:math> phase jumps due to sign change in
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">A</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:math>.</caption>
+	  </figure>
+	  
+	 
+	  Time-delay introduces generalized linear phase.
+	  <note type="note" id="idm2178288">
+	    For odd-length FIR filters, a linear-phase design
+	    procedure is equivalent to a zero-phase design procedure
+	    followed by an
+	    <m:math>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:math>-sample delay of the <link document="m12041">impulse response</link>.  For
+	    even-length filters, the delay is non-integer, and the
+	    linear phase must be incorporated directly in the desired
+	    response!
+	  </note>
+	</para>
+      </example>
+
+    </section>
+  </content>
+  
+</document>

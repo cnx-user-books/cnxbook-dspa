@@ -1,0 +1,18 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Hilbert Space Theory</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>81ef4c83-2119-420a-8996-fd3fc2199f94</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="para1">
+      Hilbert spaces provide the mathematical foundation for signal
+      processing theory.  In this section we attempt to clearly
+      define some key Hilbert space concepts like <link document="m10419" strength="3">vectors</link>, <link document="m10428" strength="3">norms</link>, <link document="m10430" strength="3">inner products</link>, <link document="m10434" strength="3">subspaces</link>, <link document="m10434" strength="3">orthogonality</link>, <link document="m10434" strength="3">orthonormal bases</link>, and <link document="m10434" strength="3">projections</link>.  The intent is not to bury you
+      in mathematics, but to familiarize you with the terminology,
+      provide intuition, and leave you with a "lookup table" for
+      future reference.
+    </para>
+  </content>
+  
+</document>

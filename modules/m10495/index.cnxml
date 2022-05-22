@@ -1,0 +1,1368 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  
+  <title>Regularity Conditions, Compact Support, and Daubechies' Wavelets</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>f5c17643-a09b-4947-a499-129d2b910600</md:uuid>
+</metadata>
+  
+  <content>
+    <para id="para5">
+      Here we give a quick description of what is
+      probably the most popular family of filter coefficients
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete">h</m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> and 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete">g</m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> — those proposed by Daubechies.
+    </para>
+
+    <para id="para6">
+      Recall the iterated synthesis filterbank.  Applying the Noble
+      identities, we can move the up-samplers before the filters, as
+      illustrated in <link target-id="fig2" strength="3"/>.
+    </para>
+
+    <figure id="fig2">
+      <media id="idm7636448" alt=""><image src="../../media/up_samplers.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="para7">
+      The properties of the <m:math><m:ci>i</m:ci></m:math>-stage
+      cascaded lowpass filter
+      <equation id="eq2">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:condition>
+	      <m:apply>
+		<m:geq/>
+		<m:ci>i</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn"><m:msup>
+		    <m:mi>H</m:mi>
+		    <m:mrow>
+		      <m:mo>(</m:mo>
+		      <m:mi>i</m:mi>
+		      <m:mo>)</m:mo>
+		    </m:mrow>
+		  </m:msup></m:ci>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:product/>
+		<m:bvar><m:ci>k</m:ci></m:bvar>
+		<m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+		<m:uplimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>i</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:uplimit>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      in the limit 
+      <m:math>
+	<m:apply>
+	  <m:tendsto/>
+	  <m:ci>i</m:ci>
+	  <m:infinity/>
+	</m:apply>
+      </m:math> give an important characterization of the wavelet
+      system.  But how do we know that
+      <m:math>
+	<m:apply>
+	  <m:limit/>
+	  <m:bvar><m:ci>i</m:ci></m:bvar>
+	  <m:lowlimit>
+	    <m:infinity/>
+	  </m:lowlimit>
+	  <m:apply>
+	    <m:ci type="fn"><m:msup>
+		<m:mi>H</m:mi>
+		<m:mrow>
+		  <m:mo>(</m:mo>
+		  <m:mi>i</m:mi>
+		  <m:mo>)</m:mo>
+		</m:mrow>
+	      </m:msup></m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> converges to a response in 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>ℒ</m:mi>
+	    <m:mn>2</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      ?  In fact, there are some rather strict conditions on
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> that must be satisfied for this convergence to
+      occur.  Without such convergence, we might have a finite-stage
+      perfect reconstruction filterbank, but we will
+      <emphasis>not</emphasis> have a countable wavelet basis for 
+      <m:math>
+	<m:ci><m:msub> 
+	    <m:mi>ℒ</m:mi> 
+	    <m:mn>2</m:mn>
+	  </m:msub></m:ci> 
+      </m:math>
+      .  Below we present some "regularity conditions" on
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> that ensure convergence of the iterated synthesis
+      lowpass filter.  <note type="note" id="idm5866000">The convergence of the
+	lowpass filter implies convergence of all other filters in the
+	bank.</note>
+    </para>
+
+    <para id="para8">
+      Let us denote the impulse response of 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msup>
+	      <m:mi>H</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>z</m:ci>
+	</m:apply>
+      </m:math> by 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete"><m:msup>
+	      <m:mi>h</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math>.  Writing 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msup>
+		<m:mi>H</m:mi>
+		<m:mrow>
+		  <m:mo>(</m:mo>
+		  <m:mi>i</m:mi>
+		  <m:mo>)</m:mo>
+		</m:mrow>
+	      </m:msup></m:ci>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>z</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>i</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn"><m:msup>
+		  <m:mi>H</m:mi>
+		  <m:mrow>
+		    <m:mo>(</m:mo>
+		    <m:mi>i</m:mi>
+		    <m:mo>−</m:mo>
+		    <m:mn>1</m:mn>
+		    <m:mo>)</m:mo>
+		  </m:mrow>
+		</m:msup></m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      in the time domain, we have 
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msup>
+		<m:mi>h</m:mi>
+		<m:mrow>
+		  <m:mo>(</m:mo>
+		  <m:mi>i</m:mi>
+		  <m:mo>)</m:mo>
+		</m:mrow>
+	      </m:msup></m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar><m:ci>k</m:ci></m:bvar>
+	    <m:domainofapplication>
+	      <m:ci>k</m:ci>
+	    </m:domainofapplication>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msup>
+		    <m:mi>h</m:mi>
+		    <m:mrow>
+		      <m:mo>(</m:mo>
+		      <m:mi>i</m:mi>
+		      <m:mo>−</m:mo>
+		      <m:mn>1</m:mn>
+		      <m:mo>)</m:mo>
+		    </m:mrow>
+		  </m:msup></m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>i</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      Now define the function 
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msup>
+		<m:mi>φ</m:mi>
+		<m:mrow>
+		  <m:mo>(</m:mo>
+		  <m:mi>i</m:mi>
+		  <m:mo>)</m:mo>
+		</m:mrow>
+	      </m:msup></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:divide/>
+		<m:ci>i</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:domainofapplication>
+		<m:ci>n</m:ci>
+	      </m:domainofapplication>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msup>
+		      <m:mi>h</m:mi>
+		      <m:mrow>
+			<m:mo>(</m:mo>
+			<m:mi>i</m:mi>
+			<m:mo>)</m:mo>
+		      </m:mrow>
+		    </m:msup></m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>ℐ</m:mi>
+		      <m:mrow>
+			<m:mo>[</m:mo>
+			<m:mi>n</m:mi>
+			<m:mo>/</m:mo>
+			<m:msup>
+			  <m:mn>2</m:mn>
+			  <m:mi>i</m:mi>
+			</m:msup>
+			<m:mi>,</m:mi>
+			<m:mi>n</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+			<m:mo>/</m:mo>
+			<m:msup>
+			  <m:mn>2</m:mn>
+			  <m:mi>i</m:mi>
+			</m:msup>
+			<m:mo>)</m:mo>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      where 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msub>
+	      <m:mi>ℐ</m:mi>
+	      <m:mrow>
+		<m:mo>[</m:mo>
+		<m:mi>a</m:mi>
+		<m:mi>,</m:mi>
+		<m:mi>b</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msub></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> denotes the indicator function over the interval 
+      <m:math>
+	<m:interval closure="closed-open">
+	  <m:ci>a</m:ci>
+	  <m:ci>b</m:ci>
+	</m:interval>
+      </m:math>:
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>ℐ</m:mi>
+		<m:mrow>
+		  <m:mo>[</m:mo>
+		  <m:mi>a</m:mi>
+		  <m:mi>,</m:mi>
+		  <m:mi>b</m:mi>
+		  <m:mo>)</m:mo>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:piecewise>
+	    <m:piece>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:in/>
+		<m:ci>t</m:ci>
+		<m:interval closure="closed-open">
+		  <m:ci>a</m:ci>
+		  <m:ci>b</m:ci>
+		</m:interval>
+	      </m:apply>
+	    </m:piece>
+	    <m:piece>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:notin/>
+		<m:ci>t</m:ci>
+		<m:interval closure="closed-open">
+		  <m:ci>a</m:ci>
+		  <m:ci>b</m:ci>
+		</m:interval>
+	      </m:apply>
+	    </m:piece>
+	  </m:piecewise>
+	</m:apply>
+      </m:math>
+      The definition of 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msup>
+	      <m:mi>φ</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>
+      implies
+
+      <equation id="eqn3">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar><m:ci>t</m:ci></m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:in/>
+		<m:ci>t</m:ci>
+		<m:interval closure="closed-open">
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:ci>i</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>n</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:ci>i</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:interval>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msup>
+		    <m:mi>h</m:mi>
+		    <m:mrow>
+		      <m:mo>(</m:mo>
+		      <m:mi>i</m:mi>
+		      <m:mo>)</m:mo>
+		    </m:mrow>
+		  </m:msup></m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:ci>i</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msup>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mo>(</m:mo>
+			<m:mi>i</m:mi>
+			<m:mo>)</m:mo>
+		      </m:mrow>
+		    </m:msup></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <equation id="eqn4">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar><m:ci>t</m:ci></m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:in/>
+		<m:ci>t</m:ci>
+		<m:interval closure="closed-open">
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>n</m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:ci>i</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>n</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:ci>i</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:interval>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msup>
+		    <m:mi>h</m:mi>
+		    <m:mrow>
+		      <m:mo>(</m:mo>
+		      <m:mi>i</m:mi>
+		      <m:mo>−</m:mo>
+		      <m:mn>1</m:mn>
+		      <m:mo>)</m:mo>
+		    </m:mrow>
+		  </m:msup></m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:cn>2</m:cn>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>i</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>i</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn"><m:msup>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mo>(</m:mo>
+			<m:mi>i</m:mi>
+			<m:mo>−</m:mo>
+			<m:mn>1</m:mn>
+			<m:mo>)</m:mo>
+		      </m:mrow>
+		    </m:msup></m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      and plugging the two previous expressions into the equation
+      for
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete"><m:msup>
+	      <m:mi>h</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> yields 
+
+      <equation id="eqn5">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn"><m:msup>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mo>(</m:mo>
+		    <m:mi>i</m:mi>
+		    <m:mo>)</m:mo>
+		  </m:mrow>
+		</m:msup></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar><m:ci>k</m:ci></m:bvar>
+		<m:domainofapplication>
+		  <m:ci>k</m:ci>
+		</m:domainofapplication>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete"><m:msup>
+			<m:mi>φ</m:mi>
+			<m:mrow>
+			  <m:mo>(</m:mo>
+			  <m:mi>i</m:mi>
+			  <m:mo>−</m:mo>
+			  <m:mn>1</m:mn>
+			  <m:mo>)</m:mo>
+			</m:mrow>
+		      </m:msup></m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:mtext>.</m:mtext>
+	</m:math>
+      </equation>
+
+      Thus, if 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msup>
+	      <m:mi>φ</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> converges pointwise to a continuous function, then it
+      must satisfy the scaling equation, so that 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:limit/>
+	    <m:bvar><m:ci>i</m:ci></m:bvar>
+	    <m:lowlimit>
+	      <m:infinity/>
+	    </m:lowlimit>
+	    <m:apply>
+	      <m:ci type="fn"><m:msup>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mo>(</m:mo>
+		    <m:mi>i</m:mi>
+		    <m:mo>)</m:mo>
+		  </m:mrow>
+		</m:msup></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">φ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>.  <cite target-id="daub"><cite-title>Daubechies</cite-title></cite> showed that, for
+      pointwise convergence of
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn"><m:msup>
+	      <m:mi>φ</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> to a continuous function in 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>ℒ</m:mi>
+	    <m:mn>2</m:mn>
+	  </m:msub></m:ci>
+      </m:math>
+      , it is sufficient that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> can be factored as 
+
+      <equation id="eqn6">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar><m:ci>P</m:ci></m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:geq/>
+		<m:ci>P</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:root/>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>ω</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:ci>P</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">R</m:ci>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>ω</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      for
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">R</m:ci>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> such that 
+
+      <equation id="eqn7">
+	<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:ci type="fn"><m:munder>
+		  <m:mi>sup</m:mi>
+		  <m:mi>ω</m:mi>
+		</m:munder></m:ci>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">R</m:ci>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>ω</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>P</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      Here <m:math><m:ci>P</m:ci></m:math> denotes the number of
+      zeros that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> has at 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>ω</m:ci>
+	  <m:pi/>
+	</m:apply>
+      </m:math>.  Such conditions are called <term>regularity</term>
+      conditions because they ensure the regularity, or
+      <emphasis>smoothness</emphasis> of 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>.  In fact, if we make the previous condition
+      stronger: 
+      <equation id="eqn8">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar><m:ci>ℓ</m:ci></m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:geq/>
+		<m:ci>ℓ</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:lt/>
+	      <m:apply>
+		<m:ci type="fn"><m:munder>
+		    <m:mi>sup</m:mi>
+		    <m:mi>ω</m:mi>
+		  </m:munder></m:ci>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:ci type="fn">R</m:ci>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>ω</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:power/>
+		<m:cn>2</m:cn>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>P</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:ci>ℓ</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      then 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:limit/>
+	    <m:bvar><m:ci>i</m:ci></m:bvar>
+	    <m:lowlimit>
+	      <m:infinity/>
+	    </m:lowlimit>
+	    <m:apply>
+	      <m:ci type="fn"><m:msup>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mo>(</m:mo>
+		    <m:mi>i</m:mi>
+		    <m:mo>)</m:mo>
+		  </m:mrow>
+		</m:msup></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">φ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> for 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> that is <m:math><m:ci>ℓ</m:ci></m:math>-times
+      continuously differentiable.
+    </para>
+
+    <para id="para9">
+      There is an interesting and important by-product of the
+      preceding analysis.  If 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete">h</m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> is a causal length-<m:math><m:ci>N</m:ci></m:math>
+      filter, it can be shown that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete"><m:msup>
+	      <m:mi>h</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> is causal with length 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msup>
+	      <m:mi>N</m:mi>
+	      <m:mi>i</m:mi>
+	    </m:msup></m:ci>
+	  <m:apply>
+	    <m:plus/>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:power/>
+		  <m:cn>2</m:cn>
+		  <m:ci>i</m:ci>
+		</m:apply>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>N</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:apply>
+      </m:math>.  By construction, then, 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete"><m:msup>
+	      <m:mi>φ</m:mi>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mi>i</m:mi>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:msup></m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> will be zero outside the interval 
+      <m:math>
+	<m:interval closure="closed-open">
+	  <m:cn>0</m:cn>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:ci>i</m:ci>
+		  </m:apply>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:ci>i</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:interval>
+      </m:math>.  Assuming that the regularity conditions are
+      satisfied so that 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:limit/>
+	    <m:bvar><m:ci>i</m:ci></m:bvar>
+	    <m:lowlimit>
+	      <m:infinity/>
+	    </m:lowlimit>
+	    <m:apply>
+	      <m:ci type="fn"><m:msup>
+		  <m:mi>φ</m:mi>
+		  <m:mrow>
+		    <m:mo>(</m:mo>
+		    <m:mi>i</m:mi>
+		    <m:mo>)</m:mo>
+		  </m:mrow>
+		</m:msup></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn">φ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>, it follows that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> must be zero outside the interval 
+      <m:math>
+	<m:interval>
+	  <m:cn>0</m:cn>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>N</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:interval>
+      </m:math>.  In this case we say that 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> has <term>compact support</term>.  Finally, the
+      wavelet scaling equation implies that, when 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> is compactly supported on 
+      <m:math>
+	<m:interval>
+	  <m:cn>0</m:cn>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>N</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:interval>
+      </m:math> and 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn" class="discrete">g</m:ci>
+	  <m:ci>n</m:ci>
+	</m:apply>
+      </m:math> is length <m:math><m:ci>N</m:ci></m:math>, 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">ψ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> will also be compactly supported on the interval 
+      <m:math>
+	<m:interval>
+	  <m:cn>0</m:cn>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>N</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:interval>
+      </m:math>.
+    </para>
+
+    <para id="para10">
+      Daubechies constructed a family of 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci>z</m:ci>
+	</m:apply>
+      </m:math> with impulse response lengths 
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>N</m:ci>
+	  <m:set>
+	    <m:cn>4</m:cn>
+	    <m:cn>6</m:cn>
+	    <m:cn>8</m:cn>
+	    <m:cn>10</m:cn>
+	    <m:ci>…</m:ci>
+	  </m:set>
+	</m:apply>
+      </m:math> which satisfy the regularity conditions.  Moreover,
+      her filters have the maximum possible number of zeros at
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>ω</m:ci>
+	  <m:pi/>
+	</m:apply>
+      </m:math>, and thus are maximally regular (i.e., they yield
+      the smoothest possible 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> for a given support interval).  It turns out that
+      these filters are the <term>maximally flat</term> filters
+      derived by <cite target-id="herrmann"><cite-title>Herrmann</cite-title></cite> long before
+      filterbanks and wavelets were in vogue.  In <link target-id="fig3" strength="3"/> and <link target-id="fig4" strength="3"/> we show
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>, 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">Φ</m:ci>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math>, 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">ψ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math>, and 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">Ψ</m:ci>
+	  <m:ci>Ω</m:ci>
+	</m:apply>
+      </m:math> for various members of the Daubechies' wavelet
+      system.
+    </para>
+
+    <para id="para11">
+      See <cite target-id="vandk"><cite-title>Vetterli and Kovacivić</cite-title></cite> for a
+      more complete discussion of these matters.
+    </para>
+
+    <figure id="fig3" orient="vertical">
+      <subfigure id="idp3016464">
+	<media id="idp3016816" alt=""><image src="../../media/daubechies_a.png" mime-type="image/png"/></media>
+      </subfigure>
+      <subfigure id="idm7646432">
+	<media id="idm7646080" alt=""><image src="../../media/daubechies_b.png" mime-type="image/png"/></media>
+      </subfigure>
+    </figure>
+
+    <figure id="fig4" orient="vertical">
+      <subfigure id="idm5917104">
+	<media id="idm5916752" alt=""><image src="../../media/daubechies_c.png" mime-type="image/png"/></media>
+      </subfigure>
+      <subfigure id="idm785936">
+	<media id="idm785584" alt=""><image src="../../media/Daubechies_d.png" mime-type="image/png"/></media>
+      </subfigure>
+    </figure>
+
+  </content>
+
+  <bib:file>
+    <bib:entry id="daub">
+      <bib:article>
+	<bib:author>I. Daubechies</bib:author>
+	<bib:title>Orthonormal bases of compactly supported wavelets</bib:title>
+	<bib:journal>Commun. on Pure and Applied Math</bib:journal>
+	<bib:year>1988</bib:year>
+	<bib:volume>41</bib:volume>
+	<bib:pages>909-996</bib:pages>
+	<bib:month>Nov</bib:month>
+      </bib:article>
+    </bib:entry>
+
+    <bib:entry id="herrmann">
+      <bib:article>
+	<bib:author>O. Herrmann</bib:author>
+	<bib:title>
+	  On the approximation problem in nonrecursive digital filter
+	  design
+	</bib:title>
+	<bib:journal>IEEE Trans. on Circuit Theory</bib:journal>
+	<bib:year>1971</bib:year>
+	<bib:volume>18</bib:volume>
+	<bib:pages>411-413</bib:pages>
+      </bib:article>
+    </bib:entry>
+
+    <bib:entry id="vandk">
+      <bib:book>
+	<bib:author>M. Vetterli and J. Kovacivić</bib:author>
+	<bib:title>Wavelets and Subband Coding</bib:title>
+	<bib:publisher>Prentice Hall</bib:publisher>
+	<bib:year>1995</bib:year>
+	<bib:address>Englewood Cliffs, NJ</bib:address>
+      </bib:book>
+    </bib:entry>
+  </bib:file>
+
+</document>

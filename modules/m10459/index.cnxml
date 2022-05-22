@@ -1,0 +1,2139 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+
+  <title>Finite-Length Sequences and the DWT Matrix</title>
+
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>0b93dee1-43d7-4e10-b48d-31dea4e02687</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      The wavelet transform, viewed from a filterbank perspective,
+      consists of iterated 2-channel analysis stages like the one in
+      <link target-id="fig1" strength="3"/>.
+    </para>
+
+    <figure id="fig1">
+      <media id="idp3030880" alt=""><image src="../../media/wavelet_2channel.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="para2">
+      First consider a very long (i.e., practically infinite-length)
+      sequence 
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>m</m:ci>
+	      <m:integers/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math>.  For every pair of input samples 
+      <m:math>
+	<m:set>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msub>
+		<m:mi>c</m:mi>
+		<m:mi>k</m:mi>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:cn>2</m:cn>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msub>
+		<m:mi>c</m:mi>
+		<m:mi>k</m:mi>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:set>
+      </m:math> that enter the 
+      <m:math>
+	<m:ci><m:msup>
+	    <m:mi>k</m:mi>
+	    <m:mi>th</m:mi>
+	  </m:msup></m:ci>
+      </m:math>
+      filterbank stage, exactly one pair of output samples 
+      <m:math>
+	<m:set>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msub>
+		<m:mi>c</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete"><m:msub>
+		<m:mi>d</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:set>
+      </m:math> are generated.  In other words, the number of output
+      equals the number of input during a fixed time interval.  This
+      property is convenient from a real-time processing
+      perspective.
+    </para>
+
+    <para id="para3">
+      For a short sequence 
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>m</m:ci>
+	      <m:set>
+		<m:cn>0</m:cn>
+		<m:ci>…</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:set>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math>, however, linear convolution requires that we make
+      an assumption about the tails of our finite-length sequence.
+      One assumption could be
+
+      <equation id="eqn1">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar><m:ci>m</m:ci></m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:in/>
+		<m:ci>m</m:ci>
+		<m:set>
+		  <m:cn>0</m:cn>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>M</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:set>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:ci>m</m:ci>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      In this case, the linear convolution implies that
+      <m:math><m:ci>M</m:ci></m:math> nonzero inputs yield
+      <m:math>
+	<m:apply>
+	  <m:minus/>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:ci>M</m:ci>
+	      <m:ci>N</m:ci>
+	    </m:apply>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math> outputs from each branch, for a total of 
+      <m:math>
+	<m:apply>
+	  <m:gt/>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:times/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>M</m:ci>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:plus/>
+		<m:ci>M</m:ci>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	  <m:ci>M</m:ci>
+	</m:apply>
+      </m:math> outputs.  Here we have assumed that both 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:apply>
+	    <m:inverse/>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> and 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">G</m:ci>
+	  <m:apply>
+	    <m:inverse/>
+	    <m:ci>z</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> have impulse response lengths of 
+      <m:math>
+	<m:apply>
+	  <m:gt/>
+	  <m:ci>N</m:ci>
+	  <m:cn>2</m:cn>
+	</m:apply>
+      </m:math>, and that <m:math><m:ci>M</m:ci></m:math> and
+      <m:math><m:ci>N</m:ci></m:math> are both even. The fact that
+      each filterbank stage produces more outputs than inputs is
+      very disadvantageous in many applications.
+    </para>
+
+    <para id="para4">
+      A more convenient assumption regarding the tails of 
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>m</m:ci>
+	      <m:set>
+		<m:cn>0</m:cn>
+		<m:ci>…</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>M</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:set>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math> is that the data outside of the time window 
+      <m:math>
+	<m:set>
+	  <m:cn>0</m:cn>
+	  <m:ci>…</m:ci>
+	  <m:apply>
+	    <m:minus/>
+	    <m:ci>M</m:ci>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:set>
+      </m:math> is a cyclic extension of data inside the time
+      window.  In other words, given a
+      length-<m:math><m:ci>M</m:ci></m:math> sequence, the points
+      <emphasis>outside the sequence</emphasis> are related to
+      points <emphasis>inside the sequences</emphasis> via 
+
+      <equation id="eqn2">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:apply>
+		<m:plus/>
+		<m:ci>m</m:ci>
+		<m:ci>M</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      Recall that a linear convolution with an
+      <m:math><m:ci>M</m:ci></m:math>-cyclic input is equivalent to
+      a circular convolution with one
+      <m:math><m:ci>M</m:ci></m:math>-sample period of the input
+      sequences.  Furthermore, the output of this circular
+      convolution is itself <m:math><m:ci>M</m:ci></m:math>-cyclic,
+      implying our 2-downsampled branch outputs are cyclic with
+      period 
+      <m:math>
+	<m:apply>
+	  <m:divide/>
+	  <m:ci>M</m:ci>
+	  <m:cn>2</m:cn>
+	</m:apply>
+      </m:math>.  Thus, given an
+      <m:math><m:ci>M</m:ci></m:math>-length input sequence, the
+      total filterbank output consists of exactly
+      <m:math><m:ci>M</m:ci></m:math> values.
+    </para>
+
+    <para id="para5">
+      It is instructive to write the circular-convolution analysis
+      fiterbank operation in matrix form.  In <link target-id="eqn3" strength="3"/> we give an example for filter length
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>N</m:ci>
+	  <m:cn>4</m:cn>
+	</m:apply>
+      </m:math>, sequence length 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>N</m:ci>
+	  <m:cn>8</m:cn>
+	</m:apply>
+      </m:math>, and causal synthesis filters 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">H</m:ci>
+	  <m:ci>z</m:ci>
+	</m:apply>
+      </m:math> and 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">G</m:ci>
+	  <m:ci>z</m:ci>
+	</m:apply>
+      </m:math>.
+
+      <equation id="eqn3">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>d</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>d</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>d</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>d</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	    </m:vector>
+
+	    <m:apply>
+	      <m:times/>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>3</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>4</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>5</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>6</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:cn>7</m:cn>
+		</m:apply>
+	      </m:vector>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      where  
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:vector>
+	    <m:ci><m:msub>
+		<m:mi>c</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci><m:msub>
+		<m:mi>d</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	  </m:vector>
+	  <m:vector>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>3</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:cn>3</m:cn>
+	    </m:apply>
+	  </m:vector>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:vector>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>M</m:mi>
+	      </m:msub></m:ci>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>G</m:mi>
+		<m:mi>M</m:mi>
+	      </m:msub></m:ci>
+	  </m:vector>
+	  <m:matrix>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	  </m:matrix>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msub>
+	      <m:mi>c</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub></m:ci>
+	  <m:vector>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>3</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>4</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>5</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>6</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:cn>7</m:cn>
+	    </m:apply>
+	  </m:vector>
+	</m:apply>
+      </m:math>
+
+      The matrices 
+      <m:math>
+	<m:ci type="matrix"><m:msub>
+	    <m:mi>H</m:mi>
+	    <m:mi>M</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      and
+      <m:math>
+	<m:ci type="matrix"><m:msub>
+	    <m:mi>G</m:mi>
+	    <m:mi>M</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      have interesting properties.  For example, the conditions 
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">δ</m:ci>
+	    <m:ci>m</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar><m:ci>n</m:ci></m:bvar>
+	    <m:domainofapplication>
+	      <m:ci>n</m:ci>
+	    </m:domainofapplication>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>m</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">g</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>-1</m:cn>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> 
+      imply that 
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:vector>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>H</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>G</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	    </m:apply>
+	    <m:vector>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>G</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:vector>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:vector>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>G</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:vector>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:vector>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>H</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>G</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	    </m:apply>
+	  </m:apply>
+	  <m:ci type="matrix"><m:msub>
+	      <m:mi>I</m:mi>
+	      <m:mi>M</m:mi>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math>
+      where 
+      <m:math>
+	<m:ci type="matrix"><m:msub>
+	    <m:mi>I</m:mi>
+	    <m:mi>M</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      denotes the
+      <m:math><m:ci>M</m:ci></m:math>x<m:math><m:ci>M</m:ci></m:math>
+      identity matrix.  Thus, it makes sense to define the 
+      <m:math><m:ci>M</m:ci></m:math>x<m:math><m:ci>M</m:ci></m:math>
+      <term>DWT matrix</term> as 
+
+      <equation id="eqn4">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>T</m:mi>
+		<m:mi>M</m:mi>
+	      </m:msub></m:ci>
+	    <m:vector>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>G</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:vector>
+	  </m:apply>
+	</m:math>
+      </equation>
+      whose transpose constitutes the 
+      <m:math><m:ci>M</m:ci></m:math>x<m:math><m:ci>M</m:ci></m:math>
+      <term>inverse DWT matrix</term>:
+
+      <equation id="eqn5">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:inverse/>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>T</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>T</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      Since the synthesis filterbank (<link target-id="fig2" strength="3"/>)
+    </para>
+
+    <figure id="fig2">
+      <media id="idp1008160" alt=""><image src="../../media/syn_filterbank.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="para7">
+      gives perfect reconstruction, and since the cascade of matrix
+      operations 
+      <m:math>
+	<m:apply>
+	  <m:times/>
+	  <m:apply>
+	    <m:transpose/>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>T</m:mi>
+		<m:mi>M</m:mi>
+	      </m:msub></m:ci>
+	  </m:apply>
+	  <m:ci type="matrix"><m:msub>
+	      <m:mi>T</m:mi>
+	      <m:mi>M</m:mi>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math> also corresponds to perfect reconstruction, we
+      expect that the matrix operation 
+      <m:math>
+	<m:apply>
+	  <m:transpose/>
+	  <m:ci type="matrix"><m:msub>
+	      <m:mi>T</m:mi>
+	      <m:mi>M</m:mi>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math> describes the action of the synthesis filterbank.
+      This is readily confirmed by writing the upsampled circular
+      convolutions in matrix form:
+
+      <equation id="eqn6">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:vector>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>4</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>5</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>6</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete"><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+		<m:cn>7</m:cn>
+	      </m:apply>
+	    </m:vector>
+
+	    <m:apply>
+	      <m:times/>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>c</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>3</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>d</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>d</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>d</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete"><m:msub>
+		      <m:mi>d</m:mi>
+		      <m:mrow>
+			<m:mi>k</m:mi>
+			<m:mo>+</m:mo>
+			<m:mn>1</m:mn>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:cn>3</m:cn>
+		</m:apply>
+	      </m:vector>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      
+      where 
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:vector>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:transpose/>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>G</m:mi>
+		  <m:mi>M</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:vector>
+
+	  <m:apply>
+	    <m:transpose/>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>T</m:mi>
+		<m:mi>M</m:mi>
+	      </m:msub></m:ci>
+	  </m:apply>
+
+	  <m:matrix>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	    <m:matrixrow>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	      <m:cn>0</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>3</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:matrixrow>
+	  </m:matrix>
+	</m:apply>
+      </m:math>
+      So far we have concentrated on one stage in the wavelet
+      decomposition; a two-stage decomposition is illustrated in
+      <link target-id="fig3" strength="3"/>.
+    </para>
+
+    <figure id="fig3">
+      <media id="idm68176" alt=""><image src="../../media/wavelet_decomp.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="para8">
+      The two-stage analysis operation (assuming circular
+      convolution) can be expressed in matrix form as 
+
+      <equation id="eqn7">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:vector>
+	      <m:ci><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:vector>
+	    <m:apply>
+	      <m:times/>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>T</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>I</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:ci><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>d</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>+</m:mo>
+		      <m:mn>1</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+	      </m:vector>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:times/>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>T</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>I</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>T</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	      <m:vector>
+		<m:ci><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      Similarly, a three-stage analysis could be implemented via
+      <equation id="eqn8">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:vector>
+	      <m:ci><m:msub>
+		  <m:mi>c</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>3</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>3</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:vector>
+
+	    <m:apply>
+	      <m:times/>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>T</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>4</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>I</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>4</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>I</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>T</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		  <m:cn>0</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>0</m:cn>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>I</m:mi>
+		      <m:mfrac>
+			<m:mi>M</m:mi>
+			<m:mn>2</m:mn>
+		      </m:mfrac>
+		    </m:msub></m:ci>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>T</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	      <m:vector>
+		<m:ci><m:msub>
+		    <m:mi>c</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub></m:ci>
+	      </m:vector>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      It should now be evident how to extend this procedure to 
+      <m:math>
+	<m:apply>
+	  <m:gt/>
+	  <m:cn>3</m:cn>
+	</m:apply>
+      </m:math> stages.  As noted earlier, the corresponding
+      synthesis operations are accomplished by transposing the
+      matrix products used in the analysis.
+    </para>
+
+  </content>
+</document>

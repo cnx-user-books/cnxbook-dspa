@@ -1,0 +1,498 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>The Wavelet Scaling Equation</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>1b5dbe30-571a-44d2-affa-2da81b5682bd</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="sec1para2">
+      The <emphasis>difference</emphasis> in detail between 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      and 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mrow>
+	      <m:mi>k</m:mi>
+	      <m:mo>−</m:mo>
+	      <m:mn>1</m:mn>
+	    </m:mrow>
+	  </m:msub></m:ci>
+      </m:math>
+      will be described using
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>W</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      , the orthogonal complement of
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      in
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mrow>
+	      <m:mi>k</m:mi>
+	      <m:mo>−</m:mo>
+	      <m:mn>1</m:mn>
+	    </m:mrow>
+	  </m:msub></m:ci>
+      </m:math>:
+
+      <equation id="eq06">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>−</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:xor/>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation> 
+      
+      At times it will be convenient to write
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msub>
+	      <m:mi>W</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub></m:ci>
+	  <m:ci><m:msubsup>
+	      <m:mi>V</m:mi>
+	      <m:mi>k</m:mi>
+	      <m:mo>⊥</m:mo>
+	    </m:msubsup></m:ci>
+	</m:apply>
+      </m:math>.  This concept is illustrated in the set-theoretic
+      diagram, <link target-id="fig1" strength="3"/>.
+    </para>
+
+    <figure id="fig1">
+      <media id="idm9626912" alt=""><image src="../../media/wavelet_scaling_set.png" mime-type="image/png"/></media>
+    </figure>
+
+    <para id="sec1para3">
+      Suppose now that, for each
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:ci>k</m:ci>
+	  <m:integers/>
+	</m:apply>
+      </m:math>, we construct an orthonormal basis for
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>W</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      and denote it by
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>ψ</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>,</m:mo>
+		    <m:mi>n</m:mi>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>n</m:ci>
+	      <m:integers/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math>.  It turns out that, because every
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>V</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      has a basis constructed from shifts and stretches of a mother
+      scaling function (<foreign>i.e.</foreign>, 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>φ</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>n</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>k</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">φ</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>, every
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>W</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      has a basis that can be constructed from shifts and stretches
+      of a "mother wavelet"
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:ci type="fn">ψ</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:ci type="set"><m:msub>
+	      <m:mi>ℒ</m:mi>
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math>:
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>ψ</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>,</m:mo>
+		  <m:mi>n</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:divide/>
+		  <m:ci>k</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">ψ</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+	<m:mtext>.</m:mtext>
+      </m:math>
+
+      The Haar system will soon provide us with a concrete example
+      <!-- good place for cnxn but to where?-->.
+    </para>
+
+    <para id="p2">
+      Let's focus, for the moment, on the specific case
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci>k</m:ci>
+	  <m:cn>1</m:cn>
+	</m:apply>
+      </m:math>.  Since 
+      <m:math>
+	<m:apply>
+	  <m:prsubset/>
+	  <m:ci><m:msub><m:mi>W</m:mi><m:mn>1</m:mn></m:msub></m:ci>
+	  <m:ci><m:msub><m:mi>V</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+	</m:apply>
+      </m:math>, there must exist 
+      
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">g</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>n</m:ci>
+	      <m:integers/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math>
+      such that:
+
+      <equation id="eq07">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub>
+		  <m:mi>ψ</m:mi>
+		  <m:mrow>
+		    <m:mn>1</m:mn>
+		    <m:mo>,</m:mo>
+		    <m:mn>0</m:mn>
+		  </m:mrow>
+		</m:msub>
+	      </m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit><m:infinity/></m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">g</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub>
+		      <m:mi>φ</m:mi>
+		      <m:mrow>
+			<m:mn>0</m:mn>
+			<m:mo>,</m:mo>
+			<m:mi>n</m:mi>
+		      </m:mrow>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:mo>⇔</m:mo>
+	</m:apply>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">ψ</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar><m:ci>n</m:ci></m:bvar>
+	    <m:lowlimit>
+	      <m:apply>
+		<m:minus/>
+		<m:infinity/>
+	      </m:apply>
+	    </m:lowlimit>
+	    <m:uplimit><m:infinity/></m:uplimit>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">g</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">φ</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>t</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <equation id="eq09">
+	<title>Wavelet Scaling Equation</title>
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">ψ</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:root/>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar><m:ci>n</m:ci></m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit><m:infinity/></m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">g</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">φ</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      To be a valid scaling-function/wavelet pair, 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">φ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> and 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">ψ</m:ci>
+	  <m:ci>t</m:ci>
+	</m:apply>
+      </m:math> must obey the wavelet scaling equation for some
+      coefficient set
+      <m:math>
+	<m:set>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">g</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:set>
+      </m:math>.
+    </para>
+
+  </content>
+</document>

@@ -1,0 +1,673 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Data Quantization in IIR Filters</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>dcaf2bb3-4f1d-4172-a1ea-1206253b3e13</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+       Finite-precision effects are much more of a concern with IIR
+    filters than with FIR filters, since the effects are more difficult to analyze and
+    minimize, coefficient quantization errors can cause the filters to become
+    unstable, and disastrous things like large-scale limit cycles can occur.
+    </para>
+    <section id="section1">
+      <title>Roundoff noise analysis in IIR filters</title>
+      <para id="para2">
+	Suppose there are several quantization points in an IIR filter
+	structure.  By our simplifying assumptions about quantization error
+        and Parseval's theorem, the quantization noise variance
+        <m:math>
+          <m:apply>
+	    <m:power/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>σ</m:mi>
+		  <m:mi>y,i</m:mi>
+		</m:msub>
+              </m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+         </m:math>
+         at the output of the filter from the <m:math><m:ci>i</m:ci></m:math>th
+         quantizer is
+	<equation id="eq1">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>σ</m:mi>
+		    <m:mi>y,i</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>w</m:ci>
+		  </m:bvar>
+		  <m:uplimit>
+		    <m:pi/>
+		  </m:uplimit>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:pi/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:abs/>
+			<m:apply>
+			  <m:ci type="fn">
+			    <m:msub>
+			      <m:mi>H</m:mi>
+			      <m:mi>i</m:mi>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>w</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn">S
+			<m:msub>
+			  <m:mi>S</m:mi>
+                          <m:msub>
+			    <m:mi>n</m:mi>
+                            <m:mi>i</m:mi>
+                          </m:msub>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>w</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>
+		      <m:msub>
+		    	<m:mi>σ</m:mi>
+                        <m:msub>
+			<m:mi>n</m:mi>
+                        <m:mi>i</m:mi>
+                        </m:msub>
+		      </m:msub>
+		    </m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>w</m:ci>
+		  </m:bvar>
+		  <m:uplimit>
+		    <m:pi/>
+		  </m:uplimit>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:pi/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+			<m:ci type="fn">
+			  <m:msub>
+			    <m:mi>H</m:mi>
+			    <m:mi>i</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>w</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+                      <m:msub>
+                        <m:mi>n</m:mi>
+		        <m:mi>i</m:mi>
+                      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar>
+		    <m:ci>n</m:ci>
+		  </m:bvar>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:ci type="fn">
+			<m:msub>
+			  <m:mi>h</m:mi>
+			  <m:mi>i</m:mi>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	where
+        <m:math>
+                <m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+                      <m:msub>
+                        <m:mi>n</m:mi>
+		        <m:mi>i</m:mi>
+                      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+        </m:math>
+        is the variance of the quantization error at the
+        <m:math><m:ci>i</m:ci></m:math>th quantizer,
+        <m:math>
+                    <m:apply>
+		      <m:ci type="fn">S
+			<m:msub>
+			  <m:mi>S</m:mi>
+                          <m:msub>
+			    <m:mi>n</m:mi>
+                            <m:mi>i</m:mi>
+                          </m:msub>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>w</m:ci>
+		    </m:apply>
+        </m:math>
+        is the power spectral density of that quantization error, and
+        <m:math>
+                    <m:apply>
+		      <m:ci type="fn">H
+			<m:msub>
+			  <m:mi>H</m:mi>
+                          <m:mi>i</m:mi>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>w</m:ci>
+		    </m:apply>
+        </m:math>
+        is the transfer function from the <m:math><m:mi>i</m:mi></m:math>th
+        quantizer to the output point.
+        Thus for <m:math><m:mi>P</m:mi></m:math> independent quantizers in the 
+        structure, the total quantization noise variance is
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>σ</m:mi>
+		  <m:mi>y</m:mi>
+		</m:msub>
+	      </m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+            <m:apply>
+            <m:times/>
+            <m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		</m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>i</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:ci>P</m:ci>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:cn>1</m:cn>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>σ</m:mi>
+		      <m:msub>
+			<m:mi>n</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>w</m:ci>
+		  </m:bvar>
+		  <m:uplimit>
+		    <m:pi/>
+		  </m:uplimit>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:pi/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+		  	<m:ci type="fn">
+			  <m:msub>
+			    <m:mi>H</m:mi>
+			    <m:mi>i</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>w</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+            </m:apply>
+	  </m:apply>
+	</m:math>
+	Note that in general, each 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:ci>w</m:ci>
+	  </m:apply>
+	</m:math>, and thus the variance at the output due to each quantizer,
+        is different; for example, the system as seen by a quantizer at the
+        input to the first delay state in the Direct-Form II IIR filter 
+        structure to the output, call it
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>n</m:mi>
+	      <m:mn>4</m:mn>
+	    </m:msub>
+	  </m:ci>
+	</m:math>, is
+	
+	<figure id="figure1">
+	  <media id="idm2724784" alt=""><image src="../../media/fig1QuantIIR.png" mime-type="image/png"/></media>
+	</figure>
+	
+	with a transfer function
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mn>4</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>z</m:ci>
+		<m:cn>-2</m:cn>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:inverse/>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> which can be evaluated at
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>z</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>w</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> to obtain the frequency response.
+      </para>
+      <para id="para5">
+	A general approach to find
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:ci>w</m:ci>
+	  </m:apply>
+	</m:math> is to write state equations for the equivalent
+	structure as seen by
+	<m:math>
+	  <m:msub>
+	    <m:mi>n</m:mi>
+	    <m:mi>i</m:mi>
+	  </m:msub>
+	</m:math>, and to determine the transfer function according to
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:times/>
+		<m:ci>C</m:ci>
+		<m:apply>
+		  <m:inverse/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>z</m:ci>
+		      <m:ci>I</m:ci>
+		    </m:apply>
+		    <m:ci>A</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:ci>B</m:ci>
+	      </m:apply>
+	      <m:ci>d</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>.
+      </para>
+      
+      <figure id="figure2">
+	<media id="idm9191392" alt=""><image src="../../media/fig2QuantIIR.png" mime-type="image/png"/></media>
+      </figure>
+	
+      <exercise id="question1">
+	<problem id="idm9155264">
+	  <para id="para6">
+	    The above figure illustrates the quantization points in a
+            typical implementation of a Direct-Form II IIR
+            second-order section.
+            What is the total variance of the output error due to all of the
+	    quantizers in the system?
+	  </para>
+	</problem>
+      </exercise>
+      <para id="para7">
+	By making the assumption that each 
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>Q</m:mi>
+	      <m:mi>i</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math> represents a noise source that is white,
+	independent of the other sources, and additive,
+       
+	<figure id="figure3">
+	  <media id="idp602272" alt=""><image src="../../media/fig3QuantIIR.png" mime-type="image/png"/></media>
+	</figure>
+	 
+	the variance at the output is the sum of the variances at
+	the output due to each noise source:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>σ</m:mi>
+		  <m:mi>y</m:mi>
+		</m:msub>
+	      </m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>i</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>1</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:cn>4</m:cn>
+	      </m:uplimit>
+	      <m:apply>
+		<m:power/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>σ</m:mi>
+		    <m:mrow>
+		      <m:mi>y</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>i</m:mi>
+		    </m:mrow>
+		  </m:msub>
+		</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> 
+	The variance due to each noise source at the output
+	can be determined from
+	<m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar>
+		<m:ci>w</m:ci>
+	      </m:bvar>
+	      <m:uplimit>
+		<m:pi/>
+	      </m:uplimit>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:pi/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:ci type="fn">
+			<m:msub>
+			  <m:mi>H</m:mi>
+			  <m:mi>i</m:mi>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>w</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">
+		    <m:msub>
+		      <m:mi>S</m:mi>
+		      <m:msub>
+			<m:mi>n</m:mi>
+			<m:mi>i</m:mi>
+		      </m:msub>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>w</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>; note that 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">
+		<m:msub>
+		  <m:mi>S</m:mi>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:msub>
+	      </m:ci>
+	      <m:ci>w</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>σ</m:mi>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:msub>
+	      </m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> by our assumptions, and 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">
+	      <m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:ci>w</m:ci>
+	  </m:apply>
+	</m:math>
+	is the transfer function <emphasis>from the noise source to
+	  the output</emphasis>.
+      </para>
+    </section>
+  </content>
+  
+</document>

@@ -1,0 +1,1610 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Prototype Analog Filter Design</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8ce06269-5892-4c7b-8e4b-21dc42b30b39</md:uuid>
+</metadata>
+
+  <content>
+    
+    <section id="analog">
+      <title>Analog Filter Design</title>
+      <para id="p1">Laplace transform:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>s</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:int/>
+	      <m:bvar>
+		<m:ci>t</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>h</m:mi>
+		      <m:mi>a</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>s</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	Note that the <link document="m10098">continuous-time Fourier transform</link> is
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>λ</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> (the Laplace transform evaluated on the imaginary
+	axis).</para>
+      <para id="p2">Since the early 1900's, there has been a lot of
+	research on designing analog filters of the form
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>s</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:plus/>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub></m:ci>
+		  <m:ci>s</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mi>M</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:ci>M</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub></m:ci>
+		  <m:ci>s</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>M</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:ci>M</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	A <link document="m2102" target-id="causality">causal</link> IIR filter <emphasis>cannot</emphasis> have linear
+	phase (no possible symmetry point), and design work for analog
+	filters has concentrated on designing filters with equiriplle
+	(<m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:infinity/>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math>) <emphasis>magnitude</emphasis> responses. These
+	design problems have been solved. We will not concern
+	ourselves here with the design of the analog prototype
+	filters, only with how these designs are mapped to
+	discrete-time while preserving optimality.</para>
+      <para id="p3">An analog filter with <emphasis>real</emphasis>
+	coefficients must have a magnitude response of the form
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>λ</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">B</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>λ</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+        <equation id="eqn1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>λ</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:conjugate/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub></m:ci>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>λ</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>3</m:mn>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>λ</m:ci>
+		      </m:apply>
+		      <m:cn>3</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>...</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub></m:ci>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:ci>λ</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>...</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:conjugate/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci><m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>b</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:ci>λ</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>4</m:mn>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>λ</m:ci>
+		      <m:cn>4</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>...</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:times/>
+			  <m:ci><m:msub>
+			      <m:mi>b</m:mi>
+			      <m:mn>3</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mn>5</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:ci>...</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:ci>λ</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>4</m:mn>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>λ</m:ci>
+		      <m:cn>4</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:ci>...</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:times/>
+			  <m:ci><m:msub>
+			      <m:mi>a</m:mi>
+			      <m:mn>3</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mn>5</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:ci>...</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:conjugate/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci><m:msub>
+			<m:mi>b</m:mi>
+			  <m:mn>0</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:times/>
+		      <m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mn>2</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			<m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		    </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>b</m:mi>
+			  <m:mn>4</m:mn>
+		      </m:msub></m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:ci>λ</m:ci>
+			<m:cn>4</m:cn>
+		    </m:apply>
+		    </m:apply>
+		    <m:ci>...</m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>λ</m:ci>
+		    <m:apply>
+			<m:plus/>
+			<m:apply>
+			  <m:minus/>
+			<m:ci><m:msub>
+			      <m:mi>b</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:times/>
+			    <m:ci><m:msub>
+				<m:mi>b</m:mi>
+				<m:mn>3</m:mn>
+			      </m:msub></m:ci>
+			    <m:apply>
+			      <m:power/>
+			      <m:ci>λ</m:ci>
+			      <m:cn>2</m:cn>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+			<m:apply>
+			  <m:times/>
+			  <m:ci><m:msub>
+			      <m:mi>b</m:mi>
+			      <m:mn>5</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>4</m:cn>
+			  </m:apply>
+			</m:apply>
+			<m:ci>...</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mn>2</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mn>4</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:ci>λ</m:ci>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  <m:ci>...</m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>λ</m:ci>
+		      <m:apply>
+			<m:plus/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci><m:msub>
+			      <m:mi>a</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:times/>
+			    <m:ci><m:msub>
+				<m:mi>a</m:mi>
+			      <m:mn>3</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			  <m:ci><m:msub>
+			      <m:mi>a</m:mi>
+			      <m:mn>5</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			  <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>4</m:cn>
+			  </m:apply>
+			</m:apply>
+			<m:ci>...</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci><m:msub>
+			  <m:mi>b</m:mi>
+			  <m:mn>0</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mn>2</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>b</m:mi>
+			  <m:mn>4</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:ci>λ</m:ci>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:ci>...</m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>λ</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:times/>
+			  <m:ci><m:msub>
+			      <m:mi>b</m:mi>
+			      <m:mn>3</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mn>5</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:ci>...</m:ci>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mn>2</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci><m:msub>
+			  <m:mi>a</m:mi>
+			  <m:mn>4</m:mn>
+			</m:msub></m:ci>
+		      <m:apply>
+			<m:power/>
+			<m:ci>λ</m:ci>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:ci>...</m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>λ</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:times/>
+			  <m:ci><m:msub>
+			      <m:mi>a</m:mi>
+			      <m:mn>3</m:mn>
+			    </m:msub></m:ci>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>λ</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:ci><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mn>5</m:mn>
+			  </m:msub></m:ci>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>λ</m:ci>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:ci>...</m:ci>
+		    </m:apply>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:ci type="fn">B</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>λ</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math></equation>
+	Let <m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="complex">s</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>λ</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, note that the poles and zeros of 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">B</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:power/>
+		<m:ci type="complex">s</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> are symmetric around <emphasis>both</emphasis> the
+	real and imaginary axes: that is, a pole at <m:math><m:ci><m:msub>
+	    <m:mi>p</m:mi>
+	    <m:mn>1</m:mn></m:msub></m:ci>
+	</m:math> implies poles at  <m:math><m:ci><m:msub>
+	    <m:mi>p</m:mi>
+	    <m:mn>1</m:mn></m:msub></m:ci>
+	</m:math>,  <m:math><m:apply><m:conjugate/><m:ci><m:msub>
+	    <m:mi>p</m:mi>
+	    <m:mn>1</m:mn></m:msub></m:ci>
+	  </m:apply>
+	</m:math>,  <m:math><m:apply><m:minus/><m:ci><m:msub>
+	    <m:mi>p</m:mi>
+	    <m:mn>1</m:mn></m:msub></m:ci>
+	  </m:apply>
+	</m:math>, and  <m:math><m:apply><m:minus/><m:apply>
+	      <m:conjugate/><m:ci><m:msub>
+	    <m:mi>p</m:mi>
+	    <m:mn>1</m:mn></m:msub></m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, as seen in <link target-id="fig1"/>.
+      </para>
+
+      <figure id="fig1">
+        <title>s-plane</title>
+	<media id="idm1416608" alt=""><image src="../../media/fig1-25b1.png" mime-type="image/png"/><image for="pdf" src="../../media/fig1-09bb.eps" mime-type="application/postscript"/></media>
+      </figure>
+    
+      <para id="p4">Recall that an analog filter is stable and causal
+      if all the poles are in the left half-plane, LHP, and is
+      <term>minimum phase</term> if all zeros and poles are in the
+      LHP.</para>
+      <para id="p5"><m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>s</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>λ</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>:
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">B</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>λ</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">B</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>s</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>s</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>s</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="fn">H</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>λ</m:ci>
+	      </m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>λ</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="fn">H</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>λ</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:conjugate/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>λ</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> we can factor
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">B</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>s</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> into <m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>s</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>s</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, where <m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci>s</m:ci>
+	  </m:apply> 
+	</m:math> has the left half plane poles and zeros, and
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>s</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> has the RHP poles and zeros.</para>
+
+      <para id="p6">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>s</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>s</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>s</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> for 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>s</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>λ</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, so <m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:ci>s</m:ci>
+	  </m:apply>
+	</m:math> has the magnitude response 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">B</m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>λ</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>. The trick to analog filter design is to design a
+	good
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">B</m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>λ</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, then factor this to obtain a filter with that
+	<emphasis>magnitude</emphasis> response.</para>
+
+      <para id="p7">The traditional analog filter designs all take the
+      form
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">B</m:ci>
+	      <m:apply>
+		<m:power/>
+		<m:ci>λ</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>λ</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:ci type="fn">F</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>λ</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, where <m:math><m:ci type="fn">F</m:ci>
+	</m:math> is a rational function in <m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>λ</m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math>.
+      </para>
+
+      <example id="ex1">
+	<para id="exp">
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">B</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>λ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>λ</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>λ</m:ci>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">B</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:minus/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:ci>s</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:ci>s</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>s</m:ci>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>s</m:ci>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>s</m:ci>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:ci>α</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>s</m:ci>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:ci>α</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> where 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>α</m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:imaginaryi/>
+		</m:apply>
+		<m:apply>
+		  <m:root/>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	  <note id="idp2847504">Roots of 
+	    <m:math>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>s</m:ci>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math> are <m:math><m:ci>N</m:ci>
+	    </m:math> points equally spaced around the unit circle
+	    (<link target-id="fig2"/>).</note>
+		</para>
+	
+	<figure id="fig2">
+	  <media id="idm15312" alt=""><image src="../../media/fig2-09f9.png" mime-type="image/png"/><image for="pdf" src="../../media/fig2-b853.eps" mime-type="application/postscript"/></media>
+	</figure>
+
+	  <para id="newp">Take
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>s</m:ci>
+	      </m:apply>
+	      <m:ci>LHP</m:ci>
+	    </m:apply>
+	  </m:math> factors:
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:ci>s</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:ci>s</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>s</m:ci>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>s</m:ci>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:ci>α</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:ci>s</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>s</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:ci>s</m:ci>
+		  </m:apply>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math></para>
+      </example>
+    </section>
+	    
+    <section id="traditional">
+      <title>Traditional Filter Designs</title>
+      <section id="butter">
+	<title>Butterworth</title>
+	<para id="pbutt">
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">B</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>λ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>λ</m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:ci>M</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  <note id="idm715136">Remember this for homework and rest problems!</note>
+	  "Maximally smooth" at <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>λ</m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:math> and 
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>λ</m:ci>
+	      <m:infinity/>
+	    </m:apply>
+	  </m:math> (maximum possible number of zero
+	  derivatives). <link target-id="fig3"/>.
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">B</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>λ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:ci type="fn">H</m:ci>
+		    <m:ci>λ</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</para>
+	
+	<figure id="fig3">
+	  <media id="idp2235136" alt=""><image src="../../media/fig3-c1c9.png" mime-type="image/png"/><image for="pdf" src="../../media/fig3-86d9.eps" mime-type="application/postscript"/></media>
+	</figure>
+      </section>
+
+      <section id="cheby">
+	<title>Chebyshev</title>
+	<para id="pcheby">
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">B</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>λ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>ε</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:ci type="fn"><m:msub>
+			    <m:mi>C</m:mi>
+			    <m:mi>M</m:mi>
+			  </m:msub></m:ci>
+			<m:ci>λ</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> where
+	  <m:math>
+	    <m:apply>
+	      <m:power/>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>C</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+		<m:ci>λ</m:ci>
+	      </m:apply>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:math> is an <m:math>
+	    <m:msup><m:mi>M</m:mi><m:mi>th</m:mi>
+	    </m:msup>
+	  </m:math> order Chebyshev polynomial. <link target-id="fig4"/>.
+	</para>
+
+	<figure id="fig4" orient="vertical">
+	  <subfigure id="fig4a">
+	    <media id="idm8374240" alt=""><image src="../../media/fig4a.png" mime-type="image/png"/><image for="pdf" src="../../media/fig4a.eps" mime-type="application/postscript"/></media>
+	  </subfigure>
+	  <subfigure id="fig4b">
+	    <media id="idm8281696" alt=""><image src="../../media/fig4b.png" mime-type="image/png"/><image for="pdf" src="../../media/fig4b.eps" mime-type="application/postscript"/></media>
+	  </subfigure>
+	</figure>
+	    
+      </section>
+
+	<section id="invcheby">
+		<title>Inverse Chebyshev</title>
+		<para id="p8"><link target-id="fig5"/>.
+		</para>
+	<figure id="fig5">
+	    <media id="idm198096" alt=""><image src="../../media/fig5.png" mime-type="image/png"/><image for="pdf" src="../../media/fig5.eps" mime-type="application/postscript"/></media>
+	</figure>
+	</section>
+
+	<section id="ellip">
+	<title>Elliptic Function Filter (Cauer Filter)</title>
+	<para id="p9"> <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">B</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>λ</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>ε</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:ci type="fn"><m:msub>
+			    <m:mi>J</m:mi>
+			    <m:mi>M</m:mi>
+			  </m:msub></m:ci>
+			<m:ci>λ</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> where
+	  <m:math>
+	    	<m:ci type="fn"><m:msub>
+		    <m:mi>J</m:mi>
+		    <m:mi>M</m:mi>
+		  </m:msub></m:ci>
+	  </m:math> is the "Jacobi Elliptic Function." <link target-id="fig6"/>.
+	</para>
+	<figure id="fig6">
+	    <media id="idp750592" alt=""><image src="../../media/fig6.png" mime-type="image/png"/><image for="pdf" src="../../media/fig6.eps" mime-type="application/postscript"/></media>
+	</figure>
+	<para id="p10">The Cauer filter is
+<m:math>
+<m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       <m:domainofapplication>
+		<m:infinity/>
+       </m:domainofapplication>
+       <m:ci type="vector">L</m:ci>
+     </m:apply>
+</m:math> optimum in the sense that for a given <m:math><m:ci>M</m:ci></m:math>, 
+<m:math><m:msub><m:mi>δ</m:mi><m:mi>p</m:mi></m:msub></m:math>,
+<m:math><m:msub><m:mi>δ</m:mi><m:mi>s</m:mi></m:msub></m:math>, and
+<m:math><m:msub><m:mi>λ</m:mi><m:mi>p</m:mi></m:msub></m:math>, the transition bandwidth is smallest.</para>
+<para id="last">That is, it is <m:math>
+<m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       <m:domainofapplication>
+		<m:infinity/>
+       </m:domainofapplication>
+       <m:ci type="vector">L</m:ci>
+     </m:apply>
+</m:math> optimal.</para></section>
+
+    </section>
+      
+  </content>
+  
+</document>

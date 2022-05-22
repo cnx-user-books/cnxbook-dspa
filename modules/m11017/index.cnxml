@@ -1,0 +1,524 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Wavelets:  A Countable Orthonormal Basis for the Space of Square-Integrable Functions</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>1e9e630f-8eba-430f-a04a-0a9f80584792</md:uuid>
+</metadata>
+
+
+  <content>
+    <para id="sec2para1">
+      Recall that
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub></m:ci>
+	  <m:apply>
+	    <m:xor/>
+	    <m:ci><m:msub>
+		<m:mi>W</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>1</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math> and that
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:ci><m:msub>
+	      <m:mi>V</m:mi>
+	      <m:mrow>
+		<m:mi>k</m:mi>
+		<m:mo>+</m:mo>
+		<m:mn>1</m:mn>
+	      </m:mrow>
+	    </m:msub></m:ci>
+	  <m:apply>
+	    <m:xor/>
+	    <m:ci><m:msub>
+		<m:mi>W</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>2</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mrow>
+		  <m:mi>k</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mn>2</m:mn>
+		</m:mrow>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>.  Putting these together and extending the idea
+      yields
+
+      <equation id="eq21">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mi>k</m:mi>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:xor/>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:xor/>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>…</m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mi>ℓ</m:mi>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>V</m:mi>
+		  <m:mi>ℓ</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:xor/>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>3</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>…</m:ci>
+	    </m:apply>
+
+	    <m:apply>
+	      <m:ci><m:munderover>
+		  <m:mo>⊕</m:mo>
+		  <m:mrow>
+		    <m:mi>i</m:mi>
+		    <m:mo>=</m:mo>
+		    <m:mi>k</m:mi>
+		    <m:mo>+</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:mrow>
+		  <m:mi>∞</m:mi>
+		</m:munderover></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mi>i</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      If we take the limit as 
+      <m:math>
+	<m:apply>
+	  <m:tendsto/>
+	  <m:ci>k</m:ci>
+	  <m:apply>
+	    <m:minus/>
+	    <m:infinity/>
+	  </m:apply>
+	</m:apply>
+      </m:math>, we find that 
+
+      <equation id="eq22">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci><m:msub>
+		<m:mi>ℒ</m:mi>
+		<m:mn>2</m:mn>
+	      </m:msub></m:ci>
+	    <m:ci><m:msub>
+		<m:mi>V</m:mi>
+		<m:mrow>
+		  <m:mo>−</m:mo>
+		  <m:mi>∞</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	    <m:apply>
+	      <m:ci><m:munderover>
+		  <m:mo>⊕</m:mo>
+		  <m:mrow>
+		    <m:mi>i</m:mi>
+		    <m:mo>=</m:mo>
+		    <m:mo>−</m:mo>
+		    <m:mi>∞</m:mi>
+		  </m:mrow>
+		  <m:mi>∞</m:mi>
+		</m:munderover></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mi>i</m:mi>
+		</m:msub></m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      Moreover,
+
+      <equation id="eq23">
+	<m:math>
+	  <m:apply>
+	    <m:implies/>
+	    <m:apply>
+	      <m:and/>
+	      <m:apply>
+		<m:ci><m:mo>⊥</m:mo></m:ci>
+		<m:ci><m:msub><m:mi>W</m:mi><m:mn>1</m:mn></m:msub></m:ci>
+		<m:ci><m:msub><m:mi>V</m:mi><m:mn>1</m:mn></m:msub></m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:prsubset/>
+		<m:ci><m:msub>
+		    <m:mi>W</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>≥</m:mo>
+		      <m:mn>2</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>V</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci><m:mo>⊥</m:mo></m:ci>
+	      <m:ci><m:msub><m:mi>W</m:mi><m:mn>1</m:mn></m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>≥</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:apply>        
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <equation id="eq24">
+	<m:math>
+	  <m:apply>
+	    <m:implies/>
+	    <m:apply>
+	      <m:and/>
+	      <m:apply>
+		<m:ci><m:mo>⊥</m:mo></m:ci>
+		<m:ci><m:msub><m:mi>W</m:mi><m:mn>2</m:mn></m:msub></m:ci>
+		<m:ci><m:msub><m:mi>V</m:mi><m:mn>2</m:mn></m:msub></m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:prsubset/>
+		<m:ci><m:msub>
+		    <m:mi>W</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>≥</m:mo>
+		      <m:mn>3</m:mn>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci><m:msub><m:mi>V</m:mi><m:mn>2</m:mn></m:msub></m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci><m:mo>⊥</m:mo></m:ci>
+	      <m:ci><m:msub><m:mi>W</m:mi><m:mn>2</m:mn></m:msub></m:ci>
+	      <m:ci><m:msub>
+		  <m:mi>W</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>≥</m:mo>
+		    <m:mn>3</m:mn>
+		  </m:mrow>
+		</m:msub></m:ci>
+	    </m:apply>        
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      from which it follows that
+
+      <equation id="eq25">
+	<m:math>
+	  <m:apply>
+	    <m:ci><m:mo>⊥</m:mo></m:ci>
+	    <m:ci><m:msub><m:mi>W</m:mi><m:mi>k</m:mi></m:msub></m:ci>
+	    <m:ci><m:msub>
+		<m:mi>W</m:mi>
+		<m:mrow>
+		  <m:mi>j</m:mi>
+		  <m:mo>≠</m:mo>
+		  <m:mi>k</m:mi>
+		</m:mrow>
+	      </m:msub></m:ci>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      or, in other words, all subspaces 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>W</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      are orthogonal to one another.  Since the functions 
+      <m:math>
+	<m:set>
+	  <m:bvar>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>ψ</m:mi>
+		  <m:mrow>
+		    <m:mi>k</m:mi>
+		    <m:mo>,</m:mo>
+		    <m:mi>n</m:mi>
+		  </m:mrow>
+		</m:msub></m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:bvar>
+	  <m:condition>
+	    <m:apply>
+	      <m:in/>
+	      <m:ci>n</m:ci>
+	      <m:integers/>
+	    </m:apply>
+	  </m:condition>
+	</m:set>
+      </m:math>
+      form an orthonormal basis for 
+      <m:math>
+	<m:ci><m:msub>
+	    <m:mi>W</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:msub></m:ci>
+      </m:math>
+      , the results above imply that 
+
+      <equation id="eq26">
+	<m:math>
+	  <m:set>
+	    <m:bvar>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>ψ</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>n</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:in/>
+		<m:apply>
+		  <m:and/>
+		  <m:ci>n</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:integers/>
+	      </m:apply>
+	    </m:condition>
+	  </m:set>
+	  <m:mtext> constitutes an orthonormal basis for </m:mtext>
+	  <m:ci><m:msub>
+	      <m:mi>ℒ</m:mi>
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:math>
+      </equation>
+      This implies that, for any 
+      <m:math>
+	<m:apply>
+	  <m:in/>
+	  <m:apply>
+	    <m:ci type="fn">f</m:ci>
+	    <m:ci>t</m:ci>
+	  </m:apply>
+	  <m:ci><m:msub>
+	      <m:mi>ℒ</m:mi>
+	      <m:mn>2</m:mn>
+	    </m:msub></m:ci>
+	</m:apply>
+      </m:math>, we can write 
+      
+      <equation id="eq27">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">f</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>k</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar><m:ci>m</m:ci></m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:infinity/>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete"><m:msub>
+			<m:mi>d</m:mi>
+			<m:mi>k</m:mi>
+		      </m:msub></m:ci>
+		    <m:ci>m</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn"><m:msub>
+			<m:mi>ψ</m:mi>
+			<m:mrow>
+			  <m:mi>k</m:mi>
+			  <m:mo>,</m:mo>
+			  <m:mi>m</m:mi>
+			</m:mrow>
+		      </m:msub></m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <equation id="eq28">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete"><m:msub>
+		  <m:mi>d</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:scalarproduct/>
+	      <m:apply>
+		<m:ci type="fn"><m:msub>
+		    <m:mi>ψ</m:mi>
+		    <m:mrow>
+		      <m:mi>k</m:mi>
+		      <m:mo>,</m:mo>
+		      <m:mi>m</m:mi>
+		    </m:mrow>
+		  </m:msub></m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">f</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      This is the key idea behind the orthogonal wavelet system that
+      we have been developing!
+    </para>
+
+  </content>
+</document>
