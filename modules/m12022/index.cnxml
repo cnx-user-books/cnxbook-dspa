@@ -199,7 +199,7 @@
 	wraps over zeros.  </para>
 
       <figure id="fig1001" orient="horizontal">
-	<media id="idp731184" alt=""><image src="../../media/figure6.png" mime-type="image/png"/></media>
+	<media id="idp731184" alt=""><image src="../../media/figure6-f428.png" mime-type="image/png"/></media>
       </figure> 
       <para id="sec2_2">
 	To achieve linear convolution using fast circular convolution,
@@ -346,7 +346,7 @@
 	  </m:math>,
 	  
 	  <figure id="fig_sec3_1">
-	    <media id="idm8321696" alt=""><image src="../../media/figure4.png" mime-type="image/png"/></media>
+	    <media id="idm8321696" alt=""><image src="../../media/figure4-a89a.png" mime-type="image/png"/></media>
 	  </figure>
 	  
 	  the first 
@@ -640,7 +640,7 @@
 	    </m:apply>
 	  </m:math> samples.
 	  <figure id="fig_006">
-	    <media id="idm9205792" alt=""><image src="../../media/figure5.png" mime-type="image/png"/></media>
+	    <media id="idm9205792" alt=""><image src="../../media/figure5-d35a.png" mime-type="image/png"/></media>
 	  </figure>
 
 	</para>
