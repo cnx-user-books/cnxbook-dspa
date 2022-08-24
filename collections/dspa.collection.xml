@@ -1,12 +1,13 @@
-<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en-gb">
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en-gb" authors="Janko Calic">
   <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
     <md:content-id>col10599</md:content-id>
     <md:title>DSPA</md:title>
     <md:language>en-gb</md:language>
     <md:license url="http://creativecommons.org/licenses/by/2.0/">Creative Commons Attribution License</md:license>
     <md:uuid>1973e510-1a6c-49e7-b60d-766995ca3a34</md:uuid>
-<md:slug>dspa</md:slug>
-</metadata>
+    <md:slug>dspa</md:slug>
+  </metadata>
   <col:content>
     <col:module document="m13782"/>
     <col:subcollection>
