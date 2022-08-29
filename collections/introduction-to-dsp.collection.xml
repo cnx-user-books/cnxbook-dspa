@@ -1,3 +1,51 @@
-<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" type="Course">  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">  <md:content-id>col11301</md:content-id>  <md:title>Adaptive Filtering</md:title>      <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License 3.0</md:license>  <md:language>en</md:language>        <md:uuid>f03d18be-75b5-4b36-97f1-73fada4396dd</md:uuid>
-<md:slug>introduction-to-dsp</md:slug>
-</metadata>  <col:content>          <col:module document="m11535"/>                                          <col:subcollection>        <md:title>Wiener Filter Algorithm</md:title>                                <col:content>                    <col:module document="m11825"/>                            <col:module document="m11824"/>                            <col:module document="m11826"/>                          </col:content>      </col:subcollection>                            <col:subcollection>        <md:title>The LMS Adaptive Filter Algorithm</md:title>                                <col:content>                    <col:module document="m11829"/>                            <col:module document="m11830"/>                            <col:module document="m11831"/>                          </col:content>      </col:subcollection>                            <col:subcollection>        <md:title>Applications of Adaptive Filters</md:title>                                <col:content>                    <col:module document="m11536"/>                            <col:module document="m11906"/>                            <col:module document="m11907"/>                            <col:module document="m11835"/>                            <col:module document="m11909"/>                          </col:content>      </col:subcollection>                            <col:subcollection>        <md:title>Other Adaptive Filter Algorithms</md:title>                                <col:content>                    <col:module document="m11911"/>                            <col:module document="m11912"/>                            <col:module document="m11913"/>                            <col:module document="m11914"/>                            <col:module document="m11915"/>                          </col:content>      </col:subcollection>              <col:module document="m11916"/>                    </col:content></col:collection>
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" type="Course" authors="Janko Calic">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <md:content-id>col11301</md:content-id>
+    <md:title>Adaptive Filtering</md:title>
+    <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License 3.0</md:license>
+    <md:language>en</md:language>
+    <md:uuid>f03d18be-75b5-4b36-97f1-73fada4396dd</md:uuid>
+    <md:slug>introduction-to-dsp</md:slug>
+  </metadata>
+  <col:content>
+    <col:module document="m11535"/>
+    <col:subcollection>
+      <md:title>Wiener Filter Algorithm</md:title>
+      <col:content>
+        <col:module document="m11825"/>
+        <col:module document="m11824"/>
+        <col:module document="m11826"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>The LMS Adaptive Filter Algorithm</md:title>
+      <col:content>
+        <col:module document="m11829"/>
+        <col:module document="m11830"/>
+        <col:module document="m11831"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Applications of Adaptive Filters</md:title>
+      <col:content>
+        <col:module document="m11536"/>
+        <col:module document="m11906"/>
+        <col:module document="m11907"/>
+        <col:module document="m11835"/>
+        <col:module document="m11909"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Other Adaptive Filter Algorithms</md:title>
+      <col:content>
+        <col:module document="m11911"/>
+        <col:module document="m11912"/>
+        <col:module document="m11913"/>
+        <col:module document="m11914"/>
+        <col:module document="m11915"/>
+      </col:content>
+    </col:subcollection>
+    <col:module document="m11916"/>
+  </col:content>
+</col:collection>
